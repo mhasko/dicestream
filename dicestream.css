@@ -1,0 +1,78 @@
+
+
+#diceDiv{
+}
+
+#assetDiv{
+	visibility: hidden;
+}
+
+#rolledDiceDiv{
+	position: relative;
+	top: 10px;
+	left: 25px;
+	padding: 5px 0 0 0;
+	height:40px;
+	width: 250px;
+}
+
+#ppname{
+	display: inline;
+}
+
+.disabled{
+	
+	visibility: hidden;
+}
+
+.plotPointSpan{
+	height: 60px;
+	position: relative;
+	top: 10px;
+	left: 25px;
+}
+
+.leftDice{
+	position:absolute;
+	left:25px;
+}
+
+.rightDice{
+	position:absolute;
+	right:25px;
+}
+
+.diceImage{
+	background-size:32px 32px;
+	background-repeat:no-repeat;
+}
+
+.row{
+	height: 40px;
+	vertical-align: middle;
+	padding: 3px 0 0 0;
+}
+
+.shortrow{
+	height: 15px;
+	vertical-align: middle;
+	padding: 3px 0 0 0;
+	text-align: center;
+}
+
+.button{
+	vertical-align: middle;
+}
+
+.rolledDice{
+	float: left;
+}
+
+.rolledDice.selected{
+	background-color: FB2727;
+}
+
+.rolledDice.effect{
+	/*background-color: E800DA;*/
+	background-color: c45bde;
+}

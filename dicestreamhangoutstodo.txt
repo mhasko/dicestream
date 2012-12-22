@@ -1,0 +1,87 @@
+Marvel
+-------------
+-/-clickable dice for power/result
+-/-lower third functionality
+--stress tracking
+-/-watcher hide plot points
+--watcher display doom pool (static text field?)
+
+
+
+Dice Stream
+---------------
+-/-add/remove/stack strings
+--create die selector div on the fly
+--d20/df/d100/dx dice
+--selector for 'types'
+
+
+
+Dresden Files
+-----------------
+--Dresden fudge dice
+--plot point image
+
+
+
+
+
+<div id="dicePools">
+<span id="power">Power Dice</span>
+<span id="effect">Effect Dice</span>
+</dive>
+<hr>
+
+<div id="assetDiv">
+<span class="assetSpan">
+</span>
+</div>
+
+<hr>
+
+
+--change pp from static image to single image and superimposing digit over
+this.ppbg;
+this.ppccontext;
+			this.ppbg = gapi.hangout.av.effects.createImageResource(IMAGEROOT + '/shieldpp' + PNG);
+			this.ppbg.showOverlay({
+				scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}, 
+				position: {x: .45, y:-.425}});
+	if(this.ppoverlay){this.ppoverlay.setVisible(false);}
+						this.ppccontext = createContext(100, 100);
+						this.ppccontext.font = "22px Overlock cursive";
+						this.ppccontext.fillStyle = "#de00ff";
+						this.ppccontext.fillText(value, 32, 32);
+						var ppimagetmp = gapi.hangout.av.effects.createImageResource(this.ppccontext.canvas.toDataURL());
+						this.ppoverlay = ppimagetmp.createOverlay({});
+						this.ppoverlay.setScale(.75, gapi.hangout.av.effects.ScaleReference.WIDTH);
+						this.ppoverlay.setPosition(.1, -.1);
+						//this.ppoverlay.setPosition(0, 0);
+	this.ppoverlay.setVisible(true);
+	
+	
+	
+	initPPOverlays()
+	/*this.PPARRAY.push(createPPResource(0));
+	this.PPARRAY.push(createPPResource(1));
+	this.PPARRAY.push(createPPResource(2));
+	this.PPARRAY.push(createPPResource(3));
+	this.PPARRAY.push(createPPResource(4));
+	this.PPARRAY.push(createPPResource(5));
+	this.PPARRAY.push(createPPResource(6));
+	this.PPARRAY.push(createPPResource(7));
+	this.PPARRAY.push(createPPResource(8));
+	this.PPARRAY.push(createPPResource(9));*/
+	
+	function setPP(value){
+		/*if(this.ppoverlay)
+		{
+			this.ppoverlay.setVisible(false);
+		}
+		this.ppoverlay = PPARRAY[value].showOverlay({
+			scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}, 
+		position: {x: .45, y:-.425}});	*/
+	
+	/*function createPPResource(value){
+		return gapi.hangout.av.effects.createImageResource(IMAGEROOT + '/pp' + value + PNG);
+};*/

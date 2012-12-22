@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+        <ModulePrefs title="Dicestream">
+                <Require feature="rpc" />
+                <Require feature="views" />
+        </ModulePrefs>
+        <Content type="html"><![CDATA[     
+
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
+    <!--script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script-->
+
+<!--script src="https://mikehasko.squarespace.com/storage/marvelrpg/marvelRPG.js"></script-->
+<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
+</head>
+<body>
+ 
+<!--link rel="stylesheet" type="text/css" href="https://mikehasko.squarespace.com/storage/marvelrpg/marvelRPG.css"/-->
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css"/>
+<link rel="stylesheet" type="text/css" href="https://mikehasko.squarespace.com/storage/dicestream/bootstrap/css/bootstrap.css" />
+<link href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>
+<div id="diceDiv" class="groupDiv">
+	<div class='row'>
+		<span class='leftDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="d4minus" onClick="minus('d4count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d4-4.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d4add" onClick="add('d4count', 9)"/>
+			<span id="d4count" class="dieCount label">0</span>
+		</span>
+
+		<span class='rightDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="d10minus" onClick="minus('d10count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d10-10.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d10add"  onClick="add('d10count', 9)"/>
+			<span id="d10count" class="dieCount label">0</span>
+		</span>
+	</div>
+
+	<div class='row'>
+		<span class='leftDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="d6minus" onClick="minus('d6count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d6-6.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d6add" onClick="add('d6count', 9)"/>
+			<span id="d6count" class="dieCount label">0</span>
+		</span>
+
+		<span class='rightDice'>
+
+			<input class="button btn btn-mini" type="button" value="-" id="d12minus" onClick="minus('d12count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d12-12.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d12add" onClick="add('d12count', 9)"/>
+			<span id="d12count" class="dieCount label">0</span>
+		</span>
+	</div>
+
+	<div class='row'>
+		<span class='leftDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="d8minus" onClick="minus('d8count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d8-8.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d8add" onClick="add('d8count', 9)"/>
+			<span id="d8count" class="dieCount label">0</span>
+		</span>
+		
+		<span class='rightDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="d20minus" onClick="minus('d20count', 0)"/>
+			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d20-20.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d20add" onClick="add('d20count', 9)"/>
+			<span id="d20count" class="dieCount label">0</span>
+		</span>		
+	</div>
+
+	<div class='row'>
+		<span class='leftDice'>
+			Current Total <span class='diceSum label' id="diceTotal">0</span>
+		</span>
+
+		<span class='rightDice'>
+			<input class="button btn btn-primary" type="button" value="Roll" id="roll" onClick="rollDiceButton()" />
+			<input class="button btn btn-primary" type="button" value="Clear" id="clear" onClick="clearDiceButton()" />
+		</span>
+	</div>
+</div>
+
+<div id="plotPointDiv" class="groupDiv">
+	<span class="plotPointSpan">
+		<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
+		<span id="ppname" class="button">Plot Points</span>
+		<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>
+		<input class="button btn  btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
+		<span id="ppcount" class="dieCount label">1</span>
+	</span>
+</div>
+
+<div id="rolledDiceDiv" class="groupDiv">
+</div>
+
+<div id="stringDiv">
+	<input type="text" id="txtField" />
+	<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
+	<div id="screenStringsDiv"><ol id="stringList"></ol></div>
+</div>
+
+<!--
+btn-danger btn-success 
+
+<div id="assetDiv">
+<span class="assetSpan">
+</span>
+</div>
+<hr/>
+<div id="statusDiv">
+<span id="turnMarker">Turn Marker</span>
+</div>
+<hr/>
+<div id="settingsDiv">
+<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvelDice">Marvel Dice</option><option value="/real">Real Dice</option></select>
+</div-->
+
+</body>
+]]>
+</Content>
+</Module>
