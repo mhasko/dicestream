@@ -8,32 +8,42 @@
 
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
-    <!--script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script-->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
+<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 
-<!--script src="https://mikehasko.squarespace.com/storage/marvelrpg/marvelRPG.js"></script-->
+<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script-->
 <script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
+
+    <!--
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="https://mikehasko.squarespace.com/storage/dicestream/dicestream.js"></script>
+    -->
+    
 </head>
 <body>
  
-<!--link rel="stylesheet" type="text/css" href="https://mikehasko.squarespace.com/storage/marvelrpg/marvelRPG.css"/-->
-<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css"/>
+<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream//dicestream.css" />
+
+
 <link rel="stylesheet" type="text/css" href="https://mikehasko.squarespace.com/storage/dicestream/bootstrap/css/bootstrap.css" />
-<link href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
+<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
+
 <div id="diceDiv" class="groupDiv">
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d4minus" onClick="minus('d4count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d4-4.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d4-4.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d4add" onClick="add('d4count', 9)"/>
 			<span id="d4count" class="dieCount label">0</span>
 		</span>
 
 		<span class='rightDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d10minus" onClick="minus('d10count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d10-10.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d10-10.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d10add"  onClick="add('d10count', 9)"/>
 			<span id="d10count" class="dieCount label">0</span>
 		</span>
@@ -42,7 +52,7 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d6minus" onClick="minus('d6count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d6-6.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d6-6.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d6add" onClick="add('d6count', 9)"/>
 			<span id="d6count" class="dieCount label">0</span>
 		</span>
@@ -50,7 +60,7 @@
 		<span class='rightDice'>
 
 			<input class="button btn btn-mini" type="button" value="-" id="d12minus" onClick="minus('d12count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d12-12.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d12-12.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d12add" onClick="add('d12count', 9)"/>
 			<span id="d12count" class="dieCount label">0</span>
 		</span>
@@ -59,14 +69,14 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d8minus" onClick="minus('d8count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d8-8.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d8-8.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d8add" onClick="add('d8count', 9)"/>
 			<span id="d8count" class="dieCount label">0</span>
 		</span>
 		
 		<span class='rightDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d20minus" onClick="minus('d20count', 0)"/>
-			<span class='diceImage'><img src="https://mikehasko.squarespace.com/storage/marvelrpg/images/marvelDice/d20-20.png"/></span>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d20-20.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d20add" onClick="add('d20count', 9)"/>
 			<span id="d20count" class="dieCount label">0</span>
 		</span>		
@@ -86,6 +96,7 @@
 
 <div id="plotPointDiv" class="groupDiv">
 	<span class="plotPointSpan">
+		<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
 		<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
 		<span id="ppname" class="button">Plot Points</span>
 		<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>
@@ -116,7 +127,7 @@ btn-danger btn-success
 </div>
 <hr/>
 <div id="settingsDiv">
-<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvelDice">Marvel Dice</option><option value="/real">Real Dice</option></select>
+<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
 </div-->
 
 </body>

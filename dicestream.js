@@ -1,10 +1,9 @@
 /** array that has the die sizes */
-this.DICETYPE = [4,6,8,10,12,20]; //3,20,100
+this.DICETYPE = [4,6,8,10,12,20]; //3,100
 
 /** root variables to the various image paths used.*/
-//this.IMAGEROOT = "https://mikehasko.squarespace.com/storage/marvelrpg/images";
-this.IMAGEROOT = "https://dl.dropbox.com/u/1177409/MarvelHeroicDice/images";
-this.DICEROOT = "/marvelDice";
+this.IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
+this.DICEROOT = "/marvel";
 this.PNG = ".png";
 
 /** Sets the number of dice per row. */
@@ -48,19 +47,30 @@ function init() {
 		if(eventObj.isApiReady) {
 			initPPOverlays();
 			setPP(1);
+			//create a callback to change the color of the pp counter
+			$("#ppcolor").change(function(){
+	 				// callback of 'minicolor' color selection widget, $(this).val() will 
+					// get the hex value of the currently selected color in the widget
+						setPP($("#ppcount").text(), $(this).val());
+					});
 		}
 	});
 };
 
 /** takes the input text and creates a text overlay on the screen */
 function makeText(text){
-	var canvasContext = createContext(200, 70);
-	canvasContext.font = "18px Verdana";
-	canvasContext.fillStyle = "#de00ff";
-	canvasContext.fillText(text, 0, 70);
-	
+	var canvasContext = createTextContext(text);
 	this.stringsOverlayArray.push(makeLayoverFromContext(canvasContext, .75, -.11, .45 - (this.stringsOverlayArray.length * this.STRING_OVERLAY_V_OFFSET) ) );
 	createTextCheckbox(text);
+};
+
+function createTextContext(text, color){
+	var textContext = createContext(200, 70);
+	textContext.font = "18px Verdana";
+	textContext.fillStyle = color ? color : "#000000";
+	textContext.fillText(text, 0, 70);
+	return textContext;
+	
 };
 
 /** create a hangout layover from an HTML5 canvas context */
@@ -75,18 +85,26 @@ function makeLayoverFromContext(context, scale, xval, yval){
 
 //** create a checkbox and label with the string that 
 function createTextCheckbox(text){
-	var textControl = createElement("ul");
+	var textControl = createElement("ul");	
+	var colorPicker = createElement("input", {"type" : "minicolors", "data-textfield" : "false", "data-default" : "#000000"})
+					.change(function(){
+	 				// callback of 'minicolor' color selection widget, $(this).val() will 
+					// get the hex value of the currently selected color in the widget
+						editText(textControl, text, $(this).val());
+					});
 	var closeButton = createElement("a",{"display": "inline", "type": "button", "class": "btn btn-danger btn-mini", "href": "#"})
 					.append("<i class='icon-remove'></i>")
 					.click(function(){
 						removeText(textControl);
 					});
 	//TODO allow modification of the string
-	//TODO allow the color selection of the string
 	var label = createElement("label",{"display": "inline", "class": "textCheckbox"}).text(text);
 	$(label).prepend(closeButton);
+	$(label).append(colorPicker);
 	$(textControl).append(label);
+	
 	$("#stringList").append(textControl);
+	$.minicolors.init();
 };
 
 /** helper method to create canvas contexts on the fly*/
@@ -154,6 +172,14 @@ function minus(id, min){
 
 function modifyText(id){
 	this.stringsOverlayArray.splice(id, 1);
+};
+
+/** edit the text overlay */
+function editText(data, text, rrggbb){
+	var location = $("ul").index(data);
+	this.stringsOverlayArray[$("ul").index(data)].setVisible(false);
+	this.stringsOverlayArray[$("ul").index(data)].dispose();
+	this.stringsOverlayArray[$("ul").index(data)] = makeLayoverFromContext(createTextContext(text, rrggbb), .75, -.11, .45 - (location * this.STRING_OVERLAY_V_OFFSET) );
 };
 
 /** remove the text overlay from the screen and its matching text
@@ -269,7 +295,7 @@ function setDieArrayFalse(value, index, array) {
 	value.dispose();
 };
 
-//** displays the dice overlays across the top of the screen */
+/** displays the dice overlays across the top of the screen */
 function positionOverlays(value, index, display){
 	var rowOffset = ((index - (index % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * this.DICE_COL_OFFSET;
 	var columnOffset = (index % NUM_DICE_PER_ROW ) * this.DICE_ROW_OFFSET;
@@ -277,6 +303,7 @@ function positionOverlays(value, index, display){
 	value.setVisible(display);
 };
 
+//TOOD having the position of canvas overlays be standarized
 function positionCanvasOverlays(overlay, index, display){
 	
 };
@@ -286,12 +313,12 @@ function setDice(value){
 	this.DICEROOT = $("#selectDieSet").val();
 };
 
-function setPP(value){		
+function setPP(value, color){		
 	if(this.ppoverlay){this.ppoverlay.setVisible(false);}
 	
 	this.ppccontext = createContext(32, 32);
 	this.ppccontext.font = "20px Verdana";
-	this.ppccontext.fillStyle = "#de00ff";
+	this.ppccontext.fillStyle = color ? color : $("#ppcolor").val();
 	this.ppccontext.fillText(value, 0, 20);
 	this.ppoverlay = makeLayoverFromContext(this.ppccontext, 1, .93, 0);
 };
