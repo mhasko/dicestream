@@ -8,29 +8,22 @@
 
 <html>
 <head>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
-<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
+	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 
-<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script-->
-<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
+	<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script-->
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
 
-    <!--
-    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-    <script src="https://mikehasko.squarespace.com/storage/dicestream/dicestream.js"></script>
-    -->
-    
 </head>
 <body>
  
 <!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
 <link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream//dicestream.css" />
 
-
-<link rel="stylesheet" type="text/css" href="https://mikehasko.squarespace.com/storage/dicestream/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
+<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
 <div id="diceDiv" class="groupDiv">
 	<div class='row'>
@@ -94,41 +87,40 @@
 	</div>
 </div>
 
-<div id="plotPointDiv" class="groupDiv">
-	<span class="plotPointSpan">
-		<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
-		<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
-		<span id="ppname" class="button">Plot Points</span>
-		<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>
-		<input class="button btn  btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
-		<span id="ppcount" class="dieCount label">1</span>
-	</span>
-</div>
-
 <div id="rolledDiceDiv" class="groupDiv">
 </div>
 
-<div id="stringDiv">
+<div id="stringDiv" class="groupDiv">
 	<input type="text" id="txtField" />
 	<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
 	<div id="screenStringsDiv"><ol id="stringList"></ol></div>
 </div>
 
-<!--
-btn-danger btn-success 
-
-<div id="assetDiv">
-<span class="assetSpan">
-</span>
+<div id="settingsDiv" class="groupDiv">
+	<div id="plotPointDiv">
+		<span id="plotPointSpan">
+			<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
+			<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
+			<span id="ppname" class="button">Plot Points</span>
+			<input class="button btn  btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
+			<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>		
+			<span id="ppcount" class="dieCount label">1</span>
+		</span>
+	</div>
+	
+	<div id="selectionColors">
+		<span id="selectedColor"><input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#ff0000" />Circle Color</span>
+		<span id="effectColor"><input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />Hex Color</span>
+	</div>
+	
+	<div id="lowerThird">
+	
+	</div>
+	
+	<!--div>
+		<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
+	</div-->
 </div>
-<hr/>
-<div id="statusDiv">
-<span id="turnMarker">Turn Marker</span>
-</div>
-<hr/>
-<div id="settingsDiv">
-<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
-</div-->
 
 </body>
 ]]>

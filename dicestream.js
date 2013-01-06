@@ -25,6 +25,10 @@ this.DICE_COL_OFFSET = .125;
 this.SELECTION_OFFSET_X = .0525;
 this.SELECTION_OFFSET_Y = .1
 
+/** */
+this.HEX_COLOR = '#000000';
+this.CIRCLE_COLOR = '#ff0000';
+
 this.arraySize = 0;
 
 /** initializes the various arrays used to hold the overlays */
@@ -53,6 +57,16 @@ function init() {
 					// get the hex value of the currently selected color in the widget
 						setPP($("#ppcount").text(), $(this).val());
 					});
+			
+			$("#selectedcolorselect").change(function(){
+						CIRCLE_COLOR = $(this).val();
+					});
+					
+			$("#effectcolorselect").change(function(){
+						HEX_COLOR = $(this).val();
+					});
+			
+			
 		}
 	});
 };
@@ -100,7 +114,7 @@ function createTextCheckbox(text){
 	//TODO allow modification of the string
 	var label = createElement("label",{"display": "inline", "class": "textCheckbox"}).text(text);
 	$(label).prepend(closeButton);
-	$(label).append(colorPicker);
+	$(label).prepend(colorPicker);
 	$(textControl).append(label);
 	
 	$("#stringList").append(textControl);
@@ -325,7 +339,7 @@ function setPP(value, color){
 
 //TODO 
 function initPPOverlays(){	
-	this.ppbg = gapi.hangout.av.effects.createImageResource(IMAGEROOT + '/shieldpp' + PNG);
+	this.ppbg = gapi.hangout.av.effects.createImageResource(IMAGEROOT + DICEROOT + '/shieldpp' + PNG);
 	this.ppbg.showOverlay({
 			scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}, 
 			position: {x: .45, y:-.425}});
@@ -373,7 +387,7 @@ function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
     var shapeContext = createContext(32, 32);
     var firstX;
     var firstY;
-    shapeContext.strokeStyle = '#0000FF';
+    shapeContext.strokeStyle = this.HEX_COLOR;
     shapeContext.lineWidth = lineThickness;
     shapeContext.beginPath();
     for(var i=0;i<numOfSides;i++)
@@ -404,7 +418,7 @@ function drawCircle(x0,y0,radius,lineThickness) {
 	      circleContext.beginPath();
 	      circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
 	      circleContext.lineWidth = lineThickness;
-	      circleContext.strokeStyle = '#ff0000';
+	      circleContext.strokeStyle = this.CIRCLE_COLOR;
       circleContext.stroke();
       return circleContext;
 };

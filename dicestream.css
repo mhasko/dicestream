@@ -1,14 +1,7 @@
-
-
 #diceDiv{
 }
 
-#assetDiv{
-	visibility: hidden;
-}
-
 #rolledDiceDiv{
-	position: relative;
 	top: 10px;
 	left: 25px;
 	padding: 5px 0 0 0;
@@ -20,12 +13,17 @@
 	display: inline;
 }
 
+.groupDiv{
+	position: relative;
+	height: auto;
+}
+
 .disabled{
 	
 	visibility: hidden;
 }
 
-.plotPointSpan{
+#plotPointSpan{
 	height: 60px;
 	position: relative;
 	top: 10px;
@@ -64,15 +62,10 @@
 	vertical-align: middle;
 }
 
+.minicolors{
+	padding: 0 5px 0 5px;
+}
+
 .rolledDice{
 	float: left;
-}
-
-.rolledDice.selected{
-	background-color: FB2727;
-}
-
-.rolledDice.effect{
-	/*background-color: E800DA;*/
-	background-color: c45bde;
 }
