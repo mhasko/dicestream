@@ -161,10 +161,8 @@ function createTextCheckbox(text){
 function createContext(w, h) {
     var canvas = createElement("canvas").height(h).width(w)[0];
     var context = canvas.getContext("2d");
-    //context.translate(0.5, 0.5);
     context.webkitImageSmoothingEnabled = true;
     return context;
-    //return canvas.getContext("2d");
 }
 
 /** actions that are tied to UI listeners */
