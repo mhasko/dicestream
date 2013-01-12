@@ -74,6 +74,15 @@
 			<span id="d20count" class="dieCount label">0</span>
 		</span>		
 	</div>
+	
+	<div class='row'>
+		<span class='leftDice'>
+			<input class="button btn btn-mini" type="button" value="-" id="dfminus" onClick="minus('d3count', 0)"/>
+			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d3-2.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="dfadd" onClick="add('d3count', 9)"/>
+			<span id="d3count" class="dieCount label">0</span>
+		</span>
+	</div>
 
 	<div class='row'>
 		<span class='leftDice'>
@@ -114,7 +123,9 @@
 	</div>
 	
 	<div id="lowerThird">
-	
+		<input type="text" id="lower3rdmain" /> Main title <br/>
+		<input type="text" id="lower3rdsec" /> Sub title <br/>
+		<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
 	</div>
 	
 	<!--div>

@@ -1,5 +1,5 @@
 /** array that has the die sizes */
-this.DICETYPE = [4,6,8,10,12,20]; //3,100
+this.DICETYPE = [3,4,6,8,10,12,20]; //100
 
 /** root variables to the various image paths used.*/
 this.IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
@@ -87,6 +87,42 @@ function createTextContext(text, color){
 	
 };
 
+function makeLower3rd(main, sec){
+	var MAIN_WIDTH = 200;
+	var MAIN_HEIGHT = 14;
+	var MAIN_POS_X = .05;
+	var MAIN_POS_Y = .885;
+	
+	var SEC_WIDTH = 200;
+	var SEC_HEIGHT = 9;
+	var SEC_POS_X = .07;
+	var SEC_POS_Y = .94
+	
+	var mainContextBg = createContext(MAIN_WIDTH, MAIN_HEIGHT);
+	mainContextBg.fillStyle = "#ffffff";
+	mainContextBg.fillRect(0, 0, MAIN_WIDTH, MAIN_HEIGHT);
+	makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
+	
+	var mainContextText = createContext(MAIN_WIDTH, MAIN_HEIGHT);
+	mainContextText.font = "12px Verdana";
+	mainContextText.lineWidth = 1;
+	mainContextText.fillStyle = "#000000";
+	mainContextText.fillText(main, 0, MAIN_HEIGHT);
+	makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .03);
+	
+	var secondContextBg = createContext(SEC_WIDTH, SEC_HEIGHT);
+	secondContextBg.fillStyle = "#00ff00";
+	secondContextBg.fillRect(0, 0, SEC_WIDTH, SEC_HEIGHT);
+	makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
+	
+	var secondContextText = createContext(SEC_WIDTH, SEC_HEIGHT);
+	secondContextText.font = "9px Verdana";
+	secondContextText.lineWidth = 1;
+	secondContextText.fillStyle = "#000000";
+	secondContextText.fillText(sec, 0, SEC_HEIGHT);
+	makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y );	
+};
+
 /** create a hangout layover from an HTML5 canvas context */
 function makeLayoverFromContext(context, scale, xval, yval){
 	var canvasImage = gapi.hangout.av.effects.createImageResource(context.canvas.toDataURL());
@@ -117,14 +153,18 @@ function createTextCheckbox(text){
 	$(label).prepend(colorPicker);
 	$(textControl).append(label);
 	
-	$("#stringList").append(textControl);
+	$("#stringList").prepend(textControl);//append(textControl);
 	$.minicolors.init();
 };
 
 /** helper method to create canvas contexts on the fly*/
 function createContext(w, h) {
     var canvas = createElement("canvas").height(h).width(w)[0];
-    return canvas.getContext("2d");
+    var context = canvas.getContext("2d");
+    //context.translate(0.5, 0.5);
+    context.webkitImageSmoothingEnabled = true;
+    return context;
+    //return canvas.getContext("2d");
 }
 
 /** actions that are tied to UI listeners */
@@ -199,23 +239,26 @@ function editText(data, text, rrggbb){
 /** remove the text overlay from the screen and its matching text
     check box in the GUI */
 function removeText(data){
-	//remove the overlay information
-	var location = $("ul").index(data);
-	this.stringsOverlayArray[$("ul").index(data)].setVisible(false);
-	this.stringsOverlayArray[$("ul").index(data)].dispose();
+	//remove the overlay information.  We reverse the ul list in the GUI, so we need to grab the
+	//'inverse location' of the ul list to correctly map to the array position
+	var inverseLocation = this.stringsOverlayArray.length - $("ul").index(data) -1;	
+
+	this.stringsOverlayArray[inverseLocation].setVisible(false);
+	this.stringsOverlayArray[inverseLocation].dispose();	
 	
 	//splice to modify the size of the array...
-	this.stringsOverlayArray.splice($("ul").index(data),1);
-	
+	this.stringsOverlayArray.splice(inverseLocation,1);
 	//...because the remove will modify the size of the ul list.
 	$(data).remove();
 	
 	//redraw the overlays, starting at the location where the item was removed
-	for(;location<this.stringsOverlayArray.length;location++)
+	for(;inverseLocation<this.stringsOverlayArray.length;inverseLocation++)
 	{
-		var existingText = this.stringsOverlayArray[location];
-		this.stringsOverlayArray[location].setPosition({x: existingText.getPosition().x, y: existingText.getPosition().y + this.STRING_OVERLAY_V_OFFSET});
+		var existingText = this.stringsOverlayArray[inverseLocation];
+		this.stringsOverlayArray[inverseLocation].setPosition({x: existingText.getPosition().x, y: existingText.getPosition().y + this.STRING_OVERLAY_V_OFFSET});
 	}
+
+
 };
 
 function rollDice() {
@@ -346,6 +389,7 @@ function initPPOverlays(){
 };
 
 function initInputFields(){
+	$("#d3count").text("0");
 	$("#d4count").text("0");
 	$("#d6count").text("0");
 	$("#d8count").text("0");
