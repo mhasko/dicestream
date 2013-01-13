@@ -110,7 +110,7 @@
 		<span id="plotPointSpan">
 			<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
 			<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
-			<span id="ppname" class="button">Plot Points</span>
+			<span id="ppname" class="button">Counter</span>
 			<input class="button btn  btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
 			<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>		
 			<span id="ppcount" class="dieCount label">1</span>
@@ -120,11 +120,13 @@
 	<div id="selectionColors">
 		<span id="selectedColor"><input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#ff0000" />Circle Color</span>
 		<span id="effectColor"><input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />Hex Color</span>
+		<span id="xColor"><input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />X Color</span>
 	</div>
 	
 	<div id="lowerThird">
+		<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />
 		<input type="text" id="lower3rdmain" /> Main title <br/>
-		<input type="text" id="lower3rdsec" /> Sub title <br/>
+		<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#00ff00" /><input type="text" id="lower3rdsec" /> Sub title <br/>
 		<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
 	</div>
 	

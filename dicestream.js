@@ -7,7 +7,7 @@ this.DICEROOT = "/marvel";
 this.PNG = ".png";
 
 /** Sets the number of dice per row. */
-this.NUM_DICE_PER_ROW=11;
+this.NUM_DICE_PER_ROW=10;
 
 /** Vertical offset for canvas objects */
 this.CANVAS_V_OFFSET = -.055;
@@ -25,16 +25,36 @@ this.DICE_COL_OFFSET = .125;
 this.SELECTION_OFFSET_X = .0525;
 this.SELECTION_OFFSET_Y = .1
 
-/** */
+/** dice image overlay colors */
 this.HEX_COLOR = '#000000';
 this.CIRCLE_COLOR = '#ff0000';
+this.X_COLOR = '#ff0000';
+
+/** lower 3rd overlay values*/
+this.MAIN_CONTEXT_BG;
+this.MAIN_CONTEXT_TEXT;
+this.SECOND_CONTEXT_BG;
+this.SECOND_CONTEXT_TEXT;
+
+/** lower 3rd position values */
+this.MAIN_WIDTH = 200;
+this.MAIN_HEIGHT = 14;
+this.MAIN_POS_X = .05;
+this.MAIN_POS_Y = .885;
+	
+this.SEC_WIDTH = 200;
+this.SEC_HEIGHT = 9;
+this.SEC_POS_X = .07;
+this.SEC_POS_Y = .94
+
+/** lower 3rd secondary background color*/
+this.LOWER_3RD_SECONDARY = '#00ff00';
 
 this.arraySize = 0;
 
 /** initializes the various arrays used to hold the overlays */
 this.rolledDiceOverlayArray = [];
-this.effectDiceOverlayArray = [];
-this.powerDiceOverlayArray = [];
+this.effectOverlayArray = [];
 this.stringsOverlayArray = [];
 
 this.ppimage;
@@ -49,24 +69,9 @@ function init() {
 	gapi.hangout.onApiReady.add(
 	function(eventObj) {
 		if(eventObj.isApiReady) {
+			initWidgets();
 			initPPOverlays();
-			setPP(1);
-			//create a callback to change the color of the pp counter
-			$("#ppcolor").change(function(){
-	 				// callback of 'minicolor' color selection widget, $(this).val() will 
-					// get the hex value of the currently selected color in the widget
-						setPP($("#ppcount").text(), $(this).val());
-					});
-			
-			$("#selectedcolorselect").change(function(){
-						CIRCLE_COLOR = $(this).val();
-					});
-					
-			$("#effectcolorselect").change(function(){
-						HEX_COLOR = $(this).val();
-					});
-			
-			
+			setPP(1);			
 		}
 	});
 };
@@ -84,43 +89,52 @@ function createTextContext(text, color){
 	textContext.fillStyle = color ? color : "#000000";
 	textContext.fillText(text, 0, 70);
 	return textContext;
-	
 };
 
 function makeLower3rd(main, sec){
-	var MAIN_WIDTH = 200;
-	var MAIN_HEIGHT = 14;
-	var MAIN_POS_X = .05;
-	var MAIN_POS_Y = .885;
-	
-	var SEC_WIDTH = 200;
-	var SEC_HEIGHT = 9;
-	var SEC_POS_X = .07;
-	var SEC_POS_Y = .94
-	
+	make3rdMain(main);
+	make3rdSec(sec);
+	$('#toggle3rd').attr('checked', true);
+};
+
+function make3rdMain(main){
+	disposeLayover(this.MAIN_CONTEXT_BG);
 	var mainContextBg = createContext(MAIN_WIDTH, MAIN_HEIGHT);
 	mainContextBg.fillStyle = "#ffffff";
 	mainContextBg.fillRect(0, 0, MAIN_WIDTH, MAIN_HEIGHT);
-	makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
+	this.MAIN_CONTEXT_BG = makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
 	
+	disposeLayover(this.MAIN_CONTEXT_TEXT);
 	var mainContextText = createContext(MAIN_WIDTH, MAIN_HEIGHT);
 	mainContextText.font = "12px Verdana";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
 	mainContextText.fillText(main, 0, MAIN_HEIGHT);
-	makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .03);
-	
+	this.MAIN_CONTEXT_TEXT =makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .03);
+};
+
+function make3rdSec(sec){
+	disposeLayover(this.SECOND_CONTEXT_BG);
 	var secondContextBg = createContext(SEC_WIDTH, SEC_HEIGHT);
-	secondContextBg.fillStyle = "#00ff00";
+	secondContextBg.fillStyle = this.LOWER_3RD_SECONDARY;
 	secondContextBg.fillRect(0, 0, SEC_WIDTH, SEC_HEIGHT);
-	makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
+	this.SECOND_CONTEXT_BG = makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
 	
-	var secondContextText = createContext(SEC_WIDTH, SEC_HEIGHT);
+	disposeLayover(this.SECOND_CONTEXT_TEXT);
+	var secondContextText= createContext(SEC_WIDTH, SEC_HEIGHT);
 	secondContextText.font = "9px Verdana";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
 	secondContextText.fillText(sec, 0, SEC_HEIGHT);
-	makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y );	
+	this.SECOND_CONTEXT_TEXT = makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y );	
+};
+
+/** helper method to dispose of hangout layovers */
+function disposeLayover(layover){
+	if(layover){
+		layover.setVisible(false);
+		layover.dispose();
+	}
 };
 
 /** create a hangout layover from an HTML5 canvas context */
@@ -185,13 +199,20 @@ function togglePPAction(cb){
 	$("#ppminus").toggleClass('disabled');
 };
 
+function toggle3rdAction(third){
+	MAIN_CONTEXT_BG.setVisible(third.checked);
+	MAIN_CONTEXT_TEXT.setVisible(third.checked);
+	SECOND_CONTEXT_BG.setVisible(third.checked);
+	SECOND_CONTEXT_TEXT.setVisible(third.checked);
+};
+
 function selectDiceAction(value){
 	setDice(value);
 };
 
 
 function ppadd(){
-	add('ppcount', 9);
+	add('ppcount', 99);
 	setPP($("#ppcount").text());
 };
 
@@ -298,19 +319,21 @@ function rollDice() {
 						modifyTotal('-', $(this).data('die').face);
 						//make the effect overlay
 						var hexContext = drawHex(16,16,12,2);
-						effectDiceOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
-						//remove the selected overlay
-						powerDiceOverlayArray[diePosition].setVisible(false);
-						powerDiceOverlayArray[diePosition].dispose();
-						
+						if(effectOverlayArray[diePosition]){
+							effectOverlayArray[diePosition].setVisible(false);
+							effectOverlayArray[diePosition].dispose();
+						}
+						effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);						
 					}
 					//Default state
 					else if($(this).hasClass("effect"))
 					{
 						$(this).toggleClass("effect");
 						//remove the effect overlay
-						effectDiceOverlayArray[diePosition].setVisible(false);
-						effectDiceOverlayArray[diePosition].dispose();
+						if(effectOverlayArray[diePosition]){
+							effectOverlayArray[diePosition].setVisible(false);
+							effectOverlayArray[diePosition].dispose();
+						}						
 					}
 					//Selection state
 					else
@@ -319,7 +342,7 @@ function rollDice() {
 						modifyTotal('+', $(this).data('die').face);
 						//make the selected overlay
 						var circleContext = drawCircle(16,16,12,2);
-						powerDiceOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+						effectOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
 					}
 				}
 
@@ -333,17 +356,15 @@ function rollDice() {
 
 function clearDice() {
 	clearDiceArrays();
-	this.powerDiceOverlayArray.length = 0;
 	this.rolledDiceOverlayArray.length = 0;
-	this.effectDiceOverlayArray.length = 0;
+	this.effectOverlayArray.length = 0;
 	modifyTotal('=', 0);
 };
 
 //TODO rename dispose of values of dice arrays
 function clearDiceArrays() {
-	this.powerDiceOverlayArray.forEach(setDieArrayFalse);
 	this.rolledDiceOverlayArray.forEach(setDieArrayFalse);
-	this.effectDiceOverlayArray.forEach(setDieArrayFalse);
+	this.effectOverlayArray.forEach(setDieArrayFalse);
 };
 
 function setDieArrayFalse(value, index, array) {
@@ -384,6 +405,34 @@ function initPPOverlays(){
 	this.ppbg.showOverlay({
 			scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}, 
 			position: {x: .45, y:-.425}});
+};
+
+function initWidgets(){
+	//create a callback to change the color of the pp counter
+	$("#ppcolor").change(function(){
+			// callback of 'minicolor' color selection widget, $(this).val() will 
+			// get the hex value of the currently selected color in the widget
+				setPP($("#ppcount").text(), $(this).val());
+			});
+
+	$("#selectedcolorselect").change(function(){
+				CIRCLE_COLOR = $(this).val();
+			});
+
+	$("#effectcolorselect").change(function(){
+				HEX_COLOR = $(this).val();
+			});
+			
+	$("#xcolorselect").change(function(){
+				X_COLOR = $(this).val();
+			});
+			
+	$("#lower3rdsecselect").change(function(){
+				LOWER_3RD_SECONDARY = $(this).val();
+				if($('#toggle3rd').attr('checked')){
+					make3rdSec($("#lower3rdsec").val());
+				}
+			});
 };
 
 function initInputFields(){
