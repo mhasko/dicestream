@@ -25,10 +25,16 @@ this.DICE_COL_OFFSET = .125;
 this.SELECTION_OFFSET_X = .0525;
 this.SELECTION_OFFSET_Y = .1
 
+/** selection overlay types */
+this.SELECTION_CIRCLE = 0;
+this.SELECTION_HEX = 1;
+this.SELECTION_X = 2;
+
+/** allow various dice overlay */
+this.SELECTION_ALLOW = [true, true, true];
+
 /** dice image overlay colors */
-this.HEX_COLOR = '#000000';
-this.CIRCLE_COLOR = '#ff0000';
-this.X_COLOR = '#ff0000';
+this.SELECTION_COLOR = ['#00ff00','#000000','#ff0000'];
 
 /** lower 3rd overlay values*/
 this.MAIN_CONTEXT_BG;
@@ -57,8 +63,8 @@ this.rolledDiceOverlayArray = [];
 this.effectOverlayArray = [];
 this.stringsOverlayArray = [];
 
+//TODO rename all pp variables to either avatar or counter
 this.ppimage;
-
 this.ppoverlay;
 this.ppbg;
 this.ppccontext;
@@ -206,6 +212,22 @@ function toggle3rdAction(third){
 	SECOND_CONTEXT_TEXT.setVisible(third.checked);
 };
 
+
+function toggleSelectionAction(cb){
+	switch($(cb).attr('id'))
+	{
+		case 'toggleCircle':
+			SELECTION_ALLOW[SELECTION_CIRCLE]=cb.checked;
+			break;
+		case 'toggleHex':
+			SELECTION_ALLOW[SELECTION_HEX]=cb.checked;
+			break;
+		case 'toggleX':
+			SELECTION_ALLOW[SELECTION_X]=cb.checked;
+			break;			
+	}
+};
+
 function selectDiceAction(value){
 	setDice(value);
 };
@@ -243,6 +265,10 @@ function minus(id, min){
 	}
 };
 
+function toggleDiv(div){
+	$('#'+div).slideToggle();
+};
+
 function modifyText(id){
 	this.stringsOverlayArray.splice(id, 1);
 };
@@ -276,8 +302,6 @@ function removeText(data){
 		var existingText = this.stringsOverlayArray[inverseLocation];
 		this.stringsOverlayArray[inverseLocation].setPosition({x: existingText.getPosition().x, y: existingText.getPosition().y + this.STRING_OVERLAY_V_OFFSET});
 	}
-
-
 };
 
 function rollDice() {
@@ -305,8 +329,8 @@ function rollDice() {
 			//Enable selection of overlay dice by clicking the matching die in the control panel
 			$(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
 				//Special rules for Marvel, don't allow selection of rolled 1s
-				if($(this).data('die').face > 1)
-				{
+				//if($(this).data('die').face > 1)
+				//{
 					var diePosition = $(this).data('die').position - 1;
 					var newx = rolledDiceOverlayArray[diePosition].getPosition().x+.5;
 					var newy = rolledDiceOverlayArray[diePosition].getPosition().y+.5;
@@ -316,8 +340,9 @@ function rollDice() {
 					{
 						$(this).toggleClass("selected");
 						$(this).toggleClass("effect");
+						$(this).css({'background-color':SELECTION_COLOR[SELECTION_HEX]});
 						modifyTotal('-', $(this).data('die').face);
-						//make the effect overlay
+						//make the hex overlay
 						var hexContext = drawHex(16,16,12,2);
 						if(effectOverlayArray[diePosition]){
 							effectOverlayArray[diePosition].setVisible(false);
@@ -329,22 +354,30 @@ function rollDice() {
 					else if($(this).hasClass("effect"))
 					{
 						$(this).toggleClass("effect");
+						$(this).css({'background-color':SELECTION_COLOR[SELECTION_X]});
+						var xContext = drawX(3);
 						//remove the effect overlay
 						if(effectOverlayArray[diePosition]){
 							effectOverlayArray[diePosition].setVisible(false);
 							effectOverlayArray[diePosition].dispose();
-						}						
+						}		
+						effectOverlayArray[diePosition]=makeLayoverFromContext(xContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
 					}
 					//Selection state
 					else
 					{
 						$(this).toggleClass("selected");
+						$(this).css({'background-color':SELECTION_COLOR[SELECTION_CIRCLE]});
 						modifyTotal('+', $(this).data('die').face);
-						//make the selected overlay
+						//make the circle overlay
+						if(effectOverlayArray[diePosition]){
+							effectOverlayArray[diePosition].setVisible(false);
+							effectOverlayArray[diePosition].dispose();
+						}						
 						var circleContext = drawCircle(16,16,12,2);
 						effectOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
 					}
-				}
+				//}
 
 			});
 			$("#rolledDiceDiv").append(diceDiv);
@@ -353,7 +386,6 @@ function rollDice() {
 	initInputFields();
 };
 
-
 function clearDice() {
 	clearDiceArrays();
 	this.rolledDiceOverlayArray.length = 0;
@@ -361,7 +393,6 @@ function clearDice() {
 	modifyTotal('=', 0);
 };
 
-//TODO rename dispose of values of dice arrays
 function clearDiceArrays() {
 	this.rolledDiceOverlayArray.forEach(setDieArrayFalse);
 	this.effectOverlayArray.forEach(setDieArrayFalse);
@@ -416,15 +447,15 @@ function initWidgets(){
 			});
 
 	$("#selectedcolorselect").change(function(){
-				CIRCLE_COLOR = $(this).val();
+				SELECTION_COLOR[SELECTION_CIRCLE] = $(this).val();
 			});
 
 	$("#effectcolorselect").change(function(){
-				HEX_COLOR = $(this).val();
+				SELECTION_COLOR[SELECTION_HEX] = $(this).val();
 			});
 			
 	$("#xcolorselect").change(function(){
-				X_COLOR = $(this).val();
+				SELECTION_COLOR[SELECTION_X] = $(this).val();
 			});
 			
 	$("#lower3rdsecselect").change(function(){
@@ -478,7 +509,7 @@ function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
     var shapeContext = createContext(32, 32);
     var firstX;
     var firstY;
-    shapeContext.strokeStyle = this.HEX_COLOR;
+    shapeContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_HEX];
     shapeContext.lineWidth = lineThickness;
     shapeContext.beginPath();
     for(var i=0;i<numOfSides;i++)
@@ -506,12 +537,28 @@ function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
 /** draw a circle on an HTML5 canvas object */
 function drawCircle(x0,y0,radius,lineThickness) {
 	var circleContext = createContext(32, 32);
-	      circleContext.beginPath();
-	      circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
-	      circleContext.lineWidth = lineThickness;
-	      circleContext.strokeStyle = this.CIRCLE_COLOR;
-      circleContext.stroke();
-      return circleContext;
+	circleContext.beginPath();
+	circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
+	circleContext.lineWidth = lineThickness;
+	circleContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_CIRCLE];
+    circleContext.stroke();
+    return circleContext;
+};
+
+/** draw an x on an HTML5 canvas object */
+function drawX(lineThickness) {
+	var xContext = createContext(32, 32);
+	xContext.lineWidth = lineThickness;
+	xContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_X];
+	xContext.beginPath();
+
+    xContext.moveTo(4, 4);
+    xContext.lineTo(28, 28);
+
+    xContext.moveTo(28, 4);
+    xContext.lineTo(4, 28);
+    xContext.stroke();
+	return xContext;
 };
 
 /** helper method to create an html element in jquery */

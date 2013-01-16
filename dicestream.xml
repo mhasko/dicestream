@@ -8,9 +8,12 @@
 
 <html>
 <head>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+	<!--script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery-ui-1.8.13.custom.min.js"></script-->
 	<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
+	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 
 	<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script-->
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
@@ -19,12 +22,17 @@
 <body>
  
 <!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
-<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream//dicestream.css" />
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
 
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
+<div id="app-gui">
+<div class="slider-frame">
+	<span class="slider-title">Dice</span>
+	<span class="slider-button" onClick="toggleDiv('diceDiv')">NO</span>
+</div>
 <div id="diceDiv" class="groupDiv">
 	<div class='row'>
 		<span class='leftDice'>
@@ -85,7 +93,7 @@
 	</div>
 
 	<div class='row'>
-		<span class='leftDice'>
+		<span class='leftDice disabled'>
 			Current Total <span class='diceSum label' id="diceTotal">0</span>
 		</span>
 
@@ -96,15 +104,27 @@
 	</div>
 </div>
 
+<div class="slider-frame">
+	<span class="slider-title">Rolled Dice</span>
+	<span class="slider-button" onClick="toggleDiv('rolledDiceDiv')">NO</span>
+</div>
 <div id="rolledDiceDiv" class="groupDiv">
 </div>
 
+<div class="slider-frame">
+	<span class="slider-title">Text Overlays</span>
+	<span class="slider-button" onClick="toggleDiv('stringDiv')">NO</span>
+</div>
 <div id="stringDiv" class="groupDiv">
 	<input type="text" id="txtField" />
 	<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
 	<div id="screenStringsDiv"><ol id="stringList"></ol></div>
 </div>
 
+<div class="slider-frame">
+	<span class="slider-title">Settings</span>
+	<span class="slider-button" onClick="toggleDiv('settingsDiv')">NO</span>
+</div>
 <div id="settingsDiv" class="groupDiv">
 	<div id="plotPointDiv">
 		<span id="plotPointSpan">
@@ -118,21 +138,33 @@
 	</div>
 	
 	<div id="selectionColors">
-		<span id="selectedColor"><input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#ff0000" />Circle Color</span>
-		<span id="effectColor"><input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />Hex Color</span>
-		<span id="xColor"><input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />X Color</span>
-	</div>
-	
-	<div id="lowerThird">
-		<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />
-		<input type="text" id="lower3rdmain" /> Main title <br/>
-		<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#00ff00" /><input type="text" id="lower3rdsec" /> Sub title <br/>
-		<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
-	</div>
-	
+		<span id="selectedColor">
+			<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#00ff00" />
+			<input type="checkbox" id="toggleCircle" onClick="toggleSelectionAction(this)" checked="checked"/>Circle Color<br/>
+		</span>
+		<span id="effectColor">
+			<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
+			<input type="checkbox" id="toggleHex" onClick="toggleSelectionAction(this)" checked="checked"/>Hex Color<br/>
+		</span>
+		<span id="xColor">
+			<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#ff0000" />
+			<input type="checkbox" id="toggleX" onClick="toggleSelectionAction(this)" checked="checked"/>X Color<br/>
+		</span>
+	</div>	
 	<!--div>
 		<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
 	</div-->
+</div>
+<div class="slider-frame">
+	<span class="slider-title">Lower Third</span>
+	<span class="slider-button" onClick="toggleDiv('lowerThird')">NO</span>
+</div>
+<div id="lowerThird">
+	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
+	<input type="text" id="lower3rdmain" /> Main title <br/>
+	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#00ff00" /><input type="text" id="lower3rdsec" /> Sub title <br/>
+	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
+</div>
 </div>
 
 </body>
