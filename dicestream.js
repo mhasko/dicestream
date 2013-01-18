@@ -26,15 +26,19 @@ this.SELECTION_OFFSET_X = .0525;
 this.SELECTION_OFFSET_Y = .1
 
 /** selection overlay types */
-this.SELECTION_CIRCLE = 0;
-this.SELECTION_HEX = 1;
-this.SELECTION_X = 2;
+this.SELECTION_NONE = 0;
+this.SELECTION_CIRCLE = 1;
+this.SELECTION_HEX = 2;
+this.SELECTION_X = 3;
 
-/** allow various dice overlay */
-this.SELECTION_ALLOW = [true, true, true];
+/** permissions for overlay types */
+this.SELECTION_ALLOW = [true, true, true, true];
+
+/** current overlay type */
+this.SELECTION_IS = SELECTION_NONE;
 
 /** dice image overlay colors */
-this.SELECTION_COLOR = ['#00ff00','#000000','#ff0000'];
+this.SELECTION_COLOR = ['transparent', '#00ff00','#000000','#ff0000'];
 
 /** lower 3rd overlay values*/
 this.MAIN_CONTEXT_BG;
@@ -323,67 +327,87 @@ function rollDice() {
 			//position and display the dice overlay on the video screen
 			positionOverlays(overlay, this.rolledDiceOverlayArray.length-1, true);
 			
-			var diceDiv = document.createElement("div");
+			var diceDiv = document.createElement("span");
 			$(diceDiv).data("die", {size: DICETYPE[i], face: value, position: rolledDiceOverlayArray.length});
 			
 			//Enable selection of overlay dice by clicking the matching die in the control panel
 			$(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
-				//Special rules for Marvel, don't allow selection of rolled 1s
-				//if($(this).data('die').face > 1)
-				//{
-					var diePosition = $(this).data('die').position - 1;
-					var newx = rolledDiceOverlayArray[diePosition].getPosition().x+.5;
-					var newy = rolledDiceOverlayArray[diePosition].getPosition().y+.5;
-
-					//Effect state
-					if($(this).hasClass("selected"))
-					{
-						$(this).toggleClass("selected");
-						$(this).toggleClass("effect");
-						$(this).css({'background-color':SELECTION_COLOR[SELECTION_HEX]});
-						modifyTotal('-', $(this).data('die').face);
-						//make the hex overlay
-						var hexContext = drawHex(16,16,12,2);
-						if(effectOverlayArray[diePosition]){
-							effectOverlayArray[diePosition].setVisible(false);
-							effectOverlayArray[diePosition].dispose();
-						}
-						effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);						
-					}
-					//Default state
-					else if($(this).hasClass("effect"))
-					{
-						$(this).toggleClass("effect");
-						$(this).css({'background-color':SELECTION_COLOR[SELECTION_X]});
-						var xContext = drawX(3);
-						//remove the effect overlay
-						if(effectOverlayArray[diePosition]){
-							effectOverlayArray[diePosition].setVisible(false);
-							effectOverlayArray[diePosition].dispose();
-						}		
-						effectOverlayArray[diePosition]=makeLayoverFromContext(xContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
-					}
-					//Selection state
-					else
-					{
-						$(this).toggleClass("selected");
-						$(this).css({'background-color':SELECTION_COLOR[SELECTION_CIRCLE]});
-						modifyTotal('+', $(this).data('die').face);
-						//make the circle overlay
-						if(effectOverlayArray[diePosition]){
-							effectOverlayArray[diePosition].setVisible(false);
-							effectOverlayArray[diePosition].dispose();
-						}						
-						var circleContext = drawCircle(16,16,12,2);
-						effectOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
-					}
-				//}
-
+				selectDieOverlay(this);
 			});
 			$("#rolledDiceDiv").append(diceDiv);
 		}
 	}
 	initInputFields();
+};
+
+function selectDieOverlay(div){
+//Special rules for Marvel, don't allow selection of rolled 1s
+	//if($(this).data('die').face > 1)
+	//{
+		var diePosition = $(div).data('die').position - 1;
+		var newx = rolledDiceOverlayArray[diePosition].getPosition().x+.5;
+		var newy = rolledDiceOverlayArray[diePosition].getPosition().y+.5;
+		
+		SELECTION_IS = findNextOverlay(SELECTION_IS);
+		switch(SELECTION_IS){
+			case SELECTION_CIRCLE:
+				$(div).css({'background-color':SELECTION_COLOR[SELECTION_CIRCLE]});
+				modifyTotal('+', $(div).data('die').face);
+				//make the circle overlay
+				if(effectOverlayArray[diePosition]){
+					effectOverlayArray[diePosition].setVisible(false);
+					effectOverlayArray[diePosition].dispose();
+				}						
+				var circleContext = drawCircle(16,16,12,2);
+				effectOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+				break;
+			case SELECTION_HEX:
+				$(div).css({'background-color':SELECTION_COLOR[SELECTION_HEX]});
+				modifyTotal('-', $(div).data('die').face);
+				//make the hex overlay
+				var hexContext = drawHex(16,16,12,2);
+				if(effectOverlayArray[diePosition]){
+					effectOverlayArray[diePosition].setVisible(false);
+					effectOverlayArray[diePosition].dispose();
+				}
+				effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
+				break;
+			case SELECTION_X:
+				$(div).css({'background-color':SELECTION_COLOR[SELECTION_X]});
+				var xContext = drawX(3);
+				//remove the effect overlay
+				if(effectOverlayArray[diePosition]){
+					effectOverlayArray[diePosition].setVisible(false);
+					effectOverlayArray[diePosition].dispose();
+				}		
+				effectOverlayArray[diePosition]=makeLayoverFromContext(xContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
+				break;
+			case SELECTION_NONE:
+			default:
+				$(div).css({'background-color':SELECTION_COLOR[SELECTION_NONE]});
+				//remove the effect overlay
+				if(effectOverlayArray[diePosition]){
+					effectOverlayArray[diePosition].setVisible(false);
+					//effectOverlayArray[diePosition].dispose();
+				}		
+
+		}
+	//}
+};
+
+function findNextOverlay(pos){
+	if(pos+1 >= SELECTION_ALLOW.length)
+	{
+		return SELECTION_NONE;
+	}
+	else if(SELECTION_ALLOW[pos+1])
+	{
+		return pos + 1;
+	}
+	else
+	{
+		return findNextOverlay(pos+1);
+	}
 };
 
 function clearDice() {
@@ -491,7 +515,6 @@ function modifyTotal(operation, value){
 			$("#diceTotal").text(existingValue - parseInt(value,10));
 			break;
 		default:
-
 	}
 };
 

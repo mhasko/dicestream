@@ -3,16 +3,14 @@
 
 #app-gui{
 	overflow-y: auto;
-	height:250%;
 }
-/*#rolledDiceDiv{
+#rolledDiceDiv{
 	position: relative;
 	top: 10px;
 	left: 25px;
-	padding: 5px 0;
 	height:40px;
 	width: 250px;
-}*/
+}
 
 #stringDiv{
 	/*overflow-y: auto;*/
@@ -32,14 +30,8 @@
 .groupDiv{
 	position: relative;
 	height: auto;
+	padding: 5px 5px;
 }
-
-.disabled{
-	
-	visibility: hidden;
-}
-
-
 
 .leftDice{
 	position:absolute;
@@ -78,6 +70,7 @@
 }
 
 .rolledDice{
+	display: inline;
 	float: left;
 }
 
@@ -86,4 +79,8 @@
 }
 .slider-button{
 	float: right;
+}
+
+.disabled{	
+	visibility: hidden;
 }
