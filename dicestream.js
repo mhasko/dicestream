@@ -68,10 +68,10 @@ this.effectOverlayArray = [];
 this.stringsOverlayArray = [];
 
 //TODO rename all pp variables to either avatar or counter
-this.ppimage;
-this.ppoverlay;
-this.ppbg;
-this.ppccontext;
+this.AVATAR_IMAGE;
+this.AVATAR_OVERLAY;
+this.AVATAR_IMAGE_RESOURCE;
+this.AVATAR_CONTEXT;
 	
 /** when the hangout is ready, initialize the app */
 function init() {
@@ -202,7 +202,8 @@ function clearDiceButton(){
 };
 
 function togglePPAction(cb){
-	this.ppoverlay.setVisible(cb.checked);
+	this.AVATAR_OVERLAY.setVisible(cb.checked);
+	this.AVATAR_IMAGE.setVisible(cb.checked);
 
 	$("#ppcount").toggleClass('disabled');
 	$("#ppadd").toggleClass('disabled');
@@ -271,6 +272,10 @@ function minus(id, min){
 
 function toggleDiv(div){
 	$('#'+div).slideToggle();
+	$(this).find('i').toggleClass('icon-circle-arrow-down');
+	$(this).find('i').toggleClass('icon-circle-arrow-left');
+	//<i class="icon-circle-arrow-down"></i>
+	//<i class="icon-circle-arrow-left"></i>
 };
 
 function modifyText(id){
@@ -445,21 +450,21 @@ function setDice(value){
 };
 
 function setPP(value, color){		
-	if(this.ppoverlay){this.ppoverlay.setVisible(false);}
+	if(this.AVATAR_OVERLAY){this.AVATAR_OVERLAY.setVisible(false);}
 	
-	this.ppccontext = createContext(32, 32);
-	this.ppccontext.font = "20px Verdana";
-	this.ppccontext.fillStyle = color ? color : $("#ppcolor").val();
-	this.ppccontext.fillText(value, 0, 20);
-	this.ppoverlay = makeLayoverFromContext(this.ppccontext, 1, .93, 0);
+	this.AVATAR_CONTEXT = createContext(32, 32);
+	this.AVATAR_CONTEXT.font = "20px Verdana";
+	this.AVATAR_CONTEXT.fillStyle = color ? color : $("#ppcolor").val();
+	this.AVATAR_CONTEXT.fillText(value, 0, 20);
+	this.AVATAR_OVERLAY = makeLayoverFromContext(this.AVATAR_CONTEXT, 1, .93, 0);
 };
 
 //TODO 
 function initPPOverlays(){	
-	this.ppbg = gapi.hangout.av.effects.createImageResource(IMAGEROOT + DICEROOT + '/shieldpp' + PNG);
-	this.ppbg.showOverlay({
-			scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}, 
-			position: {x: .45, y:-.425}});
+	this.AVATAR_IMAGE_RESOURCE = gapi.hangout.av.effects.createImageResource(IMAGEROOT + DICEROOT + '/shieldpp' + PNG);
+	this.AVATAR_IMAGE = this.AVATAR_IMAGE_RESOURCE.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
+	this.AVATAR_IMAGE.setPosition({x: .45, y:-.425});
+	this.AVATAR_IMAGE.setVisible(true);
 };
 
 function initWidgets(){

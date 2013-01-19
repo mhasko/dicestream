@@ -1,9 +1,13 @@
+#app-gui{
+	height: 380px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 #diceDiv{
 }
 
-#app-gui{
-	overflow-y: auto;
-}
+
 #rolledDiceDiv{
 	position: relative;
 	top: 10px;
@@ -16,15 +20,15 @@
 	/*overflow-y: auto;*/
 }
 
-#ppname{
-	display: inline;
-}
-
 #plotPointSpan{
 	/*height: 60px;
 	position: relative;
 	top: 10px;
 	left: 25px;*/
+}
+
+#ppname{
+	display: inline;
 }
 
 .groupDiv{
@@ -71,13 +75,29 @@
 
 .rolledDice{
 	display: inline;
-	float: left;
 }
 
 .slider-title{
 	font-size: 14px;
+	position: relative;
+	left: 10px;
 }
+
 .slider-button{
+	position: relative;
+	float: right;
+	right: 10px;
+}
+
+.lower3rdtextfield{
+	position: relative;
+	left: 20px;
+	width: 170px;
+}
+
+.lower3rdtitle{
+	position: relative;
+	right: 20px;
 	float: right;
 }
 

@@ -31,7 +31,7 @@
 <div id="app-gui">
 <div class="slider-frame">
 	<span class="slider-title">Dice</span>
-	<span class="slider-button" onClick="toggleDiv('diceDiv')">NO</span>
+	<span class="slider-button" onClick="toggleDiv('diceDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="diceDiv" class="groupDiv">
 	<div class='row'>
@@ -106,14 +106,14 @@
 
 <div class="slider-frame">
 	<span class="slider-title">Rolled Dice</span>
-	<span class="slider-button" onClick="toggleDiv('rolledDiceDiv')">NO</span>
+	<span class="slider-button" onClick="toggleDiv('rolledDiceDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="rolledDiceDiv" class="groupDiv">
 </div>
 
 <div class="slider-frame">
 	<span class="slider-title">Text Overlays</span>
-	<span class="slider-button" onClick="toggleDiv('stringDiv')">NO</span>
+	<span class="slider-button" onClick="toggleDiv('stringDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="stringDiv" class="groupDiv">
 	<input type="text" id="txtField" />
@@ -123,7 +123,7 @@
 
 <div class="slider-frame">
 	<span class="slider-title">Settings</span>
-	<span class="slider-button" onClick="toggleDiv('settingsDiv')">NO</span>
+	<span class="slider-button" onClick="toggleDiv('settingsDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="settingsDiv" class="groupDiv">
 	<div id="plotPointDiv">
@@ -157,13 +157,14 @@
 </div>
 <div class="slider-frame">
 	<span class="slider-title">Lower Third</span>
-	<span class="slider-button" onClick="toggleDiv('lowerThird')">NO</span>
+	<span class="slider-button" onClick="toggleDiv('lowerThird')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="lowerThird">
-	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
-	<input type="text" id="lower3rdmain" /> Main title <br/>
-	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#00ff00" /><input type="text" id="lower3rdsec" /> Sub title <br/>
+	<input class="lower3rdtextfield" type="text" id="lower3rdmain" /><span class="lower3rdtitle">Main title</span><br/>
+	<input class="lower3rdtextfield" type="text" id="lower3rdsec" /><span class="lower3rdtitle">Sub title</span><br/>
+	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#00ff00" />
 	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
+	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
 </div>
 </div>
 
