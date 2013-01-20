@@ -10,7 +10,6 @@
 <head>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-	<!--script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery-ui-1.8.13.custom.min.js"></script-->
 	<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.2" ></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
@@ -20,13 +19,12 @@
 
 </head>
 <body>
- 
-<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
-<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
-
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
+
+<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
 
 <div id="app-gui">
 <div class="slider-frame">
@@ -102,6 +100,16 @@
 			<input class="button btn btn-primary" type="button" value="Clear" id="clear" onClick="clearDiceButton()" />
 		</span>
 	</div>
+	<div id="plotPointDiv" class='row'>
+		<span id="plotPointSpan" class='leftDice'>
+			<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
+			<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
+			<span id="ppname" class="button">Counter</span>
+			<input class="button btn btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
+			<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>		
+			<span id="ppcount" class="dieCount label">1</span>
+		</span>
+	</div>
 </div>
 
 <div class="slider-frame">
@@ -126,29 +134,18 @@
 	<span class="slider-button" onClick="toggleDiv('settingsDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="settingsDiv" class="groupDiv">
-	<div id="plotPointDiv">
-		<span id="plotPointSpan">
-			<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
-			<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
-			<span id="ppname" class="button">Counter</span>
-			<input class="button btn  btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
-			<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>		
-			<span id="ppcount" class="dieCount label">1</span>
-		</span>
-	</div>
-	
 	<div id="selectionColors">
 		<span id="selectedColor">
 			<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#00ff00" />
-			<input type="checkbox" id="toggleCircle" onClick="toggleSelectionAction(this)" checked="checked"/>Circle Color<br/>
+			<input type="checkbox" id="toggleCircle" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>Circle Color<br/>
 		</span>
 		<span id="effectColor">
 			<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
-			<input type="checkbox" id="toggleHex" onClick="toggleSelectionAction(this)" checked="checked"/>Hex Color<br/>
+			<input type="checkbox" id="toggleHex" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>Hex Color<br/>
 		</span>
 		<span id="xColor">
 			<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#ff0000" />
-			<input type="checkbox" id="toggleX" onClick="toggleSelectionAction(this)" checked="checked"/>X Color<br/>
+			<input type="checkbox" id="toggleX" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>X Color<br/>
 		</span>
 	</div>	
 	<!--div>

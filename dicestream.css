@@ -1,3 +1,7 @@
+ul, ol{
+	margin: 0 0 0 5px;
+}
+
 #app-gui{
 	height: 380px;
 	overflow-y: auto;
@@ -10,10 +14,6 @@
 
 #rolledDiceDiv{
 	position: relative;
-	top: 10px;
-	left: 25px;
-	height:40px;
-	width: 250px;
 }
 
 #stringDiv{
@@ -74,7 +74,13 @@
 }
 
 .rolledDice{
-	display: inline;
+	height: 32px;
+	width: 32px;
+	display: inline-block;
+}
+
+.removeText{
+	margin: 0 5px 0 0px;
 }
 
 .slider-title{

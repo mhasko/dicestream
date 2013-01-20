@@ -35,7 +35,7 @@ this.SELECTION_X = 3;
 this.SELECTION_ALLOW = [true, true, true, true];
 
 /** current overlay type */
-this.SELECTION_IS = SELECTION_NONE;
+//this.SELECTION_IS = SELECTION_NONE;
 
 /** dice image overlay colors */
 this.SELECTION_COLOR = ['transparent', '#00ff00','#000000','#ff0000'];
@@ -166,7 +166,7 @@ function createTextCheckbox(text){
 					// get the hex value of the currently selected color in the widget
 						editText(textControl, text, $(this).val());
 					});
-	var closeButton = createElement("a",{"display": "inline", "type": "button", "class": "btn btn-danger btn-mini", "href": "#"})
+	var closeButton = createElement("a",{"display": "inline", "type": "button", "class": "btn btn-danger btn-mini removeText", "href": "#"})
 					.append("<i class='icon-remove'></i>")
 					.click(function(){
 						removeText(textControl);
@@ -177,7 +177,7 @@ function createTextCheckbox(text){
 	$(label).prepend(colorPicker);
 	$(textControl).append(label);
 	
-	$("#stringList").prepend(textControl);//append(textControl);
+	$("#stringList").prepend(textControl);
 	$.minicolors.init();
 };
 
@@ -272,10 +272,8 @@ function minus(id, min){
 
 function toggleDiv(div){
 	$('#'+div).slideToggle();
-	$(this).find('i').toggleClass('icon-circle-arrow-down');
-	$(this).find('i').toggleClass('icon-circle-arrow-left');
-	//<i class="icon-circle-arrow-down"></i>
-	//<i class="icon-circle-arrow-left"></i>
+	$('#'+div).prev().find('i').toggleClass('icon-circle-arrow-down');
+	$('#'+div).prev().find('i').toggleClass('icon-circle-arrow-left');
 };
 
 function modifyText(id){
@@ -333,7 +331,7 @@ function rollDice() {
 			positionOverlays(overlay, this.rolledDiceOverlayArray.length-1, true);
 			
 			var diceDiv = document.createElement("span");
-			$(diceDiv).data("die", {size: DICETYPE[i], face: value, position: rolledDiceOverlayArray.length});
+			$(diceDiv).data("die", {size: DICETYPE[i], face: value, position: rolledDiceOverlayArray.length, overlay: SELECTION_NONE});
 			
 			//Enable selection of overlay dice by clicking the matching die in the control panel
 			$(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
@@ -353,8 +351,8 @@ function selectDieOverlay(div){
 		var newx = rolledDiceOverlayArray[diePosition].getPosition().x+.5;
 		var newy = rolledDiceOverlayArray[diePosition].getPosition().y+.5;
 		
-		SELECTION_IS = findNextOverlay(SELECTION_IS);
-		switch(SELECTION_IS){
+		var nextSelection = findNextOverlay($(div).data('die').overlay);
+		switch(nextSelection){
 			case SELECTION_CIRCLE:
 				$(div).css({'background-color':SELECTION_COLOR[SELECTION_CIRCLE]});
 				modifyTotal('+', $(div).data('die').face);
@@ -393,10 +391,10 @@ function selectDieOverlay(div){
 				//remove the effect overlay
 				if(effectOverlayArray[diePosition]){
 					effectOverlayArray[diePosition].setVisible(false);
-					//effectOverlayArray[diePosition].dispose();
 				}		
 
 		}
+		$(div).data('die').overlay = nextSelection;
 	//}
 };
 
