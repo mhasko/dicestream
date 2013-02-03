@@ -14,8 +14,8 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 
-	<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script-->
-	<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script>
+	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
 
 </head>
 <body>
@@ -23,9 +23,12 @@
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
-<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
-
+<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" />
+<!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
+<div id="canvasDiv" class="disabled">
+	<canvas height="32px" width="32px" id="layoverCanvas"></canvas>
+	<canvas height="70px" width="200px" id="textCanvas"></canvas>
+</div>
 <div id="app-gui">
 <div class="slider-frame">
 	<span class="slider-title">Dice</span>
@@ -35,14 +38,14 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d4minus" onClick="minus('d4count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d4-4.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d4-4.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d4add" onClick="add('d4count', 9)"/>
 			<span id="d4count" class="dieCount label">0</span>
 		</span>
 
 		<span class='rightDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d10minus" onClick="minus('d10count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d10-10.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d10-10.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d10add"  onClick="add('d10count', 9)"/>
 			<span id="d10count" class="dieCount label">0</span>
 		</span>
@@ -51,7 +54,7 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d6minus" onClick="minus('d6count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d6-6.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d6-6.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d6add" onClick="add('d6count', 9)"/>
 			<span id="d6count" class="dieCount label">0</span>
 		</span>
@@ -59,7 +62,7 @@
 		<span class='rightDice'>
 
 			<input class="button btn btn-mini" type="button" value="-" id="d12minus" onClick="minus('d12count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d12-12.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d12-12.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d12add" onClick="add('d12count', 9)"/>
 			<span id="d12count" class="dieCount label">0</span>
 		</span>
@@ -68,14 +71,14 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d8minus" onClick="minus('d8count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d8-8.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d8-8.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d8add" onClick="add('d8count', 9)"/>
 			<span id="d8count" class="dieCount label">0</span>
 		</span>
 		
 		<span class='rightDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d20minus" onClick="minus('d20count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d20-20.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d20-20.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d20add" onClick="add('d20count', 9)"/>
 			<span id="d20count" class="dieCount label">0</span>
 		</span>		
@@ -84,9 +87,15 @@
 	<div class='row'>
 		<span class='leftDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="dfminus" onClick="minus('d3count', 0)"/>
-			<span class='diceImage'><img src="https://commondatastorage.googleapis.com/dicestream/images/marvel/d3-2.png"/></span>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d3-2.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="dfadd" onClick="add('d3count', 9)"/>
 			<span id="d3count" class="dieCount label">0</span>
+		</span>
+		<span class='rightDice disabled'>
+			<input class="button btn btn-mini" type="button" value="-" id="d100minus" onClick="minus('d100count', 0)"/>
+			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d100-100.png"/></span>
+			<input class="button btn btn-mini" type="button" value="+" id="d100add" onClick="add('d100count', 9)"/>
+			<span id="d100count" class="dieCount label">0</span>
 		</span>
 	</div>
 
@@ -163,6 +172,7 @@
 	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
 	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
 </div>
+<div id="spacer"></div>
 </div>
 
 </body>

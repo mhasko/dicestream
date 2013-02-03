@@ -1,9 +1,10 @@
 /** array that has the die sizes */
-this.DICETYPE = [3,4,6,8,10,12,20]; //100
+this.DICETYPE = [3,4,6,8,10,12,20,100];
 
 /** root variables to the various image paths used.*/
 this.IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
-this.DICEROOT = "/marvel";
+//this.IMAGEROOT = "https://dl.dropbox.com/u/1177409/dicestream/images";
+this.DICEROOT = "/standard";
 this.PNG = ".png";
 
 /** Sets the number of dice per row. */
@@ -34,9 +35,6 @@ this.SELECTION_X = 3;
 /** permissions for overlay types */
 this.SELECTION_ALLOW = [true, true, true, true];
 
-/** current overlay type */
-//this.SELECTION_IS = SELECTION_NONE;
-
 /** dice image overlay colors */
 this.SELECTION_COLOR = ['transparent', '#00ff00','#000000','#ff0000'];
 
@@ -62,12 +60,14 @@ this.LOWER_3RD_SECONDARY = '#00ff00';
 
 this.arraySize = 0;
 
+this.CANVAS;
+
 /** initializes the various arrays used to hold the overlays */
 this.rolledDiceOverlayArray = [];
 this.effectOverlayArray = [];
 this.stringsOverlayArray = [];
 
-//TODO rename all pp variables to either avatar or counter
+/** avatar image and counter */
 this.AVATAR_IMAGE;
 this.AVATAR_OVERLAY;
 this.AVATAR_IMAGE_RESOURCE;
@@ -93,9 +93,9 @@ function makeText(text){
 	createTextCheckbox(text);
 };
 
-function createTextContext(text, color){
+function createTextContext(text, color, font){
 	var textContext = createContext(200, 70);
-	textContext.font = "18px Verdana";
+	textContext.font = font ? font : "18px Verdana";
 	textContext.fillStyle = color ? color : "#000000";
 	textContext.fillText(text, 0, 70);
 	return textContext;
@@ -116,10 +116,10 @@ function make3rdMain(main){
 	
 	disposeLayover(this.MAIN_CONTEXT_TEXT);
 	var mainContextText = createContext(MAIN_WIDTH, MAIN_HEIGHT);
-	mainContextText.font = "12px Verdana";
+	mainContextText.font = "12px Ariel";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
-	mainContextText.fillText(main, 0, MAIN_HEIGHT);
+	mainContextText.fillText(main, 0.5, MAIN_HEIGHT);
 	this.MAIN_CONTEXT_TEXT =makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .03);
 };
 
@@ -132,10 +132,10 @@ function make3rdSec(sec){
 	
 	disposeLayover(this.SECOND_CONTEXT_TEXT);
 	var secondContextText= createContext(SEC_WIDTH, SEC_HEIGHT);
-	secondContextText.font = "9px Verdana";
+	secondContextText.font = "9px Ariel";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
-	secondContextText.fillText(sec, 0, SEC_HEIGHT);
+	secondContextText.fillText(sec, 0.5, SEC_HEIGHT);
 	this.SECOND_CONTEXT_TEXT = makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y );	
 };
 
@@ -183,8 +183,20 @@ function createTextCheckbox(text){
 
 /** helper method to create canvas contexts on the fly*/
 function createContext(w, h) {
-    var canvas = createElement("canvas").height(h).width(w)[0];
+	var canvas = createElement("canvas").height(h).width(w)[0];
+	/*		var hh = gapi.hangout.layout.getVideoCanvas().getHeight();
+			var ww = gapi.hangout.layout.getVideoCanvas().getWidth();
+			var canvas;
+			
+	if(!type){
+    	canvas = createElement("canvas").height(h).width(w)[0];
+    }
+    else if(type == 'dieLayover'){
+    	//canvas = document.getElementById("layoverCanvas");
+    	canvas = createElement("canvas").height(200).width(200)[0];
+    }*/
     var context = canvas.getContext("2d");
+    context.translate(0.5, 0.5);
     context.webkitImageSmoothingEnabled = true;
     return context;
 }
@@ -321,9 +333,8 @@ function rollDice() {
 		for(;j<count;j++)
 		{
 			var value = Math.ceil(DICETYPE[i]*Math.random());
-			var imageUrl = IMAGEROOT + DICEROOT + '/d' + DICETYPE[i] + '-' + value + PNG;
+			var imageUrl = IMAGEROOT + DICEROOT + '/d' + DICETYPE[i] + '-' + value + PNG;			
 			var dieImage = gapi.hangout.av.effects.createImageResource(imageUrl);
-			
 			var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
 			rolledDiceOverlayArray.push(overlay);
 			

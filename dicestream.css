@@ -2,6 +2,10 @@ ul, ol{
 	margin: 0 0 0 5px;
 }
 
+#canvasDiv{
+	height: 0px;
+}
+
 #app-gui{
 	height: 380px;
 	overflow-y: auto;
@@ -27,6 +31,10 @@ ul, ol{
 	left: 25px;*/
 }
 
+#spacer{
+	height: 160px;
+}
+
 #ppname{
 	display: inline;
 }
@@ -47,10 +55,12 @@ ul, ol{
 	right:25px;
 }
 
-.diceImage{
+/*.diceImage{
 	background-size:32px 32px;
+	height: 32px;
+	width: 32px;
 	background-repeat:no-repeat;
-}
+}*/
 
 .row{
 	height: 40px;
