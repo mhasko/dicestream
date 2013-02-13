@@ -14,7 +14,7 @@ this.NUM_DICE_PER_ROW=10;
 this.CANVAS_V_OFFSET = -.055;
 
 /** Vertical offest for string overlays */
-this.STRING_OVERLAY_V_OFFSET = .08;
+this.STRING_OVERLAY_V_OFFSET = .06;
 
 /** Space between rows of dice*/
 this.DICE_ROW_OFFSET = .08;
@@ -36,7 +36,7 @@ this.SELECTION_X = 3;
 this.SELECTION_ALLOW = [true, true, true, true];
 
 /** dice image overlay colors */
-this.SELECTION_COLOR = ['transparent', '#00ff00','#000000','#ff0000'];
+this.SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
 
 /** lower 3rd overlay values*/
 this.MAIN_CONTEXT_BG;
@@ -46,17 +46,17 @@ this.SECOND_CONTEXT_TEXT;
 
 /** lower 3rd position values */
 this.MAIN_WIDTH = 200;
-this.MAIN_HEIGHT = 14;
+this.MAIN_HEIGHT = 26;
 this.MAIN_POS_X = .05;
-this.MAIN_POS_Y = .885;
+this.MAIN_POS_Y = .52;
 	
 this.SEC_WIDTH = 200;
-this.SEC_HEIGHT = 9;
+this.SEC_HEIGHT = 18;
 this.SEC_POS_X = .07;
-this.SEC_POS_Y = .94
+this.SEC_POS_Y = .58
 
 /** lower 3rd secondary background color*/
-this.LOWER_3RD_SECONDARY = '#00ff00';
+this.LOWER_3RD_SECONDARY = '#105080';
 
 this.arraySize = 0;
 
@@ -89,15 +89,16 @@ function init() {
 /** takes the input text and creates a text overlay on the screen */
 function makeText(text){
 	var canvasContext = createTextContext(text);
-	this.stringsOverlayArray.push(makeLayoverFromContext(canvasContext, .75, -.11, .45 - (this.stringsOverlayArray.length * this.STRING_OVERLAY_V_OFFSET) ) );
+	this.stringsOverlayArray.push(makeLayoverFromContext(canvasContext, 1, 0, .40 - (this.stringsOverlayArray.length * this.STRING_OVERLAY_V_OFFSET) ) );
 	createTextCheckbox(text);
 };
 
 function createTextContext(text, color, font){
-	var textContext = createContext(200, 70);
-	textContext.font = font ? font : "18px Verdana";
+	var canvas = $('#textCanvas').clone();
+	var textContext = canvas[0].getContext("2d");
+	textContext.font = font ? font : "20px Verdana";
 	textContext.fillStyle = color ? color : "#000000";
-	textContext.fillText(text, 0, 70);
+	textContext.fillText(text, 20, 20);
 	return textContext;
 };
 
@@ -109,34 +110,38 @@ function makeLower3rd(main, sec){
 
 function make3rdMain(main){
 	disposeLayover(this.MAIN_CONTEXT_BG);
-	var mainContextBg = createContext(MAIN_WIDTH, MAIN_HEIGHT);
+	var canvas = $('#mainThirdCanvas').clone();
+	var mainContextBg = canvas[0].getContext("2d");
 	mainContextBg.fillStyle = "#ffffff";
-	mainContextBg.fillRect(0, 0, MAIN_WIDTH, MAIN_HEIGHT);
+	mainContextBg.fillRect(0, 0, 450, 28);
 	this.MAIN_CONTEXT_BG = makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
 	
 	disposeLayover(this.MAIN_CONTEXT_TEXT);
-	var mainContextText = createContext(MAIN_WIDTH, MAIN_HEIGHT);
-	mainContextText.font = "12px Ariel";
+	var canvas2 = $('#mainThirdCanvas').clone();
+		var mainContextText = canvas2[0].getContext("2d");
+	mainContextText.font = "26px Verdana";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
-	mainContextText.fillText(main, 0.5, MAIN_HEIGHT);
-	this.MAIN_CONTEXT_TEXT =makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .03);
+	mainContextText.fillText(main, 0, MAIN_HEIGHT);
+	this.MAIN_CONTEXT_TEXT =makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .01);
 };
 
 function make3rdSec(sec){
 	disposeLayover(this.SECOND_CONTEXT_BG);
-	var secondContextBg = createContext(SEC_WIDTH, SEC_HEIGHT);
+	var canvas3 = $('#secThirdCanvas').clone();
+	var secondContextBg = canvas3[0].getContext("2d");
 	secondContextBg.fillStyle = this.LOWER_3RD_SECONDARY;
-	secondContextBg.fillRect(0, 0, SEC_WIDTH, SEC_HEIGHT);
+	secondContextBg.fillRect(0, 0, 450, 18);
 	this.SECOND_CONTEXT_BG = makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
 	
 	disposeLayover(this.SECOND_CONTEXT_TEXT);
-	var secondContextText= createContext(SEC_WIDTH, SEC_HEIGHT);
-	secondContextText.font = "9px Ariel";
+	var canvas4 = $('#secThirdCanvas').clone();
+	var secondContextText = canvas4[0].getContext("2d");
+	secondContextText.font = "18px Verdana";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
-	secondContextText.fillText(sec, 0.5, SEC_HEIGHT);
-	this.SECOND_CONTEXT_TEXT = makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y );	
+	secondContextText.fillText(sec, 0, SEC_HEIGHT);
+	this.SECOND_CONTEXT_TEXT = makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y - .01);	
 };
 
 /** helper method to dispose of hangout layovers */
@@ -184,20 +189,9 @@ function createTextCheckbox(text){
 /** helper method to create canvas contexts on the fly*/
 function createContext(w, h) {
 	var canvas = createElement("canvas").height(h).width(w)[0];
-	/*		var hh = gapi.hangout.layout.getVideoCanvas().getHeight();
-			var ww = gapi.hangout.layout.getVideoCanvas().getWidth();
-			var canvas;
-			
-	if(!type){
-    	canvas = createElement("canvas").height(h).width(w)[0];
-    }
-    else if(type == 'dieLayover'){
-    	//canvas = document.getElementById("layoverCanvas");
-    	canvas = createElement("canvas").height(200).width(200)[0];
-    }*/
     var context = canvas.getContext("2d");
-    context.translate(0.5, 0.5);
-    context.webkitImageSmoothingEnabled = true;
+    //context.translate(0.5, 0.5);
+    //context.webkitImageSmoothingEnabled = true;
     return context;
 }
 
@@ -384,7 +378,7 @@ function selectDieOverlay(div){
 					effectOverlayArray[diePosition].setVisible(false);
 					effectOverlayArray[diePosition].dispose();
 				}
-				effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
+				effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X , newy-SELECTION_OFFSET_Y);	
 				break;
 			case SELECTION_X:
 				$(div).css({'background-color':SELECTION_COLOR[SELECTION_X]});
@@ -543,7 +537,9 @@ function drawHex(x,y,L,thick){
 
 /** draw a regular polygon on an HTML5 canvas object */
 function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
-    var shapeContext = createContext(32, 32);
+    var shapeContext = createContext(256, 256);
+	//var canvas = $('#layoverCanvas').clone();
+	//var shapeContext = canvas[0].getContext("2d");
     var firstX;
     var firstY;
     shapeContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_HEX];
@@ -573,7 +569,7 @@ function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
 
 /** draw a circle on an HTML5 canvas object */
 function drawCircle(x0,y0,radius,lineThickness) {
-	var circleContext = createContext(32, 32);
+	var circleContext = createContext(256, 256);
 	circleContext.beginPath();
 	circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
 	circleContext.lineWidth = lineThickness;
@@ -584,7 +580,8 @@ function drawCircle(x0,y0,radius,lineThickness) {
 
 /** draw an x on an HTML5 canvas object */
 function drawX(lineThickness) {
-	var xContext = createContext(32, 32);
+	var xContext = createContext(256, 256);
+	xContext.translate(0.5, 0.5);
 	xContext.lineWidth = lineThickness;
 	xContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_X];
 	xContext.beginPath();
