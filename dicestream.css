@@ -21,14 +21,11 @@ ul, ol{
 }
 
 #stringDiv{
-	/*overflow-y: auto;*/
+
 }
 
 #plotPointSpan{
-	/*height: 60px;
-	position: relative;
-	top: 10px;
-	left: 25px;*/
+
 }
 
 #spacer{
@@ -54,13 +51,6 @@ ul, ol{
 	position:absolute;
 	right:25px;
 }
-
-/*.diceImage{
-	background-size:32px 32px;
-	height: 32px;
-	width: 32px;
-	background-repeat:no-repeat;
-}*/
 
 .row{
 	height: 40px;
@@ -103,6 +93,12 @@ ul, ol{
 	position: relative;
 	float: right;
 	right: 10px;
+}
+
+#screenStringsDiv ul .textCheckbox{
+	position: relative;
+	width: 160px;
+	margin: 3px 0px;
 }
 
 .lower3rdtextfield{

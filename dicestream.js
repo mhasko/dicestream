@@ -53,7 +53,10 @@ this.MAIN_POS_Y = .52;
 this.SEC_WIDTH = 200;
 this.SEC_HEIGHT = 18;
 this.SEC_POS_X = .07;
-this.SEC_POS_Y = .58
+this.SEC_POS_Y = .58;
+
+/** max height variable, changed on resize */
+this.MAX_HEIGHT = $(window).height();
 
 /** lower 3rd secondary background color*/
 this.LOWER_3RD_SECONDARY = '#105080';
@@ -83,6 +86,7 @@ function init() {
 			initPPOverlays();
 			setPP(1);			
 		}
+	scale();
 	});
 };
 
@@ -169,18 +173,22 @@ function createTextCheckbox(text){
 					.change(function(){
 	 				// callback of 'minicolor' color selection widget, $(this).val() will 
 					// get the hex value of the currently selected color in the widget
-						editText(textControl, text, $(this).val());
+						editTextColor(textControl, $(this).val());
 					});
 	var closeButton = createElement("a",{"display": "inline", "type": "button", "class": "btn btn-danger btn-mini removeText", "href": "#"})
 					.append("<i class='icon-remove'></i>")
 					.click(function(){
 						removeText(textControl);
 					});
-	//TODO allow modification of the string
-	var label = createElement("label",{"display": "inline", "class": "textCheckbox"}).text(text);
-	$(label).prepend(closeButton);
-	$(label).prepend(colorPicker);
+	var label = createElement("input",{"display": "inline", "class": "textCheckbox", "type": "text"}).val(text)
+					.change(function(){
+						editText(textControl, $(this).val());
+					});
+	$(textControl).append(colorPicker);
+	$(textControl).append(closeButton);
 	$(textControl).append(label);
+	$(textControl).data("color", $(colorPicker).val());
+	$(textControl).data("text", $(label).val());
 	
 	$("#stringList").prepend(textControl);
 	$.minicolors.init();
@@ -286,13 +294,26 @@ function modifyText(id){
 	this.stringsOverlayArray.splice(id, 1);
 };
 
-/** edit the text overlay */
-function editText(data, text, rrggbb){
-	var location = $("ul").index(data);
-	this.stringsOverlayArray[$("ul").index(data)].setVisible(false);
-	this.stringsOverlayArray[$("ul").index(data)].dispose();
-	this.stringsOverlayArray[$("ul").index(data)] = makeLayoverFromContext(createTextContext(text, rrggbb), .75, -.11, .45 - (location * this.STRING_OVERLAY_V_OFFSET) );
+/** edit the text in a overlay */
+function editText(data, text){
+	var inverseLocation = this.stringsOverlayArray.length - $("ul").index(data) -1;	
+	data.data('text', text);
+	var rrggbb = data.data('color');
+	this.stringsOverlayArray[inverseLocation].setVisible(false);
+	this.stringsOverlayArray[inverseLocation].dispose();
+	this.stringsOverlayArray[inverseLocation] = makeLayoverFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
 };
+
+/** edit the color in an overlay */
+function editTextColor(data, rrggbb){
+	var inverseLocation = this.stringsOverlayArray.length - $("ul").index(data) -1;	
+	var text = data.data('text');
+	data.data('color', rrggbb);
+	this.stringsOverlayArray[inverseLocation].setVisible(false);
+	this.stringsOverlayArray[inverseLocation].dispose();
+	this.stringsOverlayArray[inverseLocation] = makeLayoverFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
+};
+
 
 /** remove the text overlay from the screen and its matching text
     check box in the GUI */
@@ -600,6 +621,17 @@ function createElement(type, attr){
 		return jQuery("<" + type + ">").attr(attr || {});
 };
 
+/** */
+function windowResize(event){
+	this.MAX_HEIGHT = $(window).height();
+	this.scale();
+};
+
+/** */
+function scale(){
+	jQuery("#app-gui").height(this.MAX_HEIGHT-84);
+};
+
 /** DOM builders, this changes what interface is used. Default, Marvel, Dredsen*/
 
 /** builds starter DOM */
@@ -625,3 +657,4 @@ function fiascoDOM() {
 
 // Wait for gadget to load.                                                       
 gadgets.util.registerOnLoadHandler(init);
+jQuery(window).resize(this.windowResize.bind(this));

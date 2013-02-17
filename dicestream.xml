@@ -169,8 +169,8 @@
 	<span class="slider-button" onClick="toggleDiv('lowerThird')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="lowerThird">
-	<input class="lower3rdtextfield" type="text" id="lower3rdmain" /><span class="lower3rdtitle">Main title</span><br/>
-	<input class="lower3rdtextfield" type="text" id="lower3rdsec" /><span class="lower3rdtitle">Sub title</span><br/>
+	<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
+	<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
 	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
 	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
 	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
