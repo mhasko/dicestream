@@ -30,7 +30,8 @@
 	<canvas height="128px" width="128px" id="layoverCanvas"></canvas>
 	<canvas height="70px" width="600px" id="textCanvas"></canvas>
 	<canvas height="100px" width="600px" id="mainThirdCanvas"></canvas>
-	<canvas height="90px"  width="600px" id="secThirdCanvas"></canvas>
+	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
+	<canvas height="256px" width="256px" id="imgThirdCanvas"></canvas>
 </div>
 <div id="app-gui">
 <div class="slider-frame">
@@ -174,6 +175,7 @@
 	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
 	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
 	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
+	<span class="lower3rdtitle"><input type="checkbox" id="mirrorVideo" onClick="isVideoMirrored(this)" checked="checked"/>Mirror Video</span><br/>
 </div>
 <div id="spacer"></div>
 </div>

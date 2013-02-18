@@ -45,15 +45,15 @@ this.SECOND_CONTEXT_BG;
 this.SECOND_CONTEXT_TEXT;
 
 /** lower 3rd position values */
-this.MAIN_WIDTH = 200;
+this.MAIN_WIDTH = 450;
 this.MAIN_HEIGHT = 26;
 this.MAIN_POS_X = .05;
 this.MAIN_POS_Y = .52;
 	
-this.SEC_WIDTH = 200;
+this.SEC_WIDTH = 401;
 this.SEC_HEIGHT = 18;
 this.SEC_POS_X = .07;
-this.SEC_POS_Y = .58;
+this.SEC_POS_Y = .59;
 
 /** max height variable, changed on resize */
 this.MAX_HEIGHT = $(window).height();
@@ -61,9 +61,7 @@ this.MAX_HEIGHT = $(window).height();
 /** lower 3rd secondary background color*/
 this.LOWER_3RD_SECONDARY = '#105080';
 
-this.arraySize = 0;
-
-this.CANVAS;
+//this.arraySize = 0;
 
 /** initializes the various arrays used to hold the overlays */
 this.rolledDiceOverlayArray = [];
@@ -117,13 +115,13 @@ function make3rdMain(main){
 	var canvas = $('#mainThirdCanvas').clone();
 	var mainContextBg = canvas[0].getContext("2d");
 	mainContextBg.fillStyle = "#ffffff";
-	mainContextBg.fillRect(0, 0, 450, 28);
+	mainContextBg.fillRect(0, 0, MAIN_WIDTH, 28);
 	this.MAIN_CONTEXT_BG = makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
 	
 	disposeLayover(this.MAIN_CONTEXT_TEXT);
 	var canvas2 = $('#mainThirdCanvas').clone();
 		var mainContextText = canvas2[0].getContext("2d");
-	mainContextText.font = "26px Verdana";
+	mainContextText.font = "24px Verdana";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
 	mainContextText.fillText(main, 0, MAIN_HEIGHT);
@@ -135,13 +133,13 @@ function make3rdSec(sec){
 	var canvas3 = $('#secThirdCanvas').clone();
 	var secondContextBg = canvas3[0].getContext("2d");
 	secondContextBg.fillStyle = this.LOWER_3RD_SECONDARY;
-	secondContextBg.fillRect(0, 0, 450, 18);
+	secondContextBg.fillRect(0, 0, SEC_WIDTH, 18);
 	this.SECOND_CONTEXT_BG = makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
 	
 	disposeLayover(this.SECOND_CONTEXT_TEXT);
 	var canvas4 = $('#secThirdCanvas').clone();
 	var secondContextText = canvas4[0].getContext("2d");
-	secondContextText.font = "18px Verdana";
+	secondContextText.font = "16px Verdana";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
 	secondContextText.fillText(sec, 0, SEC_HEIGHT);
@@ -194,12 +192,11 @@ function createTextCheckbox(text){
 	$.minicolors.init();
 };
 
-/** helper method to create canvas contexts on the fly*/
+/** TODO - remove this and use the clone existing cavnas elements for specific things.
+helper method to create canvas contexts on the fly*/
 function createContext(w, h) {
 	var canvas = createElement("canvas").height(h).width(w)[0];
     var context = canvas.getContext("2d");
-    //context.translate(0.5, 0.5);
-    //context.webkitImageSmoothingEnabled = true;
     return context;
 }
 
@@ -230,6 +227,10 @@ function toggle3rdAction(third){
 	SECOND_CONTEXT_BG.setVisible(third.checked);
 	SECOND_CONTEXT_TEXT.setVisible(third.checked);
 };
+
+function isVideoMirrored(mirrored){
+	gapi.hangout.av.setLocalParticipantVideoMirrored(!mirrored.checked);
+}
 
 
 function toggleSelectionAction(cb){
@@ -340,7 +341,7 @@ function removeText(data){
 
 function rollDice() {
 	var i = 0;
-	this.arraySize = rolledDiceOverlayArray.length;
+//	this.arraySize = rolledDiceOverlayArray.length;
 	for(;i<DICETYPE.length;i++)
 	{
 		var j=0;
@@ -527,7 +528,7 @@ function initInputFields(){
 	$("#d10count").text("0");
 	$("#d12count").text("0");
 	$("#d20count").text("0");
-	this.arraySize = 0;
+//	this.arraySize = 0;
 };
 
 /** keeps a running sum of 'selected' dice as they're selected and deselected*/
@@ -657,4 +658,5 @@ function fiascoDOM() {
 
 // Wait for gadget to load.                                                       
 gadgets.util.registerOnLoadHandler(init);
+gapi.hangout.av.setLocalParticipantVideoMirrored(false);
 jQuery(window).resize(this.windowResize.bind(this));
