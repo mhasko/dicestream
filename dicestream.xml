@@ -164,6 +164,10 @@
 	<!--div>
 		<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
 	</div-->
+	<div id="diceResetSettings">
+		<input type="checkbox" id="clearAfterRoll" onClick="toggleClearAfterRoll(this)" checked="checked"/>Clear Dice Selection After Roll<br/>
+		<input type="checkbox" id="appendToRoll" onClick="toggleAppendToRoll(this)" checked="checked"/>Append Roll To Existing Dice<br/>
+	</div>
 </div>
 <div class="slider-frame">
 	<span class="slider-title">Lower Third</span>

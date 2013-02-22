@@ -61,7 +61,11 @@ this.MAX_HEIGHT = $(window).height();
 /** lower 3rd secondary background color*/
 this.LOWER_3RD_SECONDARY = '#105080';
 
-//this.arraySize = 0;
+/** append dice to existing roll*/
+this.APPEND_TO_ROLL = true;
+
+/** clear selection after roll*/
+this.CLEAR_DIE_SELECTION = true;
 
 /** initializes the various arrays used to hold the overlays */
 this.rolledDiceOverlayArray = [];
@@ -203,7 +207,18 @@ function createContext(w, h) {
 /** actions that are tied to UI listeners */
 
 function rollDiceButton(){
+	if(!APPEND_TO_ROLL)
+	{
+		clearDice();
+		initDiceFields();
+	}
+	
 	rollDice();	
+	
+	if(CLEAR_DIE_SELECTION)
+	{
+		initInputFields();
+	}
 };
 
 function clearDiceButton(){
@@ -246,6 +261,14 @@ function toggleSelectionAction(cb){
 			SELECTION_ALLOW[SELECTION_X]=cb.checked;
 			break;			
 	}
+};
+
+function toggleClearAfterRoll(cb){
+	CLEAR_DIE_SELECTION = cb.checked;
+};
+
+function toggleAppendToRoll(cb){
+	APPEND_TO_ROLL = cb.checked;
 };
 
 function selectDiceAction(value){
@@ -367,7 +390,6 @@ function rollDice() {
 			$("#rolledDiceDiv").append(diceDiv);
 		}
 	}
-	initInputFields();
 };
 
 function selectDieOverlay(div){
