@@ -27,7 +27,7 @@
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" />
 <!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
 <div id="canvasDiv" class="disabled">
-	<canvas height="128px" width="128px" id="layoverCanvas"></canvas>
+	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
 	<canvas height="70px" width="600px" id="textCanvas"></canvas>
 	<canvas height="100px" width="600px" id="mainThirdCanvas"></canvas>
 	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
@@ -95,7 +95,7 @@
 			<input class="button btn btn-mini" type="button" value="+" id="dfadd" onClick="add('d3count', 9)"/>
 			<span id="d3count" class="dieCount label">0</span>
 		</span>
-		<span class='rightDice disabled'>
+		<span class='rightDice'>
 			<input class="button btn btn-mini" type="button" value="-" id="d100minus" onClick="minus('d100count', 0)"/>
 			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d100-100.png"/></span>
 			<input class="button btn btn-mini" type="button" value="+" id="d100add" onClick="add('d100count', 9)"/>
@@ -141,7 +141,19 @@
 	<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
 	<div id="screenStringsDiv"><ol id="stringList"></ol></div>
 </div>
-
+<div class="slider-frame">
+	<span class="slider-title">Lower Third</span>
+	<span class="slider-button" onClick="toggleDiv('lowerThird')"><i class="icon-circle-arrow-down"></i></span>
+</div>
+<div id="lowerThird">
+	<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
+	<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
+	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
+	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
+	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
+	<span class="lower3rdtitle"><input type="checkbox" id="mirrorVideo" onClick="isVideoMirrored(this)" checked="checked"/>Mirror Video</span><br/>
+	<span>Upload Avatar</span><input type="file" id="avatarFile" />
+</div>
 <div class="slider-frame">
 	<span class="slider-title">Settings</span>
 	<span class="slider-button" onClick="toggleDiv('settingsDiv')"><i class="icon-circle-arrow-down"></i></span>
@@ -168,18 +180,6 @@
 		<input type="checkbox" id="clearAfterRoll" onClick="toggleClearAfterRoll(this)" checked="checked"/>Clear Dice Selection After Roll<br/>
 		<input type="checkbox" id="appendToRoll" onClick="toggleAppendToRoll(this)" checked="checked"/>Append Roll To Existing Dice<br/>
 	</div>
-</div>
-<div class="slider-frame">
-	<span class="slider-title">Lower Third</span>
-	<span class="slider-button" onClick="toggleDiv('lowerThird')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="lowerThird">
-	<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
-	<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
-	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
-	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
-	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
-	<span class="lower3rdtitle"><input type="checkbox" id="mirrorVideo" onClick="isVideoMirrored(this)" checked="checked"/>Mirror Video</span><br/>
 </div>
 <div id="spacer"></div>
 </div>
