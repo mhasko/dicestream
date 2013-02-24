@@ -23,8 +23,19 @@ this.DICE_ROW_OFFSET = .08;
 this.DICE_COL_OFFSET = .125;
 
 /** offset for circle and hex overlays */ 
-this.SELECTION_OFFSET_X = .0525;
+this.SELECTION_OFFSET_X = .05475;
 this.SELECTION_OFFSET_Y = .1
+
+/** lower 3rd position values */
+this.MAIN_WIDTH = 485;
+this.MAIN_HEIGHT = 26;
+this.MAIN_POS_X = .05;
+this.MAIN_POS_Y = .52;
+	
+this.SEC_WIDTH = 434;
+this.SEC_HEIGHT = 18;
+this.SEC_POS_X = .07;
+this.SEC_POS_Y = .59;
 
 /** selection overlay types */
 this.SELECTION_NONE = 0;
@@ -39,44 +50,39 @@ this.SELECTION_ALLOW = [true, true, true, true];
 this.SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
 
 /** lower 3rd overlay values*/
-this.MAIN_CONTEXT_BG;
-this.MAIN_CONTEXT_TEXT;
-this.SECOND_CONTEXT_BG;
-this.SECOND_CONTEXT_TEXT;
-
-/** lower 3rd position values */
-this.MAIN_WIDTH = 450;
-this.MAIN_HEIGHT = 26;
-this.MAIN_POS_X = .05;
-this.MAIN_POS_Y = .52;
-	
-this.SEC_WIDTH = 401;
-this.SEC_HEIGHT = 18;
-this.SEC_POS_X = .07;
-this.SEC_POS_Y = .59;
+this.main_context_bg;
+this.main_context_text;
+this.second_context_bg;
+this.second_context_text;
 
 /** max height variable, changed on resize */
-this.MAX_HEIGHT = $(window).height();
+this.max_height = $(window).height();
 
 /** lower 3rd secondary background color*/
-this.LOWER_3RD_SECONDARY = '#105080';
+this.lower_3rd_secondary = '#105080';
 
 /** append dice to existing roll*/
-this.APPEND_TO_ROLL = true;
+this.append_to_roll = true;
 
 /** clear selection after roll*/
-this.CLEAR_DIE_SELECTION = true;
+this.clear_die_selection = true;
 
 /** initializes the various arrays used to hold the overlays */
 this.rolledDiceOverlayArray = [];
 this.effectOverlayArray = [];
 this.stringsOverlayArray = [];
 
-/** avatar image and counter */
-this.AVATAR_IMAGE;
-this.AVATAR_OVERLAY;
-this.AVATAR_IMAGE_RESOURCE;
-this.AVATAR_CONTEXT;
+/** counter image and counter */
+this.counter_image;
+this.counter_overlay;
+this.counter_image_resource;
+this.counter_context;
+
+/** file reader for avatar upload*/
+this.fileReader = new FileReader();
+
+/** avatar overlay */
+this.avatar_overlay;
 	
 /** when the hangout is ready, initialize the app */
 function init() {
@@ -95,7 +101,7 @@ function init() {
 /** takes the input text and creates a text overlay on the screen */
 function makeText(text){
 	var canvasContext = createTextContext(text);
-	this.stringsOverlayArray.push(makeLayoverFromContext(canvasContext, 1, 0, .40 - (this.stringsOverlayArray.length * this.STRING_OVERLAY_V_OFFSET) ) );
+	this.stringsOverlayArray.push(makeOverlayFromContext(canvasContext, 1, 0, .40 - (this.stringsOverlayArray.length * this.STRING_OVERLAY_V_OFFSET) ) );
 	createTextCheckbox(text);
 };
 
@@ -111,57 +117,90 @@ function createTextContext(text, color, font){
 function makeLower3rd(main, sec){
 	make3rdMain(main);
 	make3rdSec(sec);
+	makeAvatar()
 	$('#toggle3rd').attr('checked', true);
 };
 
 function make3rdMain(main){
-	disposeLayover(this.MAIN_CONTEXT_BG);
+	disposeOverlay(this.main_context_bg);
 	var canvas = $('#mainThirdCanvas').clone();
 	var mainContextBg = canvas[0].getContext("2d");
 	mainContextBg.fillStyle = "#ffffff";
 	mainContextBg.fillRect(0, 0, MAIN_WIDTH, 28);
-	this.MAIN_CONTEXT_BG = makeLayoverFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
+	this.main_context_bg = makeOverlayFromContext(mainContextBg, 1, MAIN_POS_X, MAIN_POS_Y);
 	
-	disposeLayover(this.MAIN_CONTEXT_TEXT);
+	disposeOverlay(this.main_context_text);
 	var canvas2 = $('#mainThirdCanvas').clone();
 		var mainContextText = canvas2[0].getContext("2d");
 	mainContextText.font = "24px Verdana";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
 	mainContextText.fillText(main, 0, MAIN_HEIGHT);
-	this.MAIN_CONTEXT_TEXT =makeLayoverFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .01);
+	this.main_context_text =makeOverlayFromContext(mainContextText, 1, MAIN_POS_X, MAIN_POS_Y - .01);
 };
 
 function make3rdSec(sec){
-	disposeLayover(this.SECOND_CONTEXT_BG);
+	disposeOverlay(this.second_context_bg);
 	var canvas3 = $('#secThirdCanvas').clone();
 	var secondContextBg = canvas3[0].getContext("2d");
-	secondContextBg.fillStyle = this.LOWER_3RD_SECONDARY;
+	secondContextBg.fillStyle = this.lower_3rd_secondary;
 	secondContextBg.fillRect(0, 0, SEC_WIDTH, 18);
-	this.SECOND_CONTEXT_BG = makeLayoverFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
+	this.second_context_bg = makeOverlayFromContext(secondContextBg, 1, SEC_POS_X, SEC_POS_Y);
 	
-	disposeLayover(this.SECOND_CONTEXT_TEXT);
+	disposeOverlay(this.second_context_text);
 	var canvas4 = $('#secThirdCanvas').clone();
 	var secondContextText = canvas4[0].getContext("2d");
 	secondContextText.font = "16px Verdana";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
 	secondContextText.fillText(sec, 0, SEC_HEIGHT);
-	this.SECOND_CONTEXT_TEXT = makeLayoverFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y - .01);	
+	this.second_context_text = makeOverlayFromContext(secondContextText, 1, SEC_POS_X, SEC_POS_Y - .01);	
 };
 
-/** helper method to dispose of hangout layovers */
-function disposeLayover(layover){
-	if(layover){
-		layover.setVisible(false);
-		layover.dispose();
+/** quick, hacky way to upload an avatar, 256 x 256 only*/
+function makeAvatar(){
+	readImageFromInput(document.getElementById("avatarFile"), function(data){
+		if(data === false || data.result === false){
+			return;
+		}
+
+		disposeOverlay(this.avatar_overlay);
+		var imageCanvas = $('#imgThirdCanvas').clone();
+		var imageContext = imageCanvas[0].getContext("2d"); 
+		this.avatar_overlay = this.makeOverlay(gapi.hangout.av.effects.createImageResource(data.result), .175, .385, .375);
+	});
+};
+
+/** get a dataURL from a selected file*/
+function readImageFromInput(input, callback){
+	if(input.files.length == 0){
+		callback.call(this, false);
+		return false;
+		}
+	this.fileReader.onloadend = function(evt){
+		callback.call(this, evt.target)
+	}.bind(this);
+
+	return this.fileReader.readAsDataURL(input.files[0]);
+}
+
+/** helper method to dispose of hangout overlay */
+function disposeOverlay(overlay){
+	if(overlay){
+		overlay.setVisible(false);
+		overlay.dispose();
 	}
 };
 
-/** create a hangout layover from an HTML5 canvas context */
-function makeLayoverFromContext(context, scale, xval, yval){
+/** create a hangout overlay from an HTML5 canvas context */
+function makeOverlayFromContext(context, scale, xval, yval){
 	var canvasImage = gapi.hangout.av.effects.createImageResource(context.canvas.toDataURL());
-	var overlay = canvasImage.createOverlay({});
+	return makeOverlay(canvasImage, scale, xval, yval);
+};
+	
+/** creat a Hangout overlay from a Hangout resource */
+function makeOverlay(resource, scale, xval, yval){
+	var overlay = resource.createOverlay({});
 	overlay.setScale(scale, gapi.hangout.av.effects.ScaleReference.WIDTH);
 	overlay.setPosition({x: xval, y: yval + this.CANVAS_V_OFFSET});
 	overlay.setVisible(true);
@@ -207,7 +246,7 @@ function createContext(w, h) {
 /** actions that are tied to UI listeners */
 
 function rollDiceButton(){
-	if(!APPEND_TO_ROLL)
+	if(!append_to_roll)
 	{
 		clearDice();
 		initDiceFields();
@@ -215,7 +254,7 @@ function rollDiceButton(){
 	
 	rollDice();	
 	
-	if(CLEAR_DIE_SELECTION)
+	if(clear_die_selection)
 	{
 		initInputFields();
 	}
@@ -228,8 +267,8 @@ function clearDiceButton(){
 };
 
 function togglePPAction(cb){
-	this.AVATAR_OVERLAY.setVisible(cb.checked);
-	this.AVATAR_IMAGE.setVisible(cb.checked);
+	this.counter_overlay.setVisible(cb.checked);
+	this.counter_image.setVisible(cb.checked);
 
 	$("#ppcount").toggleClass('disabled');
 	$("#ppadd").toggleClass('disabled');
@@ -237,10 +276,11 @@ function togglePPAction(cb){
 };
 
 function toggle3rdAction(third){
-	MAIN_CONTEXT_BG.setVisible(third.checked);
-	MAIN_CONTEXT_TEXT.setVisible(third.checked);
-	SECOND_CONTEXT_BG.setVisible(third.checked);
-	SECOND_CONTEXT_TEXT.setVisible(third.checked);
+	main_context_bg.setVisible(third.checked);
+	main_context_text.setVisible(third.checked);
+	second_context_bg.setVisible(third.checked);
+	second_context_text.setVisible(third.checked);
+	avatar_overlay.setVisible(third.checked);
 };
 
 function isVideoMirrored(mirrored){
@@ -264,11 +304,11 @@ function toggleSelectionAction(cb){
 };
 
 function toggleClearAfterRoll(cb){
-	CLEAR_DIE_SELECTION = cb.checked;
+	clear_die_selection = cb.checked;
 };
 
 function toggleAppendToRoll(cb){
-	APPEND_TO_ROLL = cb.checked;
+	append_to_roll = cb.checked;
 };
 
 function selectDiceAction(value){
@@ -325,7 +365,7 @@ function editText(data, text){
 	var rrggbb = data.data('color');
 	this.stringsOverlayArray[inverseLocation].setVisible(false);
 	this.stringsOverlayArray[inverseLocation].dispose();
-	this.stringsOverlayArray[inverseLocation] = makeLayoverFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
+	this.stringsOverlayArray[inverseLocation] = makeOverlayFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
 };
 
 /** edit the color in an overlay */
@@ -335,7 +375,7 @@ function editTextColor(data, rrggbb){
 	data.data('color', rrggbb);
 	this.stringsOverlayArray[inverseLocation].setVisible(false);
 	this.stringsOverlayArray[inverseLocation].dispose();
-	this.stringsOverlayArray[inverseLocation] = makeLayoverFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
+	this.stringsOverlayArray[inverseLocation] = makeOverlayFromContext(createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * this.STRING_OVERLAY_V_OFFSET) );
 };
 
 
@@ -364,7 +404,6 @@ function removeText(data){
 
 function rollDice() {
 	var i = 0;
-//	this.arraySize = rolledDiceOverlayArray.length;
 	for(;i<DICETYPE.length;i++)
 	{
 		var j=0;
@@ -410,19 +449,19 @@ function selectDieOverlay(div){
 					effectOverlayArray[diePosition].setVisible(false);
 					effectOverlayArray[diePosition].dispose();
 				}						
-				var circleContext = drawCircle(16,16,12,2);
-				effectOverlayArray[diePosition]=makeLayoverFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+				var circleContext = drawCircle(16,16,12,3);
+				effectOverlayArray[diePosition]=makeOverlayFromContext(circleContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
 				break;
 			case SELECTION_HEX:
 				$(div).css({'background-color':SELECTION_COLOR[SELECTION_HEX]});
 				modifyTotal('-', $(div).data('die').face);
 				//make the hex overlay
-				var hexContext = drawHex(16,16,12,2);
+				var hexContext = drawHex(16,16,12,3);
 				if(effectOverlayArray[diePosition]){
 					effectOverlayArray[diePosition].setVisible(false);
 					effectOverlayArray[diePosition].dispose();
 				}
-				effectOverlayArray[diePosition]=makeLayoverFromContext(hexContext, 1, newx - SELECTION_OFFSET_X , newy-SELECTION_OFFSET_Y);	
+				effectOverlayArray[diePosition]=makeOverlayFromContext(hexContext, 1, newx - SELECTION_OFFSET_X , newy-SELECTION_OFFSET_Y);	
 				break;
 			case SELECTION_X:
 				$(div).css({'background-color':SELECTION_COLOR[SELECTION_X]});
@@ -432,7 +471,7 @@ function selectDieOverlay(div){
 					effectOverlayArray[diePosition].setVisible(false);
 					effectOverlayArray[diePosition].dispose();
 				}		
-				effectOverlayArray[diePosition]=makeLayoverFromContext(xContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
+				effectOverlayArray[diePosition]=makeOverlayFromContext(xContext, 1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);	
 				break;
 			case SELECTION_NONE:
 			default:
@@ -497,21 +536,21 @@ function setDice(value){
 };
 
 function setPP(value, color){		
-	if(this.AVATAR_OVERLAY){this.AVATAR_OVERLAY.setVisible(false);}
+	if(this.counter_overlay){this.counter_overlay.setVisible(false);}
 	
-	this.AVATAR_CONTEXT = createContext(32, 32);
-	this.AVATAR_CONTEXT.font = "20px Verdana";
-	this.AVATAR_CONTEXT.fillStyle = color ? color : $("#ppcolor").val();
-	this.AVATAR_CONTEXT.fillText(value, 0, 20);
-	this.AVATAR_OVERLAY = makeLayoverFromContext(this.AVATAR_CONTEXT, 1, .93, 0);
+	this.counter_context = createContext(32, 32);
+	this.counter_context.font = "20px Verdana";
+	this.counter_context.fillStyle = color ? color : $("#ppcolor").val();
+	this.counter_context.fillText(value, 0, 20);
+	this.counter_overlay = makeOverlayFromContext(this.counter_context, 1, .93, 0);
 };
 
 //TODO 
 function initPPOverlays(){	
-	this.AVATAR_IMAGE_RESOURCE = gapi.hangout.av.effects.createImageResource(IMAGEROOT + DICEROOT + '/shieldpp' + PNG);
-	this.AVATAR_IMAGE = this.AVATAR_IMAGE_RESOURCE.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
-	this.AVATAR_IMAGE.setPosition({x: .45, y:-.425});
-	this.AVATAR_IMAGE.setVisible(true);
+	this.counter_image_resource = gapi.hangout.av.effects.createImageResource(IMAGEROOT + DICEROOT + '/shieldpp' + PNG);
+	this.counter_image = this.counter_image_resource.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
+	this.counter_image.setPosition({x: .45, y:-.425});
+	this.counter_image.setVisible(true);
 };
 
 function initWidgets(){
@@ -535,7 +574,7 @@ function initWidgets(){
 			});
 			
 	$("#lower3rdsecselect").change(function(){
-				LOWER_3RD_SECONDARY = $(this).val();
+				lower_3rd_secondary = $(this).val();
 				if($('#toggle3rd').attr('checked')){
 					make3rdSec($("#lower3rdsec").val());
 				}
@@ -553,7 +592,8 @@ function initInputFields(){
 //	this.arraySize = 0;
 };
 
-/** keeps a running sum of 'selected' dice as they're selected and deselected*/
+/** keeps a running sum of 'selected' dice as they're selected and deselected
+    TODO -- currently not used, add as an option later (rolled dice vs selected*/
 function modifyTotal(operation, value){
 	var existingValue = parseInt($("#diceTotal").text(),10);
 	switch(operation){
@@ -582,10 +622,11 @@ function drawHex(x,y,L,thick){
 /** draw a regular polygon on an HTML5 canvas object */
 function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
     var shapeContext = createContext(256, 256);
-	//var canvas = $('#layoverCanvas').clone();
+	//var canvas = $('#overlayCanvas').clone();
 	//var shapeContext = canvas[0].getContext("2d");
     var firstX;
     var firstY;
+    shapeContext.translate(0.5, 0.5);
     shapeContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_HEX];
     shapeContext.lineWidth = lineThickness;
     shapeContext.beginPath();
@@ -614,6 +655,9 @@ function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
 /** draw a circle on an HTML5 canvas object */
 function drawCircle(x0,y0,radius,lineThickness) {
 	var circleContext = createContext(256, 256);
+	//var canvas = $('#overlayCanvas').clone();
+	//var circleContext = canvas[0].getContext("2d");
+	circleContext.translate(0.5, 0.5);
 	circleContext.beginPath();
 	circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
 	circleContext.lineWidth = lineThickness;
@@ -625,6 +669,8 @@ function drawCircle(x0,y0,radius,lineThickness) {
 /** draw an x on an HTML5 canvas object */
 function drawX(lineThickness) {
 	var xContext = createContext(256, 256);
+	//var canvas = $('#overlayCanvas').clone();
+	//var xContext = canvas[0].getContext("2d");
 	xContext.translate(0.5, 0.5);
 	xContext.lineWidth = lineThickness;
 	xContext.strokeStyle = this.SELECTION_COLOR[this.SELECTION_X];
@@ -646,13 +692,13 @@ function createElement(type, attr){
 
 /** */
 function windowResize(event){
-	this.MAX_HEIGHT = $(window).height();
+	this.max_height = $(window).height();
 	this.scale();
 };
 
 /** */
 function scale(){
-	jQuery("#app-gui").height(this.MAX_HEIGHT-84);
+	jQuery("#app-gui").height(this.max_height-84);
 };
 
 /** DOM builders, this changes what interface is used. Default, Marvel, Dredsen*/
