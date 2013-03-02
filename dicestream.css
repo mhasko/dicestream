@@ -43,13 +43,13 @@ ul, ol{
 }
 
 .leftDice{
-	position:absolute;
-	left:25px;
+	position:relative;
+	left:35px;
 }
 
 .rightDice{
-	position:absolute;
-	right:25px;
+	position: absolute;
+	left: 145px;
 }
 
 .row{

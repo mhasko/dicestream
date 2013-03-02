@@ -3,7 +3,6 @@ this.DICETYPE = [3,4,6,8,10,12,20,100];
 
 /** root variables to the various image paths used.*/
 this.IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
-//this.IMAGEROOT = "https://dl.dropbox.com/u/1177409/dicestream/images";
 this.DICEROOT = "/standard";
 this.PNG = ".png";
 
@@ -90,6 +89,7 @@ function init() {
 	gapi.hangout.onApiReady.add(
 	function(eventObj) {
 		if(eventObj.isApiReady) {
+			document.getElementById('app-gui').style.visibility = 'visible';
 			initWidgets();
 			initPPOverlays();
 			setPP(1);			
@@ -589,6 +589,7 @@ function initInputFields(){
 	$("#d10count").text("0");
 	$("#d12count").text("0");
 	$("#d20count").text("0");
+	$("#d100count").text("0");
 //	this.arraySize = 0;
 };
 
