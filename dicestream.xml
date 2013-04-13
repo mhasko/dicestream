@@ -13,13 +13,13 @@
 	<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.3" ></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
-
+	
 	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script>
 	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>
-<body>
+<body id="ds">
 
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
@@ -39,90 +39,6 @@
 	<span class="slider-button" onClick="toggleDiv('diceDiv')"><i class="icon-circle-arrow-down"></i></span>
 </div>
 <div id="diceDiv" class="groupDiv">
-	<div class='row'>
-		<span class='leftDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d4minus" onClick="minus('d4count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d4-4.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d4add" onClick="add('d4count', 99)"/>
-			<span id="d4count" class="dieCount label">0</span>
-		</span>
-
-		<span class='rightDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d10minus" onClick="minus('d10count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d10-10.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d10add"  onClick="add('d10count', 99)"/>
-			<span id="d10count" class="dieCount label">0</span>
-		</span>
-	</div>
-
-	<div class='row'>
-		<span class='leftDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d6minus" onClick="minus('d6count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d6-6.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d6add" onClick="add('d6count', 99)"/>
-			<span id="d6count" class="dieCount label">0</span>
-		</span>
-
-		<span class='rightDice'>
-
-			<input class="button btn btn-mini" type="button" value="-" id="d12minus" onClick="minus('d12count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d12-12.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d12add" onClick="add('d12count', 99)"/>
-			<span id="d12count" class="dieCount label">0</span>
-		</span>
-	</div>
-
-	<div class='row'>
-		<span class='leftDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d8minus" onClick="minus('d8count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d8-8.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d8add" onClick="add('d8count', 99)"/>
-			<span id="d8count" class="dieCount label">0</span>
-		</span>
-		
-		<span class='rightDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d20minus" onClick="minus('d20count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d20-20.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d20add" onClick="add('d20count', 99)"/>
-			<span id="d20count" class="dieCount label">0</span>
-		</span>		
-	</div>
-	
-	<div class='row'>
-		<span class='leftDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="dfminus" onClick="minus('d3count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d3-2.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="dfadd" onClick="add('d3count', 99)"/>
-			<span id="d3count" class="dieCount label">0</span>
-		</span>
-		<span class='rightDice'>
-			<input class="button btn btn-mini" type="button" value="-" id="d100minus" onClick="minus('d100count', 0)"/>
-			<span class='rolledDice'><img src="https://commondatastorage.googleapis.com/dicestream/images/standard/d100-100.png"/></span>
-			<input class="button btn btn-mini" type="button" value="+" id="d100add" onClick="add('d100count', 99)"/>
-			<span id="d100count" class="dieCount label">0</span>
-		</span>
-	</div>
-
-	<div class='row'>
-		<span class='leftDice disabled'>
-			Current Total <span class='diceSum label' id="diceTotal">0</span>
-		</span>
-
-		<span class='rightDice'>
-			<input class="button btn btn-primary" type="button" value="Roll" id="roll" onClick="rollDiceButton()" />
-			<input class="button btn btn-primary" type="button" value="Clear" id="clear" onClick="clearDiceButton()" />
-		</span>
-	</div>
-	<div id="plotPointDiv" class='row'>
-		<span id="plotPointSpan" class='leftDice'>
-			<input id="ppcolor" type="minicolors" data-textfield="false" data-default="#000000" />
-			<input type="checkbox" id="togglePP" onClick="togglePPAction(this)" checked="checked"/>
-			<span id="ppname" class="button">Counter</span>
-			<input class="button btn btn-mini" type="button" value="-" id="ppminus" onClick="ppminus()"/>
-			<input class="button btn btn-mini" type="button" value="+" id="ppadd" onClick="ppadd()"/>		
-			<span id="ppcount" class="dieCount label">1</span>
-		</span>
-	</div>
 </div>
 
 <div class="slider-frame">
@@ -180,6 +96,13 @@
 		<input type="checkbox" id="clearAfterRoll" onClick="toggleClearAfterRoll(this)" checked="checked"/>Clear Dice Selection After Roll<br/>
 		<input type="checkbox" id="appendToRoll" onClick="toggleAppendToRoll(this)" checked="checked"/>Append Roll To Existing Dice<br/>
 	</div>
+	
+	<!--div id="themeSelect">
+		<select onChange="selectThemeAction(this)" id="selectThemeSet">
+			<option value="default">Default</option>
+			<option value="fate">Fate</option>
+		</select>
+	</div-->
 </div>
 <div id="spacer"></div>
 </div>

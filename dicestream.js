@@ -89,12 +89,14 @@ function init() {
 	gapi.hangout.onApiReady.add(
 	function(eventObj) {
 		if(eventObj.isApiReady) {
+			//Needed for Firefox which hides the display at startup
 			document.getElementById('app-gui').style.visibility = 'visible';
+			initDiceUI();
 			initWidgets();
 			initPPOverlays();
-			setPP(1);			
+			setPP(1);	
+			scale();
 		}
-	scale();
 	});
 };
 
@@ -313,6 +315,16 @@ function toggleAppendToRoll(cb){
 
 function selectDiceAction(value){
 	setDice(value);
+};
+
+function selectThemeAction(value){
+	switch(value)
+	{
+		case 'fate':
+			$("#diceDiv").text("");
+			fateFudgeDOM();
+			break;
+	}
 };
 
 
@@ -553,6 +565,10 @@ function initPPOverlays(){
 	this.counter_image.setVisible(true);
 };
 
+function initDiceUI(){
+	defaultDOM();
+};
+
 function initWidgets(){
 	//create a callback to change the color of the pp counter
 	$("#ppcolor").change(function(){
@@ -693,7 +709,7 @@ function createElement(type, attr){
 
 /** */
 function windowResize(event){
-	this.max_height = $(window).height();
+	this.max_height = window.innerHeight;
 	this.scale();
 };
 
@@ -702,26 +718,128 @@ function scale(){
 	jQuery("#app-gui").height(this.max_height-84);
 };
 
-/** DOM builders, this changes what interface is used. Default, Marvel, Dredsen*/
+function makeDiceSpan(dieSize) {
+	var dieVal = "d"+dieSize;
+	var span = createElement("span");
+	$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"minus", "value" : "-"}).click(function(){minus(dieVal+"count", 0);}));
+	$(span).append(createElement("span", {"class" : "rolledDice"}).append(createElement("img", {"src" : "https://commondatastorage.googleapis.com/dicestream/images/standard/"+dieVal+".png"})));
+	$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"plus", "value" : "+"}).click(function(){add(dieVal+"count", 99);}));
+	$(span).append(createElement("span", {"class" : "dieCount label", "id" : dieVal+"count"}).text("0"));
+	return span;
+};
 
-/** builds starter DOM */
+function makeDiceButtonDiv() {
+	var row = createElement("div", {"class" : "row"});
+	$(row).append(createElement("span", {"class" : "leftDice disabled"}).text("Current Total"));
+	
+	var span = createElement("span", {"class" : "rightDice"});
+	var rollButton = createElement("input", {"class" : "button btn btn-primary", "type" : "button", "value" : "Roll", "id" : "roll"}).click(function(){rollDiceButton();});
+	var clearButton = createElement("input", {"class" : "button btn btn-primary", "type" : "button", "value" : "Clear", "id" : "clear"}).click(function(){clearDiceButton();});
+	$(span).append(rollButton);
+	$(span).append(clearButton);
+	
+	$(row).append(span);
+
+	return row;
+};
+
+function makeCounterDiv() {
+	var row = createElement("div", {"class" : "row", "id" : "plotPointDiv"});
+	var span = createElement("span", {"class" : "leftDice", "id" : "plotPointSpan"});
+	$(span).append(createElement("input", {"id" : "ppcolor", "type" : "minicolors", "data-textfield" : "false", "data-default" : "#000000"}).text(""));
+	$(span).append(createElement("input", {"id" : "togglePP", "type" : "checkbox", "checked":"checked"}).click(function () {togglePPAction(this);}));
+	$(span).append(createElement("span", {"id" : "ppname", "class" : "button"}).text("Counter"));
+	$(span).append(createElement("input", {"id" : "ppminus", "class" : "button btn btn-mini", "type" : "button", "value" : "-"}).click(function () {ppminus();}));
+	$(span).append(createElement("input", {"id" : "ppadd", "class" : "button btn btn-mini", "type" : "button", "value" : "+"}).click(function () {ppadd();}));
+	$(span).append(createElement("span", {"id" : "ppcount", "class" : "diecount label"}).text("1"));	
+	$(row).append(span);
+	return row;
+};
+
+/** DOM builders, this changes what interface is used*/
+
+/** builds starter DOM
+    all dice and counter*/
 function defaultDOM() {
+	var row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('4').addClass('leftDice'));
+	$(row).append(makeDiceSpan('6').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('8').addClass('leftDice'));
+	$(row).append(makeDiceSpan('10').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('12').addClass('leftDice'));
+	$(row).append(makeDiceSpan('20').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('3').addClass('leftDice'));
+	$(row).append(makeDiceSpan('100').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	$("#diceDiv").append(makeDiceButtonDiv());
+	$("#diceDiv").append(makeCounterDiv());
+	$.minicolors.init();
+};
 
+/** builds layout for cortext+ games
+    d4, d6, d8, d10, d12, and counter*/
+function cortexDOM() {
+	var row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('4').addClass('leftDice'));
+	$(row).append(makeDiceSpan('6').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('8').addClass('leftDice'));
+	$(row).append(makeDiceSpan('10').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('12').addClass('leftDice'));
+	$(row).append(makeDiceSpan('20').addClass('rightDice'));
+	$("#diceDiv").append(row);
+	
+	$("#diceDiv").append(makeDiceButtonDiv());
+	$("#diceDiv").append(makeCounterDiv());
+	$.minicolors.init();
+};
+
+/** builds layout for fate and fudge games
+    df and counter*/
+function fateFudgeDOM() {
+	row = createElement("div", {"class" : "row"});
+	$(row).append(makeDiceSpan('3').addClass('leftDice'));
+	$("#diceDiv").append(row);
+	$("#diceDiv").append(makeDiceButtonDiv());
+	$("#diceDiv").append(makeCounterDiv());
+	$.minicolors.init();
 };
 
 /** builds Marvel DOM, and switches to Marvel dice set */
 function marvelDOM() {
 
+	$("#diceDiv").append(makeDiceButtonDiv());
+	$("#diceDiv").append(makeCounterDiv());
+	$.minicolors.init();
 };
 
 /** builds Dresden Files DOM, and switches to Dredsen Files dice set */
 function dresdenDOM() {
 
+	$("#diceDiv").append(makeDiceButtonDiv());
+	$("#diceDiv").append(makeCounterDiv());
+	$.minicolors.init();
 };
 
 /** builds Fiasco DOM, and switches to  Fiasco dice set */
 function fiascoDOM() {
 
+	$("#diceDiv").append(makeDiceButtonDiv());
 };
 
 

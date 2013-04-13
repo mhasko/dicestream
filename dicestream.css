@@ -2,13 +2,17 @@ ul, ol{
 	margin: 0 0 0 5px;
 }
 
+#ds{
+	width:300px;
+}
+
 #canvasDiv{
 	height: 0px;
 }
 
 #app-gui{
 	height: 380px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 }
 
@@ -44,12 +48,12 @@ ul, ol{
 
 .leftDice{
 	position:relative;
-	left:35px;
+	left:25px;
 }
 
 .rightDice{
 	position: absolute;
-	left: 145px;
+	left: 150px;
 }
 
 .row{
@@ -67,6 +71,7 @@ ul, ol{
 
 .button{
 	vertical-align: middle;
+	margin: 0 5px 0 5px;
 }
 
 .minicolors{
@@ -77,6 +82,7 @@ ul, ol{
 	height: 32px;
 	width: 32px;
 	display: inline-block;
+	margin: 0 5px 0 5px;
 }
 
 .removeText{
