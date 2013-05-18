@@ -15,6 +15,9 @@ this.CANVAS_V_OFFSET = -.055;
 /** Vertical offest for string overlays */
 this.STRING_OVERLAY_V_OFFSET = .06;
 
+/** Number of dice positions to offset for the Google+ watermark */
+this.WATERMARK_OFFSET = 2;
+
 /** Space between rows of dice*/
 this.DICE_ROW_OFFSET = .08;
 
@@ -531,10 +534,20 @@ function setDieArrayFalse(value, index, array) {
 
 /** displays the dice overlays across the top of the screen */
 function positionOverlays(value, index, display){
-	var rowOffset = ((index - (index % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * this.DICE_COL_OFFSET;
-	var columnOffset = (index % NUM_DICE_PER_ROW ) * this.DICE_ROW_OFFSET;
+	//index is an array index.  We need to use that value along with the constant
+	//for the allowable number of dice in a row to first determine the 'grid' 
+	//position of the die, then use the offset value to computer the position
+	//values for the overlay.
+	watermarkedIndex = index + WATERMARK_OFFSET;
+	var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * this.DICE_COL_OFFSET;
+	var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * this.DICE_ROW_OFFSET;
 	value.setPosition({x: -.45 + columnOffset, y:-.425 + rowOffset});
 	value.setVisible(display);
+};
+
+/** determine the row offset for dice overlay*/
+function rowOffset(index) {
+	
 };
 
 //TOOD having the position of canvas overlays be standarized

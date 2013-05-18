@@ -14,8 +14,8 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 	
-	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js"></script>
-	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
+	<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?134"--></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>
@@ -24,8 +24,8 @@
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" />
-<!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
+<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
 <div id="canvasDiv" class="disabled">
 	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
 	<canvas height="70px" width="600px" id="textCanvas"></canvas>
