@@ -105,6 +105,7 @@
 			<option value="fate">Fate</option>
 		</select>
 	</div-->
+	<div id="version"><h6>v1.3.5</h6></div>
 </div>
 <div id="spacer"></div>
 </div>
