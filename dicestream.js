@@ -113,7 +113,7 @@ function makeText(text){
 function createTextContext(text, color, font){
 	var canvas = $('#textCanvas').clone();
 	var textContext = canvas[0].getContext("2d");
-	textContext.font = font ? font : "20px Verdana";
+	textContext.font = font ? font : "20px Arial";
 	textContext.fillStyle = color ? color : "#000000";
 	textContext.fillText(text, 20, 20);
 	return textContext;
@@ -137,7 +137,7 @@ function make3rdMain(main){
 	disposeOverlay(this.main_context_text);
 	var canvas2 = $('#mainThirdCanvas').clone();
 		var mainContextText = canvas2[0].getContext("2d");
-	mainContextText.font = "24px Verdana";
+	mainContextText.font = "24px Arial";
 	mainContextText.lineWidth = 1;
 	mainContextText.fillStyle = "#000000";
 	mainContextText.fillText(main, 0, MAIN_HEIGHT);
@@ -155,7 +155,7 @@ function make3rdSec(sec){
 	disposeOverlay(this.second_context_text);
 	var canvas4 = $('#secThirdCanvas').clone();
 	var secondContextText = canvas4[0].getContext("2d");
-	secondContextText.font = "16px Verdana";
+	secondContextText.font = "16px Arial";
 	secondContextText.lineWidth = 1;
 	secondContextText.fillStyle = "#000000";
 	secondContextText.fillText(sec, 0, SEC_HEIGHT);
@@ -563,11 +563,12 @@ function setDice(value){
 function setPP(value, color){		
 	if(this.counter_overlay){this.counter_overlay.setVisible(false);}
 	
-	this.counter_context = createContext(32, 32);
-	this.counter_context.font = "20px Verdana";
+	var canvas = $('#counterCanvas').clone();
+	this.counter_context = canvas[0].getContext("2d");
+	this.counter_context.font = "48px Arial";
 	this.counter_context.fillStyle = color ? color : $("#ppcolor").val();
-	this.counter_context.fillText(value, 0, 20);
-	this.counter_overlay = makeOverlayFromContext(this.counter_context, 1, .93, 0);
+	this.counter_context.fillText(value, 0, 80);
+	this.counter_overlay = makeOverlayFromContext(this.counter_context, 1, .9, -.35);//makeOverlayFromContext(createTextContext(value, rrggbb, font), 1, .5, .5);
 };
 
 //TODO 

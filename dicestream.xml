@@ -32,6 +32,8 @@
 	<canvas height="100px" width="600px" id="mainThirdCanvas"></canvas>
 	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
 	<canvas height="256px" width="256px" id="imgThirdCanvas"></canvas>
+	<canvas height="128px" width="600px" id="counterCanvas"></canvas>
+	<canvas height="256px" width="256px" id="selectionCanvas"></canvas>
 </div>
 <div id="app-gui">
 <div class="slider-frame">
