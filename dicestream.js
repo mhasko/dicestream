@@ -581,6 +581,7 @@ function initPPOverlays(){
 
 function initDiceUI(){
 	defaultDOM();
+	$('#tabs').tabs();
 };
 
 function initWidgets(){
@@ -744,15 +745,15 @@ function makeDiceSpan(dieSize) {
 
 function makeDiceButtonDiv() {
 	var row = createElement("div", {"class" : "row"});
-	$(row).append(createElement("span", {"class" : "leftDice disabled"}).text("Current Total"));
+	//$(row).append(createElement("span", {"class" : "leftDice disabled"}).text("Current Total"));
 	
-	var span = createElement("span", {"class" : "rightDice"});
+	var div = createElement("div", {"id" : "diceButtonDiv"});
 	var rollButton = createElement("input", {"class" : "button btn btn-primary", "type" : "button", "value" : "Roll", "id" : "roll"}).click(function(){rollDiceButton();});
 	var clearButton = createElement("input", {"class" : "button btn btn-primary", "type" : "button", "value" : "Clear", "id" : "clear"}).click(function(){clearDiceButton();});
-	$(span).append(rollButton);
-	$(span).append(clearButton);
+	$(div).append(rollButton);
+	$(div).append(clearButton);
 	
-	$(row).append(span);
+	$(row).append(div);
 
 	return row;
 };
@@ -761,7 +762,7 @@ function makeCounterDiv() {
 	var row = createElement("div", {"class" : "row", "id" : "plotPointDiv"});
 	var span = createElement("span", {"class" : "leftDice", "id" : "plotPointSpan"});
 	$(span).append(createElement("input", {"id" : "ppcolor", "type" : "minicolors", "data-textfield" : "false", "data-default" : "#000000"}).text(""));
-	$(span).append(createElement("input", {"id" : "togglePP", "type" : "checkbox", "checked":"checked"}).click(function () {togglePPAction(this);}));
+	$(span).append(createElement("input", {"id" : "togglePP", "class" : "checkbox", "type" : "checkbox", "checked":"checked"}).click(function () {togglePPAction(this);}));
 	$(span).append(createElement("span", {"id" : "ppname", "class" : "button"}).text("Counter"));
 	$(span).append(createElement("input", {"id" : "ppminus", "class" : "button btn btn-mini", "type" : "button", "value" : "-"}).click(function () {ppminus();}));
 	$(span).append(createElement("input", {"id" : "ppadd", "class" : "button btn btn-mini", "type" : "button", "value" : "+"}).click(function () {ppadd();}));

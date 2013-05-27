@@ -11,7 +11,7 @@ ul, ol{
 }
 
 #app-gui{
-	height: 380px;
+	height: 420px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -19,6 +19,11 @@ ul, ol{
 #diceDiv{
 }
 
+#diceButtonDiv{
+	display: block;
+	margin-left: 30%;
+	margin-right: 20%;
+}
 
 #rolledDiceDiv{
 	position: relative;
@@ -40,10 +45,19 @@ ul, ol{
 	display: inline;
 }
 
+/*overrides of the jQuery ui tab */
+.ui-tabs .ui-tabs-panel {
+	padding: 0 0 0 0;
+}
+
+.ui-tabs .ui-tabs-nav li a{
+	padding: .5em .25em;
+}
+
 .groupDiv{
 	position: relative;
 	height: auto;
-	padding: 5px 5px;
+	padding: 20px 5px;
 }
 
 .leftDice{
@@ -113,8 +127,21 @@ ul, ol{
 	width: 170px;
 }
 
+.checkboxText{
+	padding: 0 0 0 7px;
+	vertical-align: middle;
+}
+
+.checkbox{
+	padding: 0 5px 0 5px;
+}
+
+.uploadAvatarDiv{
+	padding: 15px 0 0 0;
+}
+
 .lower3rdtitle{
-	position: relative;
+	/*position: relative;*/
 	right: 20px;
 	float: right;
 }

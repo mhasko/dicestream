@@ -14,18 +14,19 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 	
-	<!--script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?134"--></script>
-	<script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?134"></script>
+	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>
 <body id="ds">
 
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.css"/>
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" /-->
-<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" />
+<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css" />
+<!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
 <div id="canvasDiv" class="disabled">
 	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
 	<canvas height="70px" width="600px" id="textCanvas"></canvas>
@@ -36,79 +37,84 @@
 	<canvas height="256px" width="256px" id="selectionCanvas"></canvas>
 </div>
 <div id="app-gui">
-<div class="slider-frame">
-	<span class="slider-title">Dice</span>
-	<span class="slider-button" onClick="toggleDiv('diceDiv')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="diceDiv" class="groupDiv">
-</div>
-
-<div class="slider-frame">
-	<span class="slider-title">Rolled Dice</span>
-	<span class="slider-button" onClick="toggleDiv('rolledDiceDiv')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="rolledDiceDiv" class="groupDiv">
-</div>
-
-<div class="slider-frame">
-	<span class="slider-title">Text Overlays</span>
-	<span class="slider-button" onClick="toggleDiv('stringDiv')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="stringDiv" class="groupDiv">
-	<input type="text" id="txtField" />
-	<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
-	<div id="screenStringsDiv"><ol id="stringList"></ol></div>
-</div>
-<div class="slider-frame">
-	<span class="slider-title">Lower Third</span>
-	<span class="slider-button" onClick="toggleDiv('lowerThird')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="lowerThird">
-	<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
-	<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
-	<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
-	<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" />
-	<input type="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" />Show/Hide Lower Third<br/>
-	<span class="lower3rdtitle"><input type="checkbox" id="mirrorVideo" onClick="isVideoMirrored(this)" checked="checked"/>Mirror Video</span><br/>
-	<span>Upload Avatar</span><input type="file" id="avatarFile" />
-</div>
-<div class="slider-frame">
-	<span class="slider-title">Settings</span>
-	<span class="slider-button" onClick="toggleDiv('settingsDiv')"><i class="icon-circle-arrow-down"></i></span>
-</div>
-<div id="settingsDiv" class="groupDiv">
-	<div id="selectionColors">
-		<span id="selectedColor">
-			<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#54A954" />
-			<input type="checkbox" id="toggleCircle" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>Circle Color<br/>
-		</span>
-		<span id="effectColor">
-			<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
-			<input type="checkbox" id="toggleHex" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>Hex Color<br/>
-		</span>
-		<span id="xColor">
-			<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#802015" />
-			<input type="checkbox" id="toggleX" onClick="toggleSelectionAction(this)" checked="checked" class="button"/>X Color<br/>
-		</span>
-	</div>	
-	<!--div>
-		<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
-	</div-->
-	<div id="diceResetSettings">
-		<input type="checkbox" id="clearAfterRoll" onClick="toggleClearAfterRoll(this)" checked="checked"/>Clear Dice Selection After Roll<br/>
-		<input type="checkbox" id="appendToRoll" onClick="toggleAppendToRoll(this)" checked="checked"/>Append Roll To Existing Dice<br/>
+<div id="tabs">
+  <ul>
+    <li><a href="#diceTab">Dice</a></li>
+    <li><a href="#textTab">Text</a></li>
+    <li><a href="#lowerThirdTab">Lower Third</a></li>
+    <li><a href="#settingsTab">Settings</a></li>
+  </ul>
+  <div id="diceTab">
+	<div id="diceDiv" class="groupDiv">
 	</div>
-	
-	<!--div id="themeSelect">
-		<select onChange="selectThemeAction(this)" id="selectThemeSet">
-			<option value="default">Default</option>
-			<option value="fate">Fate</option>
-		</select>
-	</div-->
-	<div id="version"><h6>v1.3.5</h6></div>
+
+	<div id="rolledDiceDiv" class="groupDiv">
+	</div>
+  </div>
+  <div id="textTab">
+	<div id="stringDiv" class="groupDiv">
+		<input type="text" id="txtField" />
+		<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
+		<div id="screenStringsDiv"><ol id="stringList"></ol></div>
+	</div>
+  </div>
+  <div id="lowerThirdTab">
+	<div id="lowerThird" class="groupDiv">
+		<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
+		<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
+		<div>
+			<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
+			<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" /><br/>
+			<input type="checkbox" class="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" /><span class="checkboxText">Show/Hide Lower Third</span><br/>
+		</div>
+		<div class="uploadAvatarDiv">
+			<span>Upload Avatar</span><input type="file" id="avatarFile" />
+		</div>
+	</div>
+  </div>
+  <div id="settingsTab">
+	<div id="settingsDiv" class="groupDiv">
+		<div id="selectionColors">
+			<span id="selectedColor">
+				<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#54A954" />
+				<input type="checkbox" id="toggleCircle" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Circle Color</span><br/>
+			</span>
+			<span id="effectColor">
+				<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
+				<input type="checkbox" id="toggleHex" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Hex Color</span><br/>
+			</span>
+			<span id="xColor">
+				<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#802015" />
+				<input type="checkbox" id="toggleX" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">X Color</span><br/>
+			</span>
+		</div>	
+		<!--div>
+			<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
+		</div-->
+		<div id="diceResetSettings">
+			<input type="checkbox" id="clearAfterRoll" class="checkbox" onClick="toggleClearAfterRoll(this)" checked="checked"/><span class="checkboxText">Clear Dice Selection After Roll</span><br/>
+			<input type="checkbox" id="appendToRoll" class="checkbox" onClick="toggleAppendToRoll(this)" checked="checked"/><span class="checkboxText">Append Roll To Existing Dice</span><br/>
+		</div>
+		
+		<div>
+			<input type="checkbox" id="mirrorVideo" class="checkbox" onClick="isVideoMirrored(this)" checked="checked"/><span class="checkboxText">Mirror Video</br><br/>
+		</div>
+
+		<!--div id="themeSelect">
+			<select onChange="selectThemeAction(this)" id="selectThemeSet">
+				<option value="default">Default</option>
+				<option value="fate">Fate</option>
+			</select>
+		</div-->
+		<div id="version"><h6>v1.3.6</h6></div>
+	</div>
+  </div>
 </div>
-<div id="spacer"></div>
-</div>
+
+
+
+<!--div id="spacer"></div>
+</div-->
 
 </body>
 ]]>
