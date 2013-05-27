@@ -51,7 +51,7 @@ ul, ol{
 }
 
 .ui-tabs .ui-tabs-nav li a{
-	padding: .5em .25em;
+	padding: .5em .15em;
 }
 
 .groupDiv{
@@ -67,7 +67,7 @@ ul, ol{
 
 .rightDice{
 	position: absolute;
-	left: 150px;
+	left: 140px;
 }
 
 .row{
