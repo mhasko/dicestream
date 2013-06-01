@@ -399,7 +399,7 @@ function editTextColor(data, rrggbb){
 function removeText(data){
 	//remove the overlay information.  We reverse the ul list in the GUI, so we need to grab the
 	//'inverse location' of the ul list to correctly map to the array position
-	var inverseLocation = this.stringsOverlayArray.length - $("ul").index(data) -1;	
+	var inverseLocation = this.stringsOverlayArray.length - $("ul").index(data);	
 
 	this.stringsOverlayArray[inverseLocation].setVisible(false);
 	this.stringsOverlayArray[inverseLocation].dispose();	

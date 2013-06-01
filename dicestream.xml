@@ -14,8 +14,18 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 	
-	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?136"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?1361"></script>
 	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
+
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-41251692-1', 'commondatastorage.googleapis.com');
+	  ga('send', 'pageview');
+	</script>
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>
@@ -25,7 +35,7 @@
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css?136" />
+<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css?1361" />
 <!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
 <div id="canvasDiv" class="disabled">
 	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
@@ -106,7 +116,7 @@
 				<option value="fate">Fate</option>
 			</select>
 		</div-->
-		<div id="version"><h6>v1.3.6</h6></div>
+		<div id="version"><h6>v1.3.6.1</h6></div>
 	</div>
   </div>
 </div>
