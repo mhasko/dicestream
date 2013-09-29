@@ -14,18 +14,15 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/minicolors/jquery.miniColors.js"></script>
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 	
-	<script src="https://commondatastorage.googleapis.com/dicestream/dicestream.js?1361"></script>
-	<!--script src="https://dl.dropbox.com/u/1177409/dicestream/dicestream.js"></script-->
-
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-41251692-1', 'commondatastorage.googleapis.com');
-	  ga('send', 'pageview');
-	</script>
+	<!--
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/dicestream.js?1361"></script>
+	-->
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dombuilder.js"></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/actions.js"></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/effects.js"></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dice.js"></script>
+	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/lowerthird.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>
@@ -35,8 +32,8 @@
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/dicestream.css?1361" />
-<!--link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/dicestream.css" /-->
+<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/css/dicestream.css?1361" /-->
+<link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/css/dicestream.css" />
 <div id="canvasDiv" class="disabled">
 	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
 	<canvas height="70px" width="600px" id="textCanvas"></canvas>
@@ -44,7 +41,7 @@
 	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
 	<canvas height="256px" width="256px" id="imgThirdCanvas"></canvas>
 	<canvas height="128px" width="600px" id="counterCanvas"></canvas>
-	<canvas height="256px" width="256px" id="selectionCanvas"></canvas>
+	<canvas height="1256px" width="1256px" id="selectionCanvas"></canvas>
 </div>
 <div id="app-gui">
 <div id="tabs">
@@ -60,54 +57,25 @@
 
 	<div id="rolledDiceDiv" class="groupDiv">
 	</div>
+	
   </div>
   <div id="textTab">
-	<div id="stringDiv" class="groupDiv">
-		<input type="text" id="txtField" />
-		<input class="button btn btn-success" type="button" value="Text" id="textbtn" onClick="makeText(txtField.value)"/>
-		<div id="screenStringsDiv"><ol id="stringList"></ol></div>
-	</div>
   </div>
   <div id="lowerThirdTab">
-	<div id="lowerThird" class="groupDiv">
-		<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
-		<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
-		<div>
-			<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
-			<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="makeLower3rd(lower3rdmain.value, lower3rdsec.value)" /><br/>
-			<input type="checkbox" class="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" /><span class="checkboxText">Show/Hide Lower Third</span><br/>
-		</div>
-		<div class="uploadAvatarDiv">
-			<span>Upload Avatar</span><input type="file" id="avatarFile" />
-		</div>
-	</div>
   </div>
   <div id="settingsTab">
 	<div id="settingsDiv" class="groupDiv">
 		<div id="selectionColors">
-			<span id="selectedColor">
-				<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#54A954" />
-				<input type="checkbox" id="toggleCircle" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Circle Color</span><br/>
-			</span>
-			<span id="effectColor">
-				<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
-				<input type="checkbox" id="toggleHex" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Hex Color</span><br/>
-			</span>
-			<span id="xColor">
-				<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#802015" />
-				<input type="checkbox" id="toggleX" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">X Color</span><br/>
-			</span>
 		</div>	
+		
 		<!--div>
 			<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
 		</div-->
+		
 		<div id="diceResetSettings">
-			<input type="checkbox" id="clearAfterRoll" class="checkbox" onClick="toggleClearAfterRoll(this)" checked="checked"/><span class="checkboxText">Clear Dice Selection After Roll</span><br/>
-			<input type="checkbox" id="appendToRoll" class="checkbox" onClick="toggleAppendToRoll(this)" checked="checked"/><span class="checkboxText">Append Roll To Existing Dice</span><br/>
 		</div>
 		
-		<div>
-			<input type="checkbox" id="mirrorVideo" class="checkbox" onClick="isVideoMirrored(this)" checked="checked"/><span class="checkboxText">Mirror Video</br><br/>
+		<div id="mirrorVideoDiv">
 		</div>
 
 		<!--div id="themeSelect">
@@ -116,15 +84,12 @@
 				<option value="fate">Fate</option>
 			</select>
 		</div-->
-		<div id="version"><h6>v1.3.6.1</h6></div>
+		
+		<div id="version">
+		</div>
 	</div>
   </div>
 </div>
-
-
-
-<!--div id="spacer"></div>
-</div-->
 
 </body>
 ]]>

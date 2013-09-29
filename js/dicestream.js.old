@@ -1,3 +1,17 @@
+//use
+//var DICESTREAM = DICESTREAM || {};
+//
+//if(!DICESTREAM.MAIN) {
+//
+//	MAIN = function() {
+//     var _this = {};
+//     ....
+//     return _this;
+//	};
+//
+//  DICESTREAM.MAIN = DOMAIN();
+//};
+
 /** array that has the die sizes */
 this.DICETYPE = [3,4,6,8,10,12,20,100];
 
@@ -580,7 +594,7 @@ function initPPOverlays(){
 };
 
 function initDiceUI(){
-	defaultDOM();
+	DICESTREAM.DOM_BUILDER.defaultDOM();
 	$('#tabs').tabs();
 };
 
@@ -770,93 +784,6 @@ function makeCounterDiv() {
 	$(row).append(span);
 	return row;
 };
-
-/** DOM builders, this changes what interface is used*/
-
-/** builds starter DOM
-    all dice and counter*/
-function defaultDOM() {
-	var row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('4').addClass('leftDice'));
-	$(row).append(makeDiceSpan('6').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('8').addClass('leftDice'));
-	$(row).append(makeDiceSpan('10').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('12').addClass('leftDice'));
-	$(row).append(makeDiceSpan('20').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('3').addClass('leftDice'));
-	$(row).append(makeDiceSpan('100').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	$("#diceDiv").append(makeDiceButtonDiv());
-	$("#diceDiv").append(makeCounterDiv());
-	$.minicolors.init();
-};
-
-/** builds layout for cortext+ games
-    d4, d6, d8, d10, d12, and counter*/
-function cortexDOM() {
-	var row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('4').addClass('leftDice'));
-	$(row).append(makeDiceSpan('6').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('8').addClass('leftDice'));
-	$(row).append(makeDiceSpan('10').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('12').addClass('leftDice'));
-	$(row).append(makeDiceSpan('20').addClass('rightDice'));
-	$("#diceDiv").append(row);
-	
-	$("#diceDiv").append(makeDiceButtonDiv());
-	$("#diceDiv").append(makeCounterDiv());
-	$.minicolors.init();
-};
-
-/** builds layout for fate and fudge games
-    df and counter*/
-function fateFudgeDOM() {
-	row = createElement("div", {"class" : "row"});
-	$(row).append(makeDiceSpan('3').addClass('leftDice'));
-	$("#diceDiv").append(row);
-	$("#diceDiv").append(makeDiceButtonDiv());
-	$("#diceDiv").append(makeCounterDiv());
-	$.minicolors.init();
-};
-
-/** builds Marvel DOM, and switches to Marvel dice set */
-function marvelDOM() {
-
-	$("#diceDiv").append(makeDiceButtonDiv());
-	$("#diceDiv").append(makeCounterDiv());
-	$.minicolors.init();
-};
-
-/** builds Dresden Files DOM, and switches to Dredsen Files dice set */
-function dresdenDOM() {
-
-	$("#diceDiv").append(makeDiceButtonDiv());
-	$("#diceDiv").append(makeCounterDiv());
-	$.minicolors.init();
-};
-
-/** builds Fiasco DOM, and switches to  Fiasco dice set */
-function fiascoDOM() {
-
-	$("#diceDiv").append(makeDiceButtonDiv());
-};
-
 
 // Wait for gadget to load.                                                       
 gadgets.util.registerOnLoadHandler(init);

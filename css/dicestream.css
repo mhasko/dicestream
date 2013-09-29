@@ -45,6 +45,10 @@ ul, ol{
 	display: inline;
 }
 
+#version{
+	font-size: 11pt;
+}
+
 /*overrides of the jQuery ui tab */
 .ui-tabs .ui-tabs-panel {
 	padding: 0 0 0 0;
