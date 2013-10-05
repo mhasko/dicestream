@@ -4,6 +4,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 
 	DOM_BUILDER = function() {
 		var _this = {};
+		
+		var VERSION = "v"+"1.4.0";
 
 		/** DOM builders, this changes what interface is used*/
 
@@ -98,6 +100,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 		};
 		
 		_this.settingsDOM = function(){
+			$("#settingsTab").append(makeSettingsDiv());
 		
 		};
 		
@@ -222,48 +225,70 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$.minicolors.init();
 			
 			return dom;
-		//		<span class="lower3rdtitle">Main title</span><input class="lower3rdtextfield" type="text" id="lower3rdmain" /><br/>
-		//		<span class="lower3rdtitle">Sub title</span><input class="lower3rdtextfield" type="text" id="lower3rdsec" /><br/>
-		//		<div>
-		//			<input type="minicolors" id="lower3rdsecselect" data-textfield="false" data-default="#105080" />
-		//			<input class="button btn" type="button" value="Create" id="3rdbtn" onClick="DICESTREAM.MAIN.makeLower3rd(lower3rdmain.value, lower3rdsec.value)" /><br/>
-		//			<input type="checkbox" class="checkbox" id="toggle3rd" onClick="toggle3rdAction(this)" /><span class="checkboxText">Show/Hide Lower Third</span><br/>
-		//		</div>
-		//		<div class="uploadAvatarDiv">
-		//			<span>Upload Avatar</span><input type="file" id="avatarFile" />
-				//</div>
 		};
 		
 		function makeSettingsDiv() {
-		//		<div id="selectionColors">
-		//			<span id="selectedColor">
-		//				<input id="selectedcolorselect" type="minicolors" data-textfield="false" data-default="#54A954" />
-		//				<input type="checkbox" id="toggleCircle" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Circle Color</span><br/>
-		//			</span>
-		//			<span id="effectColor">
-		//				<input id="effectcolorselect" type="minicolors" data-textfield="false" data-default="#000000" />
-		//				<input type="checkbox" id="toggleHex" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">Hex Color</span><br/>
-		///			</span>
-		//			<span id="xColor">
-		//				<input id="xcolorselect" type="minicolors" data-textfield="false" data-default="#802015" />
-		//				<input type="checkbox" id="toggleX" class="checkbox" onClick="toggleSelectionAction(this)" checked="checked" class="button"/><span class="checkboxText">X Color</span><br/>
-		//	</span>
+			var dom = createElement("div", {"class" : "groupDiv", "id" : "settingsDiv"});
+			var selectionColors = createElement("div",{"id" : "selectionColors"});
+			
+			var circle = createElement("span", {"id" : "selectedColor"});
+			$(circle).append(createElement("input", {"type" : "minicolors", "id" : "selectedcolorselect", "data-textfield" : "false", "data-default" : "#54A954"}));
+			$(circle).append(createElement("input", {"id" : "toggleCircle", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
+			$(circle).append(createElement("span", {"class" : "checkboxtext"}).text("Circle Color"));
+			$(circle).append(createElement("br"));
+			$(selectionColors).append(circle);
+			
+			var hex = createElement("span", {"id" : "effectColor"});
+			$(hex).append(createElement("input", {"type" : "minicolors", "id" : "effectcolorselect", "data-textfield" : "false", "data-default" : "#000000"}));
+			$(hex).append(createElement("input", {"id" : "toggleHex", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
+			$(hex).append(createElement("span", {"class" : "checkboxtext"}).text("Hex Color"));
+			$(hex).append(createElement("br"));
+			$(selectionColors).append(hex);
+			
+			var xoverlay = createElement("span", {"id" : "xColor"});
+			$(xoverlay).append(createElement("input", {"type" : "minicolors", "id" : "xcolorselect", "data-textfield" : "false", "data-default" : "#802015"}));
+			$(xoverlay).append(createElement("input", {"id" : "toggleX", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
+			$(xoverlay).append(createElement("span", {"class" : "checkboxtext"}).text("X Color"));
+			$(xoverlay).append(createElement("br"));
+			$(selectionColors).append(xoverlay);
+			
+			$(dom).append(selectionColors);
+			
+			$.minicolors.init();
+			//<!--div>
+			//	<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
+			//</div-->
+			
+			var diceReset = createElement("div", {"id" : "diceResetSettings"});
+			$(diceReset).append(createElement("input", {"type" : "checkbox", "id" : "clearAfterRoll", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.ACTIONS.toggleClearAfterRoll(this);}));
+			$(diceReset).append(createElement("span", {"class" : "checkboxText"}).text("Clear Dice Selection After Roll"));
+			$(diceReset).append(createElement("br"));
+			$(diceReset).append(createElement("input", {"type" : "checkbox", "id" : "appendToRoll", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.ACTIONS.toggleAppendToRoll(this);}));
+			$(diceReset).append(createElement("span", {"class" : "checkboxText"}).text("Append Roll To Existing Dice"));
+			$(diceReset).append(createElement("br"));
+			
+			$(dom).append(diceReset);
+			
+			var mirrorVideo = createElement("div", {"id" : "mirrorVideoDiv"});
+			$(mirrorVideo).append(createElement("input", {"type" : "checkbox", "id" : "mirrorVideo", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.EFFECTS.isVideoMirrored(this);}));
+			$(mirrorVideo).append(createElement("span", {"class" : "checkboxText"}).text("Mirror Video"));
+			$(mirrorVideo).append(createElement("br"));
+			$(mirrorVideo).append(createElement("br"));
 		
-		
-		
-		//		<div id="diceResetSettings">
-		//			<input type="checkbox" id="clearAfterRoll" class="checkbox" onClick="toggleClearAfterRoll(this)" checked="checked"/><span class="checkboxText">Clear Dice Selection After Roll</span><br/>
-		//			<input type="checkbox" id="appendToRoll" class="checkbox" onClick="toggleAppendToRoll(this)" checked="checked"/><span class="checkboxText">Append Roll To Existing Dice</span><br/>
-		//</div>
-		
-		
-		
-		//		<div id="mirrorVideoDiv">
-		//			<input type="checkbox" id="mirrorVideo" class="checkbox" onClick="isVideoMirrored(this)" checked="checked"/><span class="checkboxText">Mirror Video</br><br/>
-		//</div>
-		
-		//		<div id="version">
-		//</div>v1.3.6.1
+			$(dom).append(mirrorVideo);
+			
+//			<!--div id="themeSelect">
+//				<select onChange="selectThemeAction(this)" id="selectThemeSet">
+//					<option value="default">Default</option>
+//					<option value="fate">Fate</option>
+//				</select>
+//			</div-->
+
+			var version = createElement("div", {"id" : "version"});
+			$(version).append(VERSION);
+			$(dom).append(version);
+			
+			return dom; 
 		};
 		
 		return _this;

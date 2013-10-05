@@ -47,7 +47,7 @@ if(!DICESTREAM.ACTIONS) {
 		_this.rollDiceButton = function(){
 			if(!append_to_roll)
 			{
-				clearDice();
+				DICESTREAM.DICE.clearDice();
 				initDiceFields();
 			}
 
@@ -103,6 +103,14 @@ if(!DICESTREAM.ACTIONS) {
 			return textContext;
 		};
 		
+		_this.toggleClearAfterRoll = function(cb){
+			clear_die_selection = cb.checked;
+		};
+
+		_this.toggleAppendToRoll = function(cb){
+			append_to_roll = cb.checked;
+		};
+		
 		function initDiceFields(){
 			$("#rolledDiceDiv").text("");
 		};
@@ -117,14 +125,6 @@ if(!DICESTREAM.ACTIONS) {
 			$("#d20count").text("0");
 			$("#d100count").text("0");
 		//	_this.arraySize = 0;
-		};
-				
-		function toggleClearAfterRoll(cb){
-			clear_die_selection = cb.checked;
-		};
-
-		function toggleAppendToRoll(cb){
-			append_to_roll = cb.checked;
 		};
 		
 		return _this;

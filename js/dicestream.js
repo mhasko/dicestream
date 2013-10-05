@@ -21,7 +21,7 @@ if(!DICESTREAM.MAIN) {
 				initWidgets();
 				//initPPOverlays();
 				DICESTREAM.ACTIONS.setPP(1);	
-				scale();
+		//Need a promise to hold, so we can scale once the init is done//		scale();
 			}
 		});
 	};

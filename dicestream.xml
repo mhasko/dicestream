@@ -32,7 +32,7 @@
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css"/>
 <link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/bootstrap/css/bootstrap.css" />
 
-<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/css/dicestream.css?1361" /-->
+<!--link rel="stylesheet" type="text/css" href="https://commondatastorage.googleapis.com/dicestream/css/dicestream.css?1400" /-->
 <link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/css/dicestream.css" />
 <div id="canvasDiv" class="disabled">
 	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
@@ -64,30 +64,6 @@
   <div id="lowerThirdTab">
   </div>
   <div id="settingsTab">
-	<div id="settingsDiv" class="groupDiv">
-		<div id="selectionColors">
-		</div>	
-		
-		<!--div>
-			<select onchange="selectDiceAction()" id="selectDieSet"><option value="/marvel">Marvel Dice</option><option value="/real">Real Dice</option></select>
-		</div-->
-		
-		<div id="diceResetSettings">
-		</div>
-		
-		<div id="mirrorVideoDiv">
-		</div>
-
-		<!--div id="themeSelect">
-			<select onChange="selectThemeAction(this)" id="selectThemeSet">
-				<option value="default">Default</option>
-				<option value="fate">Fate</option>
-			</select>
-		</div-->
-		
-		<div id="version">
-		</div>
-	</div>
   </div>
 </div>
 
