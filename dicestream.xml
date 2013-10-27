@@ -15,7 +15,12 @@
 	<script type="text/javascript" src="https://commondatastorage.googleapis.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script>
 	
 	<!--
-	<script src="https://commondatastorage.googleapis.com/dicestream/js/dicestream.js?1361"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/dicestream.js?1400"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/dombuilder.js?1400"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/actions.js?1400"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/effects.js?1400"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/dice.js?1400"></script>
+	<script src="https://commondatastorage.googleapis.com/dicestream/js/lowerthird.js?1400"></script>
 	-->
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dombuilder.js"></script>
