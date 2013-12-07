@@ -7,9 +7,12 @@ if(!DICESTREAM.EFFECTS) {
 		
 		/** Vertical offset for canvas objects */
 		var CANVAS_V_OFFSET = -.055;
-		
+				
 		/** initializes the various arrays used to hold the overlays */
 		var stringsOverlayArray = [];
+		
+		/** offset for text lists*/
+		_this.STRING_OFFSET = 0.05;
 		
 		/** Vertical offest for string overlays */
 		_this.STRING_OVERLAY_V_OFFSET = .06;
@@ -144,7 +147,7 @@ if(!DICESTREAM.EFFECTS) {
 			var rrggbb = data.data('color');
 			stringsOverlayArray[inverseLocation].setVisible(false);
 			stringsOverlayArray[inverseLocation].dispose();
-			stringsOverlayArray[inverseLocation] = DICESTREAM.EFFECTS.makeOverlayFromContext(DICESTREAM.ACTIONS.createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * _this.STRING_OVERLAY_V_OFFSET) );
+			stringsOverlayArray[inverseLocation] = DICESTREAM.EFFECTS.makeOverlayFromContext(DICESTREAM.ACTIONS.createTextContext(text, rrggbb), 1, _this.STRING_OFFSET, .40 - (inverseLocation * _this.STRING_OVERLAY_V_OFFSET) );
 		};
 
 		/** edit the color in an overlay */
@@ -154,7 +157,7 @@ if(!DICESTREAM.EFFECTS) {
 			data.data('color', rrggbb);
 			stringsOverlayArray[inverseLocation].setVisible(false);
 			stringsOverlayArray[inverseLocation].dispose();
-			stringsOverlayArray[inverseLocation] = DICESTREAM.EFFECTS.makeOverlayFromContext(DICESTREAM.ACTIONS.createTextContext(text, rrggbb), 1, 0, .40 - (inverseLocation * _this.STRING_OVERLAY_V_OFFSET) );
+			stringsOverlayArray[inverseLocation] = DICESTREAM.EFFECTS.makeOverlayFromContext(DICESTREAM.ACTIONS.createTextContext(text, rrggbb), 1, _this.STRING_OFFSET, .40 - (inverseLocation * _this.STRING_OVERLAY_V_OFFSET) );
 		};
 
 		/** remove the text overlay from the screen and its matching text

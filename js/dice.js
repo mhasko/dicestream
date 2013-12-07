@@ -22,7 +22,7 @@ if(!DICESTREAM.DICE) {
 		var DICE_COL_OFFSET = .125;
 		
 		/** Sets the number of dice per row. */
-		var NUM_DICE_PER_ROW = 10;
+		var NUM_DICE_PER_ROW = 9;
 		
 		/** offset for circle and hex overlays */ 
 		var SELECTION_OFFSET_X = .054;
@@ -86,7 +86,7 @@ if(!DICESTREAM.DICE) {
 			var watermarkedIndex = index + WATERMARK_OFFSET;
 			var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * DICE_COL_OFFSET;
 			var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * DICE_ROW_OFFSET;
-			value.setPosition({x: -.45 + columnOffset, y:-.425 + rowOffset});
+			value.setPosition({x: -.40 + columnOffset, y:-.425 + rowOffset});
 			value.setVisible(display);
 		};
 		

@@ -5,7 +5,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 	DOM_BUILDER = function() {
 		var _this = {};
 		
-		var VERSION = "v"+"1.4.0";
+		var VERSION = "v"+"1.4.1";
 
 		/** DOM builders, this changes what interface is used*/
 

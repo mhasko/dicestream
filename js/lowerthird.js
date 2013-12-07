@@ -8,12 +8,12 @@ if(!DICESTREAM.LOWERTHIRD) {
 		/** lower 3rd position values */
 		var MAIN_WIDTH = 485;
 		var MAIN_HEIGHT = 26;
-		var MAIN_POS_X = .05;
+		var MAIN_POS_X = .07;
 		var MAIN_POS_Y = .52;
 	
 		var SEC_WIDTH = 434;
 		var SEC_HEIGHT = 18;
-		var SEC_POS_X = .07;
+		var SEC_POS_X = .09;
 		var SEC_POS_Y = .59;
 		
 		/** lower 3rd overlay values*/
@@ -42,7 +42,7 @@ if(!DICESTREAM.LOWERTHIRD) {
 			main_context_bg.setVisible(third.checked);
 			main_context_text.setVisible(third.checked);
 			second_context_bg.setVisible(third.checked);
-			second_context_text.setVisible(third.checked);
+			second_context_text.setVisible(third.checked); 
 			if(avatar_overlay){avatar_overlay.setVisible(third.checked);}
 		};
 		

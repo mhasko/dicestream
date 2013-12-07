@@ -90,7 +90,7 @@ if(!DICESTREAM.ACTIONS) {
 		/** takes the input text and creates a text overlay on the screen */
 		_this.makeText = function(text){
 			var canvasContext = _this.createTextContext(text);
-			DICESTREAM.EFFECTS.addString(DICESTREAM.EFFECTS.makeOverlayFromContext(canvasContext, 1, 0, .40 - (DICESTREAM.EFFECTS.stringCount() * DICESTREAM.EFFECTS.STRING_OVERLAY_V_OFFSET) ) );
+			DICESTREAM.EFFECTS.addString(DICESTREAM.EFFECTS.makeOverlayFromContext(canvasContext, 1, DICESTREAM.EFFECTS.STRING_OFFSET, .40 - (DICESTREAM.EFFECTS.stringCount() * DICESTREAM.EFFECTS.STRING_OVERLAY_V_OFFSET) ) );
 			DICESTREAM.DOM_BUILDER.createTextCheckbox(text);
 		};
 		
