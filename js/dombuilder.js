@@ -272,11 +272,16 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var mirrorVideo = createElement("div", {"id" : "mirrorVideoDiv"});
 			$(mirrorVideo).append(createElement("input", {"type" : "checkbox", "id" : "mirrorVideo", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.EFFECTS.isVideoMirrored(this);}));
 			$(mirrorVideo).append(createElement("span", {"class" : "checkboxText"}).text("Mirror Video"));
-			$(mirrorVideo).append(createElement("br"));
-			$(mirrorVideo).append(createElement("br"));
 		
 			$(dom).append(mirrorVideo);
 			
+			var explodeDice = createElement("div", {"id" : "explodeDiceDiv"});
+			$(explodeDice).append(createElement("input", {"type" : "checkbox", "id" : "explodeDice", "class" : "checkbox"}).click(function(){DICESTREAM.DICE.toggleExplodeDice(this)}));
+			$(explodeDice).append(createElement("span", {"class" : "checkboxText"}).text("Explode All Dice"));
+			$(explodeDice).append(createElement("br"));
+			$(explodeDice).append(createElement("br"));
+			
+			$(dom).append(explodeDice);
 //			<!--div id="themeSelect">
 //				<select onChange="selectThemeAction(this)" id="selectThemeSet">
 //					<option value="default">Default</option>

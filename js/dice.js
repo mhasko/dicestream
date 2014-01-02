@@ -33,6 +33,9 @@ if(!DICESTREAM.DICE) {
 		var DICEROOT = "/standard";
 		var PNG = ".png";
 		
+		/** flag to explode dice or not*/
+		_this.explodeDice = false;
+		
 		/** permissions for overlay types */
 		_this.SELECTION_ALLOW = [true, true, true, true];
 
@@ -45,6 +48,8 @@ if(!DICESTREAM.DICE) {
 				for(;j<count;j++)
 				{
 					var value = Math.ceil(DICETYPE[i]*Math.random());
+					//hack for exploding dice
+					if(_this.explodeDice && value==DICETYPE[i]){j--;}
 					var imageUrl = IMAGEROOT + DICEROOT + '/d' + DICETYPE[i] + '-' + value + PNG;			
 					var dieImage = gapi.hangout.av.effects.createImageResource(imageUrl);
 					var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
@@ -75,6 +80,10 @@ if(!DICESTREAM.DICE) {
 			rolledDiceOverlayArray.length = 0;
 			effectOverlayArray.length = 0;
 			modifyTotal('=', 0);
+		};
+		
+		_this.toggleExplodeDice = function(cb) {
+			_this.explodeDice = cb.checked;
 		};
 		
 		/** displays the dice overlays across the top of the screen */
