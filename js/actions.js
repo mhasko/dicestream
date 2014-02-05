@@ -69,7 +69,7 @@ if(!DICESTREAM.ACTIONS) {
 			//_this.
 			DICESTREAM.EFFECTS.counter_overlay.setVisible(cb.checked);
 			//_this.
-			DICESTREAM.EFFECTS.counter_image.setVisible(cb.checked);
+			//DICESTREAM.EFFECTS.counter_image.setVisible(cb.checked);
 
 			$("#ppcount").toggleClass('disabled');
 			$("#ppadd").toggleClass('disabled');

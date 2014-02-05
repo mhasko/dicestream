@@ -29,15 +29,24 @@ if(!DICESTREAM.DICE) {
 		var SELECTION_OFFSET_Y = .15;
 		
 		/** root variables to the various image paths used.*/
-		var IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
-		var DICEROOT = "/standard";
+		//var IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
+		var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images"
+		//var DICEROOT = "/standard";
+		var DICEROOT = "/captaingothnog";
 		var PNG = ".png";
+		
+		/** */
+		_this.diceToRoll = [];
 		
 		/** flag to explode dice or not*/
 		_this.explodeDice = false;
 		
 		/** permissions for overlay types */
 		_this.SELECTION_ALLOW = [true, true, true, true];
+		
+		_this.rollDiceNew = function() {
+		
+		};
 
 		_this.rollDice = function() {
 			var i = 0;

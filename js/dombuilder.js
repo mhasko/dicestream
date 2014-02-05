@@ -5,7 +5,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 	DOM_BUILDER = function() {
 		var _this = {};
 		
-		var VERSION = "v"+"1.4.1";
+		var VERSION = "v"+"1.4.3";
+		var DICE_CREDITS = "Dice icons by Alex Guillotte";  
 
 		/** DOM builders, this changes what interface is used*/
 
@@ -146,7 +147,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var span = createElement("span");
 			$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"minus", "value" : "-"}).click(function(){DICESTREAM.ACTIONS.minus(dieVal+"count", 0);}));
 			//TODO -- hard coded image path
-			$(span).append(createElement("span", {"class" : "rolledDice"}).append(createElement("img", {"src" : "https://commondatastorage.googleapis.com/dicestream/images/standard/"+dieVal+".png"})));
+			$(span).append(createElement("span", {"class" : "rolledDice"}).append(createElement("img", {"src" : "https://s3.amazonaws.com/dicestream/images/captaingothnog/"+dieVal+".png"})));
 			$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"plus", "value" : "+"}).click(function(){DICESTREAM.ACTIONS.add(dieVal+"count", 99);}));
 			$(span).append(createElement("span", {"class" : "dieCount label", "id" : dieVal+"count"}).text("0"));
 			return span;
@@ -292,6 +293,11 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var version = createElement("div", {"id" : "version"});
 			$(version).append(VERSION);
 			$(dom).append(version);
+			
+			var credits = createElement("div", {"id" : "imageCredit"});
+			$(credits).append(DICE_CREDITS);
+			$(dom).append(credits);
+			
 			
 			return dom; 
 		};
