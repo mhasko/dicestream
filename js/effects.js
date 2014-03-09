@@ -142,7 +142,7 @@ if(!DICESTREAM.EFFECTS) {
 
 		/** edit the text in a overlay */
 		_this.editText = function(data, text){
-			var inverseLocation = stringsOverlayArray.length - $("ul").index(data);	
+			var inverseLocation = stringsOverlayArray.length - $("#stringList ul").index(data) - 1;	
 			data.data('text', text);
 			var rrggbb = data.data('color');
 			stringsOverlayArray[inverseLocation].setVisible(false);
@@ -152,7 +152,7 @@ if(!DICESTREAM.EFFECTS) {
 
 		/** edit the color in an overlay */
 		_this.editTextColor = function(data, rrggbb){
-			var inverseLocation = stringsOverlayArray.length - $("ul").index(data);	
+			var inverseLocation = stringsOverlayArray.length - $("#stringList ul").index(data) - 1;	
 			var text = data.data('text');
 			data.data('color', rrggbb);
 			stringsOverlayArray[inverseLocation].setVisible(false);
@@ -165,7 +165,7 @@ if(!DICESTREAM.EFFECTS) {
 		_this.removeText = function(data){
 			//remove the overlay information.  We reverse the ul list in the GUI, so we need to grab the
 			//'inverse location' of the ul list to correctly map to the array position
-			var inverseLocation = stringsOverlayArray.length - $("ul").index(data);	
+			var inverseLocation = stringsOverlayArray.length - $("#stringList ul").index(data) - 1;	
 
 			stringsOverlayArray[inverseLocation].setVisible(false);
 			stringsOverlayArray[inverseLocation].dispose();	
@@ -191,13 +191,13 @@ if(!DICESTREAM.EFFECTS) {
 			switch($(cb).attr('id'))
 			{
 				case 'toggleCircle':
-					DICESTREAM.DICE.SELECTION_ALLOW[SELECTION_CIRCLE]=cb.checked;
+					DICESTREAM.DICE.SELECTION_ALLOW[_this.SELECTION_CIRCLE]=cb.checked;
 					break;
 				case 'toggleHex':
-					DICESTREAM.DICE.SELECTION_ALLOW[SELECTION_HEX]=cb.checked;
+					DICESTREAM.DICE.SELECTION_ALLOW[_this.SELECTION_HEX]=cb.checked;
 					break;
 				case 'toggleX':
-					DICESTREAM.DICE.SELECTION_ALLOW[SELECTION_X]=cb.checked;
+					DICESTREAM.DICE.SELECTION_ALLOW[_this.SELECTION_X]=cb.checked;
 					break;			
 			}
 		};

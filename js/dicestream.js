@@ -50,6 +50,7 @@ if(!DICESTREAM.MAIN) {
 			DICESTREAM.DOM_BUILDER.textDOM();
 			DICESTREAM.DOM_BUILDER.thirdDOM();
 			DICESTREAM.DOM_BUILDER.settingsDOM();
+			$.minicolors.init();
 			$('#tabs').tabs();
 		};
 

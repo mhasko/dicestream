@@ -5,8 +5,9 @@ if(!DICESTREAM.DOM_BUILDER) {
 	DOM_BUILDER = function() {
 		var _this = {};
 		
-		var VERSION = "v"+"1.4.3";
+		var VERSION = "v" + "1.4.5";
 		var DICE_CREDITS = "Dice icons by Alex Guillotte";  
+        var HELP_CREDITS = "Help text by Stephanie Bryant";
 
 		/** DOM builders, this changes what interface is used*/
 
@@ -34,6 +35,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 
 			$("#diceDiv").append(makeDiceButtonDiv());
 			$("#diceDiv").append(makeCounterDiv());
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
 			$.minicolors.init();
 		};
 
@@ -56,7 +59,9 @@ if(!DICESTREAM.DOM_BUILDER) {
 
 			$("#diceDiv").append(makeDiceButtonDiv());
 			$("#diceDiv").append(makeCounterDiv());
-			$.minicolors.init();
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
+			//$(row).minicolors();
 		};
 
 		/** builds layout for fate and fudge games df and counter*/
@@ -66,6 +71,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$("#diceDiv").append(row);
 			$("#diceDiv").append(makeDiceButtonDiv());
 			$("#diceDiv").append(makeCounterDiv());
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
 			$.minicolors.init();
 		};
 
@@ -74,6 +81,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 
 			$("#diceDiv").append(makeDiceButtonDiv());
 			$("#diceDiv").append(makeCounterDiv());
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
 			$.minicolors.init();
 		};
 
@@ -82,13 +91,16 @@ if(!DICESTREAM.DOM_BUILDER) {
 
 			$("#diceDiv").append(makeDiceButtonDiv());
 			$("#diceDiv").append(makeCounterDiv());
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
 			$.minicolors.init();
 		};
 
 		/** builds Fiasco DOM, and switches to  Fiasco dice set */
 		_this.fiascoDOM = function(){
-
 			$("#diceDiv").append(makeDiceButtonDiv());
+            $("#diceDiv").append(makeRolledDiceDiv());
+			$("#diceDiv").append(makeDiceHelpDiv());
 		};
 		
 		_this.textDOM = function(){
@@ -141,6 +153,11 @@ if(!DICESTREAM.DOM_BUILDER) {
 		function createElement(type, attr) {
 			return _this.createElement(type, attr);
 		};
+        
+        function makeRolledDiceDiv() {
+            var div = createElement("div", {"class" : "groupDiv", "id" : "rolledDiceDiv"});
+            return div;
+        };
 		
 		function makeDiceSpan(dieSize) {
 			var dieVal = "d"+dieSize;
@@ -164,7 +181,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$(div).append(clearButton);
 			
 			$(row).append(div);
-			
+
 			/*var debugDiv = createElement("div", {"id" : "debugDiv"});
 			var debugInput = createElement("input", {"type" : "text", "id" : "debugtext"});
 			var debugButton = createElement("input", {"class" : "button btn btn-primary", "type" : "button", "value" : "Debug", "id" : "debugbtn"}).click(function(){DICESTREAM.DICE.setOffset(debugtext.value);});
@@ -184,8 +201,33 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$(span).append(createElement("input", {"id" : "ppminus", "class" : "button btn btn-mini", "type" : "button", "value" : "-"}).click(function () {DICESTREAM.ACTIONS.ppminus();}));
 			$(span).append(createElement("input", {"id" : "ppadd", "class" : "button btn btn-mini", "type" : "button", "value" : "+"}).click(function () {DICESTREAM.ACTIONS.ppadd();}));
 			$(span).append(createElement("span", {"id" : "ppcount", "class" : "diecount label"}).text("1"));	
+			
 			$(row).append(span);
 			return row;
+		};
+		
+		//TODO -- create generic 'createHelpDiv' function, keep help text in static json files
+		function makeDiceHelpDiv(){
+            var helpTxt = createElement("div", {"id" : "makeTextHelp", "class" : "helpDiv"});
+			var header = createElement("span", {"class" : "helpTitle"}).text("Hide Help");
+            $(helpTxt).css( 'cursor', 'pointer' );
+			$(helpTxt).append(header).click(function(){
+				$(".helpList").toggle();
+				$(".helpTitle").text($(header).text() === "Display Help For Tab" ? "Hide Help" : "Display Help For Tab");
+			});
+			
+			//$(helpTxt).append(createElement("span", {"class" : "helpHeader"}).text("Set up options for the rest of the tabs"));
+			var helpList = createElement("ul", {"id" : "helpListDice", "class" : "helpList"}).text("Pick the number and type of dice and roll them! The Counter is for bennies/heroic points.");
+			$(helpList).append(createElement("li").text("Click + and - to add dice to the roll."));
+			$(helpList).append(createElement("li").text("Click the ROLL button to roll the dice."));
+			$(helpList).append(createElement("li").text("Click CLEAR to deselect all dice and remove the results."));
+			$(helpList).append(createElement("li").text("Click a die in the results to add a circle, hex, or X overlay. You can set the colors for these in the Settings tab."));
+			$(helpList).append(createElement("li").text("The COUNTER displays a number in the upper right corner of your video feed. Select a color and check the box to have it appear. Click + or - to add and subtract to the count."));
+			$(helpList).append(createElement("li").text("Note: There is no way to auto-add a modifier to a roll or automatically add up your dice results."));
+			
+			$(helpTxt).append(helpList);
+			
+			return helpTxt;
 		};
 		
 		function makeTextDiv() {
@@ -196,6 +238,25 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var div = createElement("div", {"id" : "screenStringDiv"});
 			$(div).append(createElement("ol", {"id" : "stringList"}));
 			$(dom).append(div);
+			
+            var helpTxt = createElement("div", {"id" : "makeTextHelp", "class" : "helpDiv"});
+			var header = createElement("span", {"class" : "helpTitle"}).text("Hide Help");
+            $(helpTxt).css( 'cursor', 'pointer' );
+			$(helpTxt).append(header).click(function(){
+				$(".helpList").toggle();
+				$(".helpTitle").text($(header).text() === "Display Help For Tab" ? "Hide Help" : "Display Help For Tab");
+			});
+			
+			var helpList = createElement("ul", {"class" : "helpList"}).text("Useful for displaying current statuses effects and aspects.");
+			$(helpList).append(createElement("li").text("Write some text."));
+			$(helpList).append(createElement("li").text("Click the TEXT button."));
+			$(helpList).append(createElement("li").text("The text appears on your video feed in the lower left, above the lower-third bar. It also remains available in this tab."));
+			$(helpList).append(createElement("li").text("To change the text color, after it's been added, click the color picker and select a new color."));
+			$(helpList).append(createElement("li").text("Delete the text string using the X icon."));
+			
+			$(helpTxt).append(helpList);
+			$(dom).append(helpTxt);
+		
 			return dom;			
 		};
 		
@@ -222,6 +283,23 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$(uploadDiv).append(createElement("span", {"value" : "Upload Avatar"}));
 			$(uploadDiv).append(createElement("input", {"id" : "avatarFile", "type" : "file"}));
 			$(dom).append(uploadDiv);
+            
+            var helpTxt = createElement("div", {"id" : "lowerThirdHelp", "class" : "helpDiv"});
+			var header = createElement("span", {"class" : "helpTitle"}).text("Hide Help");
+            $(helpTxt).css( 'cursor', 'pointer' );
+			$(helpTxt).append(header).click(function(){
+				$(".helpList").toggle();
+				$(".helpTitle").text($(header).text() === "Display Help For Tab" ? "Hide Help" : "Display Help For Tab");
+			});
+			
+			var helpList = createElement("ul", {"class" : "helpList"}).text("The Lower Third displays a static Title/Sub Title bar at the bottom of your video feed.");
+			
+			$(helpList).append(createElement("li").text("The Main Title displays as large black text on white background."));
+			$(helpList).append(createElement("li").text("The Sub Title displays as smaller black text on whatever color you choose in the color picker."));
+			$(helpList).append(createElement("li").text("Click the Choose File button to select an icon to appear to the right of the bar."));
+			
+			$(helpTxt).append(helpList);
+			$(dom).append(helpTxt);
 			
 			$.minicolors.init();
 			
@@ -233,21 +311,22 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var selectionColors = createElement("div",{"id" : "selectionColors"});
 			
 			var circle = createElement("span", {"id" : "selectedColor"});
-			$(circle).append(createElement("input", {"type" : "minicolors", "id" : "selectedcolorselect", "data-textfield" : "false", "data-default" : "#54A954"}));
+			//$(circle).append(createElement("input", {"type" : "minicolors", "id" : "selectedcolorselect", "data-textfield" : "false", "data-default" : "#54A954"}));
+			$(circle).append(createElement("input", {"type" : "minicolors", "id" : "selectedcolorselect", "class" : "colorInputField", "data-textfield" : "false", "data-default" : "#54A954"}));
 			$(circle).append(createElement("input", {"id" : "toggleCircle", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
 			$(circle).append(createElement("span", {"class" : "checkboxtext"}).text("Circle Color"));
 			$(circle).append(createElement("br"));
 			$(selectionColors).append(circle);
 			
 			var hex = createElement("span", {"id" : "effectColor"});
-			$(hex).append(createElement("input", {"type" : "minicolors", "id" : "effectcolorselect", "data-textfield" : "false", "data-default" : "#000000"}));
+			$(hex).append(createElement("input", {"type" : "minicolors", "id" : "effectcolorselect", "class" : "colorInputField", "data-textfield" : "false", "data-default" : "#000000"}));
 			$(hex).append(createElement("input", {"id" : "toggleHex", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
 			$(hex).append(createElement("span", {"class" : "checkboxtext"}).text("Hex Color"));
 			$(hex).append(createElement("br"));
 			$(selectionColors).append(hex);
 			
 			var xoverlay = createElement("span", {"id" : "xColor"});
-			$(xoverlay).append(createElement("input", {"type" : "minicolors", "id" : "xcolorselect", "data-textfield" : "false", "data-default" : "#802015"}));
+			$(xoverlay).append(createElement("input", {"type" : "minicolors", "id" : "xcolorselect", "class" : "colorInputField", "data-textfield" : "false", "data-default" : "#802015"}));
 			$(xoverlay).append(createElement("input", {"id" : "toggleX", "type" : "checkbox", "checked" : "checked", "class" : "button"}).click(function () {DICESTREAM.EFFECTS.toggleSelectionAction(this);}));
 			$(xoverlay).append(createElement("span", {"class" : "checkboxtext"}).text("X Color"));
 			$(xoverlay).append(createElement("br"));
@@ -264,8 +343,8 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$(diceReset).append(createElement("input", {"type" : "checkbox", "id" : "clearAfterRoll", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.ACTIONS.toggleClearAfterRoll(this);}));
 			$(diceReset).append(createElement("span", {"class" : "checkboxText"}).text("Clear Dice Selection After Roll"));
 			$(diceReset).append(createElement("br"));
-			$(diceReset).append(createElement("input", {"type" : "checkbox", "id" : "appendToRoll", "class" : "checkbox", "checked" : "checked"}).click(function() {DICESTREAM.ACTIONS.toggleAppendToRoll(this);}));
-			$(diceReset).append(createElement("span", {"class" : "checkboxText"}).text("Append Roll To Existing Dice"));
+			$(diceReset).append(createElement("input", {"type" : "checkbox", "id" : "appendToRoll", "class" : "checkbox"}).click(function() {DICESTREAM.ACTIONS.toggleAppendToRoll(this);}));
+			$(diceReset).append(createElement("span", {"class" : "checkboxText"}).text("Clear Dice Before New Roll"));
 			$(diceReset).append(createElement("br"));
 			
 			$(dom).append(diceReset);
@@ -290,14 +369,39 @@ if(!DICESTREAM.DOM_BUILDER) {
 //				</select>
 //			</div-->
 
+			var helpTxt = createElement("div", {"id" : "settingsHelp", "class" : "helpDiv"});
+			var header = createElement("span", {"class" : "helpTitle"}).text("Hide Help");
+            $(helpTxt).css( 'cursor', 'pointer' );
+			$(helpTxt).append(header).click(function(){
+				$(".helpList").toggle();
+				$(".helpTitle").text($(header).text() === "Display Help For Tab" ? "Hide Help" : "Display Help For Tab");
+			});
+			
+			//$(helpTxt).append(createElement("span", {"class" : "helpHeader"}).text("Set up options for the rest of the tabs"));
+			var helpList = createElement("ul", {"class" : "helpList"}).text("Set up options for the rest of the tabs");
+			$(helpList).append(createElement("li").text("Circle, Hex, X Colors are used for the overlay colors when you click the rolled dice."));
+			$(helpList).append(createElement("li").text("Clear Dice Selection: If checked, after you roll, all the dice you rolled will be reset to 0."));
+			$(helpList).append(createElement("li").text("Clear Dice Before New Roll: If checked, the dice you rolled will be removed from the screen before any new dice will be added."));
+			$(helpList).append(createElement("li").text("Mirror Video: Flips your video feed. Used for most built-in webcams like iSight."));
+			$(helpList).append(createElement("li").text("Explode All Dice: If you roll the maximum on a die, the die will automatically reroll."));
+			
+			$(helpTxt).append(helpList);
+			$(dom).append(helpTxt);
+
+//			var div = createElement("div", {"id" : "screenStringDiv"});
+//			$(div).append(createElement("ol", {"id" : "stringList"}));
+//			$(dom).append(div);
+//			return dom;		
+			
 			var version = createElement("div", {"id" : "version"});
 			$(version).append(VERSION);
 			$(dom).append(version);
 			
 			var credits = createElement("div", {"id" : "imageCredit"});
 			$(credits).append(DICE_CREDITS);
+            $(credits).append(createElement("br"));
+            $(credits).append(HELP_CREDITS);
 			$(dom).append(credits);
-			
 			
 			return dom; 
 		};

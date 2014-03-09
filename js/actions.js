@@ -6,7 +6,7 @@ if(!DICESTREAM.ACTIONS) {
 		var _this = {};
 		
 		/** append dice to existing roll*/
-		var append_to_roll = true;
+		var clear_rolled_dice = false;
 		
 		/** clear selection after roll*/
 		var clear_die_selection = true;
@@ -45,7 +45,7 @@ if(!DICESTREAM.ACTIONS) {
 		
 
 		_this.rollDiceButton = function(){
-			if(!append_to_roll)
+			if(clear_rolled_dice)
 			{
 				DICESTREAM.DICE.clearDice();
 				initDiceFields();
@@ -108,7 +108,7 @@ if(!DICESTREAM.ACTIONS) {
 		};
 
 		_this.toggleAppendToRoll = function(cb){
-			append_to_roll = cb.checked;
+			clear_rolled_dice = cb.checked;
 		};
 		
 		function initDiceFields(){

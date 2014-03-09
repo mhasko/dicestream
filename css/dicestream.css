@@ -49,6 +49,27 @@ ul, ol{
 	font-size: 11pt;
 }
 
+.helpDiv{
+	padding: 0 0 0 10px;
+	list-style-type: none;	
+}
+
+.helpHeader{
+	position: relative;
+	left: -10px;
+	font-style: italic;	
+    font-size: 10px;
+}
+
+.helpList ul{
+	font-style: italic;
+    font-size: 10pt;
+}
+
+.helpList li{
+    font-size: 9pt;
+}
+
 /*overrides of the jQuery ui tab */
 .ui-tabs .ui-tabs-panel {
 	padding: 0 0 0 0;
