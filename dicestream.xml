@@ -12,24 +12,23 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="https://hangoutsapi.talkgadget.google.com/hangouts/api/hangout.js?v=1.4" ></script>
 	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/minicolors/jquery.miniColors.js"></script>
-	<!--script type="text/javascript" src="https://s3.amazonaws.com/dicestream/multiaccordion/jquery.multi-accordion-1.5.3.js"></script-->
-	
-		
+    <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/seedrandom/seedrandom.min.js"></script>
+
+  <!--
 	<script src="https://s3.amazonaws.com/dicestream/js/dicestream.js?145"></script>
 	<script src="https://s3.amazonaws.com/dicestream/js/dombuilder.js?145"></script>
 	<script src="https://s3.amazonaws.com/dicestream/js/actions.js?145"></script>
 	<script src="https://s3.amazonaws.com/dicestream/js/effects.js?145"></script>
 	<script src="https://s3.amazonaws.com/dicestream/js/dice.js?145"></script>
 	<script src="https://s3.amazonaws.com/dicestream/js/lowerthird.js?145"></script>
-
-	<!--
+  -->
+	
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dombuilder.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/actions.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/effects.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/dice.js"></script>
 	<script src="https://dl.dropbox.com/u/1177409/dicestream/js/lowerthird.js"></script>
-    -->
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overlock" />
 </head>

@@ -29,7 +29,6 @@ if(!DICESTREAM.DICE) {
 		var SELECTION_OFFSET_Y = .15;
 		
 		/** root variables to the various image paths used.*/
-		//var IMAGEROOT = "https://commondatastorage.googleapis.com/dicestream/images";
 		var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images"
 		//var DICEROOT = "/standard";
 		var DICEROOT = "/captaingothnog";
@@ -49,6 +48,10 @@ if(!DICESTREAM.DICE) {
 		};
 
 		_this.rollDice = function() {
+            //Use the seedrandom RNG to use a better RNG than Math.random.
+            //seedrandom uses many sources of entropy and/or any browser 
+            //based crypto random functions.
+            Math.seedrandom();
 			var i = 0;
 			for(;i<DICETYPE.length;i++)
 			{
