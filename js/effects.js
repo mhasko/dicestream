@@ -206,7 +206,7 @@ if(!DICESTREAM.EFFECTS) {
 			setDice(value);
 		};
 
-		function selectThemeAction(value){
+		_this.selectThemeAction = function(value){
 			switch(value)
 			{
 				case 'fate':

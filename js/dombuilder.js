@@ -5,7 +5,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 	DOM_BUILDER = function() {
 		var _this = {};
 		
-		var VERSION = "v" + "1.4.5";
+		var VERSION = "v" + "1.5.0";
 		var DICE_CREDITS = "Dice icons by Alex Guillotte";  
         var HELP_CREDITS = "Help text by Stephanie Bryant";
 
@@ -362,12 +362,19 @@ if(!DICESTREAM.DOM_BUILDER) {
 			$(explodeDice).append(createElement("br"));
 			
 			$(dom).append(explodeDice);
-//			<!--div id="themeSelect">
+            
+            var themeSelect = createElement("div", {"id" : "themeSelect"});
+            var themeCombo = createElement("select", {"id" : "selectThemeSet"}).click(function(){DICESTREAM.EFFECTS.selectThemeAction(this)});
+            $(themeCombo).append(createElement("option", {"value" : "default"}).text("Default"));
+            $(themeCombo).append(createElement("option", {"value" : "fate"}).text("Fate"));
+//			<div id="themeSelect">
 //				<select onChange="selectThemeAction(this)" id="selectThemeSet">
 //					<option value="default">Default</option>
 //					<option value="fate">Fate</option>
 //				</select>
-//			</div-->
+//			</div>
+            $(themeSelect).append(themeCombo);
+            $(dom).append(themeSelect);
 
 			var helpTxt = createElement("div", {"id" : "settingsHelp", "class" : "helpDiv"});
 			var header = createElement("span", {"class" : "helpTitle"}).text("Hide Help");
