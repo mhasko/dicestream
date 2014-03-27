@@ -59,27 +59,33 @@ if(!DICESTREAM.DICE) {
 				var count = $("#d"+DICETYPE[i]+"count").text();
 				for(;j<count;j++)
 				{
-					var value = Math.ceil(DICETYPE[i]*Math.random());
+					var value = _this.rollSpecificDice(DICETYPE[i]);
 					//hack for exploding dice
 					if(_this.explodeDice && value==DICETYPE[i]){j--;}
-					var imageUrl = IMAGEROOT + DICEROOT + '/d' + DICETYPE[i] + '-' + value + PNG;			
-					var dieImage = gapi.hangout.av.effects.createImageResource(imageUrl);
-					var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
-					rolledDiceOverlayArray.push(overlay);
-
-					//position and display the dice overlay on the video screen
-					positionOverlays(overlay, rolledDiceOverlayArray.length-1, true);
-
-					var diceDiv = document.createElement("span");
-					$(diceDiv).data("die", {size: DICETYPE[i], face: value, position: rolledDiceOverlayArray.length, overlay: DICESTREAM.EFFECTS.SELECTION_NONE});
-
-					//Enable selection of overlay dice by clicking the matching die in the control panel
-					$(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
-						selectDieOverlay(this);
-					});
-					$("#rolledDiceDiv").append(diceDiv);
 				}
 			}
+		};
+
+		_this.rollSpecificDice = function(dice){
+			var value = Math.ceil(dice*Math.random());
+			
+			var imageUrl = IMAGEROOT + DICEROOT + '/d' + dice + '-' + value + PNG;			
+			var dieImage = gapi.hangout.av.effects.createImageResource(imageUrl);
+			var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
+			rolledDiceOverlayArray.push(overlay);
+
+			//position and display the dice overlay on the video screen
+			positionOverlays(overlay, rolledDiceOverlayArray.length-1, true);
+
+			var diceDiv = document.createElement("span");
+			$(diceDiv).data("die", {size: dice, face: value, position: rolledDiceOverlayArray.length, overlay: DICESTREAM.EFFECTS.SELECTION_NONE});
+
+			//Enable selection of overlay dice by clicking the matching die in the control panel
+			$(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
+				selectDieOverlay(this);
+			});
+			$("#rolledDiceDiv").append(diceDiv);
+			return value;
 		};
 		
 		/** changes the dice skin to be used */

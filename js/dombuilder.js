@@ -164,7 +164,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 			var span = createElement("span");
 			$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"minus", "value" : "-"}).click(function(){DICESTREAM.ACTIONS.minus(dieVal+"count", 0);}));
 			//TODO -- hard coded image path
-			$(span).append(createElement("span", {"class" : "rolledDice"}).append(createElement("img", {"src" : "https://s3.amazonaws.com/dicestream/images/captaingothnog/"+dieVal+".png"})));
+			$(span).append(createElement("span", {"class" : "rolledDice"}).append(createElement("img", {"src" : "https://s3.amazonaws.com/dicestream/images/captaingothnog/"+dieVal+".png"}).click(function(){DICESTREAM.DICE.rollSpecificDice(dieSize);})));
 			$(span).append(createElement("input", {"type" : "button", "class" : "button btn btn-mini", "id" : dieVal+"plus", "value" : "+"}).click(function(){DICESTREAM.ACTIONS.add(dieVal+"count", 99);}));
 			$(span).append(createElement("span", {"class" : "dieCount label", "id" : dieVal+"count"}).text("0"));
 			return span;
