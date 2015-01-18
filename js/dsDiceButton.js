@@ -1,8 +1,8 @@
 'use strict';
 
-var diceButton = angular.module('diceButton', ['addRemoveDiceButton']);
+var diceButton = angular.module('diceButton', ['diceService']);
 
-diceButton.directive('diceButton', function() {
+diceButton.directive('diceButton', ['diceService', function(dsDiceService) {
     return {
         restrict: 'E',
         scope: {
@@ -10,7 +10,6 @@ diceButton.directive('diceButton', function() {
             side: '@',
             diecount: '=?'
         },
-//        replace: 'true',
         templateUrl: 'https://dl.dropbox.com/u/1177409/dicestream/partials/diceButton.html',
         controller: function($scope){
             // check if it was defined.  If not - set a default
@@ -26,14 +25,16 @@ diceButton.directive('diceButton', function() {
                         scope.diecount += 1;
                     }
                 }
+                dsDiceService.addDice('d'+scope.dieside, scope.dieside, scope.diecount);
             };
             
             scope.decDieCount = function() {
                 if(scope.diecount > 0) {
                     scope.diecount -= 1;
                 }
+                dsDiceService.removeDice(scope.dieside, scope.dieside, scope.diecount);
             };
 
         }
     };
-});
+}]);

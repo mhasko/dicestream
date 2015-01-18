@@ -17,10 +17,10 @@ if(!DICESTREAM.MAIN) {
 				if(eventObj.isApiReady) {
 					//Needed for Firefox which hides the display at startup
 					document.getElementById('app-gui').style.visibility = 'visible';
-					initDiceUI();
-					initWidgets();
-					//initPPOverlays();
-					DICESTREAM.ACTIONS.setPP(1);	
+//					initDiceUI();
+//					initWidgets();
+//					//initPPOverlays();
+//					DICESTREAM.ACTIONS.setPP(1);	
 					//Need a promise to hold, so we can scale once the init is done?
 					scale();
 				}
