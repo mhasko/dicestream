@@ -60,6 +60,7 @@
  
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDicestreamAppCtrl.js"></script>
+    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsImageService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceButton.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsOverlayService.js"></script>

@@ -1,8 +1,8 @@
 'use strict';
 
-var dsOverlayService = angular.module('overlayService', []);
+var dsOverlayService = angular.module('overlayService', ['imageService']);
 
-dsOverlayService.factory('overlayService', function() {
+dsOverlayService.factory('overlayService', ['imageService', function(dsImageService) {
     var overlayService = {};
     
     var rolledDiceOverlayArray = [];
@@ -20,18 +20,17 @@ dsOverlayService.factory('overlayService', function() {
     var NUM_DICE_PER_ROW = 9;
     
     /** root variables to the various image paths used.*/
-    var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images"
-    //var DICEROOT = "/standard";
-    var DICEROOT = "/captaingothnog";
+    var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images/"
     var PNG = ".png";
     
     /** creates the dice overlay */
-    overlayService.createOverlay = function(dice, value){
+    overlayService.createOverlay = function(die, value){
         // construct the url to the image for the specified die. 
         // TODO: replace this with xml images?
-        var imageUrl = IMAGEROOT + DICEROOT + '/d' + dice + '-' + value + PNG;			
+//        var imageUrl = IMAGEROOT + die.imageroot + '/d' + die.side + '-' + value + PNG;	
+//        var imageUrl = die.dieimage;
         // create the google hangout image resource from the image
-        var dieImage = gapi.hangout.av.effects.createImageResource(imageUrl);
+        var dieImage = gapi.hangout.av.effects.createImageResource(dsImageService.imageURLFromDie(die, value));
         // create the google hangout overlay object
         var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
         rolledDiceOverlayArray.push(overlay);
@@ -56,4 +55,4 @@ dsOverlayService.factory('overlayService', function() {
 
     
     return overlayService;
-});
+}]);

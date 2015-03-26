@@ -6,15 +6,19 @@ diceButton.directive('diceButton', ['diceService', function(dsDiceService) {
     return {
         restrict: 'E',
         scope: {
-            dieside: '@die',
-            side: '@',
-            diecount: '=?'
+            id: '@dieid',
+            side: '@sides',
+            imageroot: '@',
+            dieimage: '@'//+dieside+'.png'
         },
         templateUrl: 'https://dl.dropbox.com/u/1177409/dicestream/partials/diceButton.html',
         controller: function($scope){
-            dsDiceService.setDice('d'+$scope.dieside, $scope.dieside, 0);
+            // 'register' with the dice service so what ever die this button
+            // is tracking can have its data backed in the service.
+            dsDiceService.setDice($scope.id, $scope.side, 0, $scope.imageroot);
             // bind the diedata value to the matching value in the diceService.  
-            $scope.diedata = dsDiceService.getGuiDiceArray()['d'+$scope.dieside];
+            $scope.diedata = dsDiceService.getGuiDiceArray()[$scope.id];
+            
         },
         link: function(scope, element, attrs) {
 
