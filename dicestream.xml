@@ -32,11 +32,11 @@
                         <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
                         <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
                     </div>
-                    <div id="diceDiv" ng-include="'https://dl.dropbox.com/u/1177409/dicestream/partials/rolledDiceInterface.html'"></div>
+                    <div id="rolledDiceDiv" ng-include="'https://dl.dropbox.com/u/1177409/dicestream/partials/rolledDiceInterface.html'"></div>
                 </div>
             </tab>
             <tab heading="Text">TextTab</tab>
-            <tab heading="Lower Third">Lower Third</tab>
+            <tab heading="Lower 3rd">3rd</tab>
             <tab heading="Settings">Settings</tab>
         </tabset>
     </div>
@@ -44,6 +44,7 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.js"></script>
+    <script type="text/javascript" src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
     <script type="text/javascript" src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
 	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/minicolors/jquery.miniColors.js"></script>

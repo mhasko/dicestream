@@ -1,4 +1,3 @@
-<div>
-    <span ng-repeat="rolledDie in getRolledDice()"><img ng-src="{{rolledDie.url}}"></img></span>
-<!--    Size of array is {{getRolledDice().length}}-->
-</div>
+<span class="rolledDice" ng-repeat="rolledDie in getRolledDice()">
+    <img ng-click="toggleOverlay()" ng-src="{{rolledDie.url}}"></img>
+</span>

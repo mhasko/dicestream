@@ -44,6 +44,7 @@ dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService'
         }
         
         rolledDiceArray.length = 0;
+        dsOverlayService.clearOverlayArrays();
     };
     
     diceService.setDice = function(id, side, count, root) {
@@ -74,9 +75,7 @@ dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService'
         // use seedrandom to actualy generate a psuedo-random number.  
         // This is, like, actually rolling a die. 
         var value = Math.ceil(die.side*Math.random());
-        
-//        var imageurl = dsImageService.imageURLFromDie(die, value);
-        
+
         // Create the die overlay
         var overlay = dsOverlayService.createOverlay(die, value);
         
@@ -86,22 +85,6 @@ dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService'
 
         //position and display the dice overlay on the video screen
         dsOverlayService.positionOverlays(overlay, true);
-        
-//        var newDiv = $compile('<rolled-dice size=dice face=value></rolled-dice>')(angular.element(this).scope());
-//        
-//        angular.element(document.getElementById('diceDiv')).append(newDiv);
-        
-        //
-
-//        var diceDiv = document.createElement("span");
-//        $(diceDiv).data("die", {size: dice, face: value, position: rolledDiceOverlayArray.length, overlay: DICESTREAM.EFFECTS.SELECTION_NONE});
-//
-//        //Enable selection of overlay dice by clicking the matching die in the control panel
-//        $(diceDiv).addClass("rolledDice").prepend("<img src='"+imageUrl+"' />").click(function(){
-//            selectDieOverlay(this);
-//        });
-//        $("#rolledDiceDiv").append(diceDiv);
-//        return value;
     };
     
     return diceService;

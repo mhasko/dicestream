@@ -86,7 +86,7 @@ if(!DICESTREAM.MAIN) {
 
 		// Wait for gadget to load.                                                       
 		gadgets.util.registerOnLoadHandler(init);
-		gapi.hangout.av.setLocalParticipantVideoMirrored(true);
+		gapi.hangout.av.setLocalParticipantVideoMirrored(false);
 		//Resize the div size on a window resize.  
 		$(window).on('resize', function(){
 			_this.max_height = window.innerHeight;
