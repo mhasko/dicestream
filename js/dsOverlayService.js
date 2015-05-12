@@ -19,9 +19,17 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     /** Sets the number of dice per row. */
     var NUM_DICE_PER_ROW = 9;
     
-    /** root variables to the various image paths used.*/
-    var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images/"
-    var PNG = ".png";
+    /** permissions for overlay types - none, circle, hex, X*/
+    var SELECTION_ALLOW = [true, true, true, true];
+    
+    /** selection overlay types */
+    var SELECTION_NONE = 0;
+    var SELECTION_CIRCLE = 1;
+    var SELECTION_HEX = 2;
+    var SELECTION_X = 3;
+		
+    /** dice image overlay colors */
+    var SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
     
     overlayService.getRolledDiceOverlayArray = function(){
         return rolledDiceOverlayArray;
@@ -57,6 +65,22 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * DICE_ROW_OFFSET;
         value.setPosition({x: -.40 + columnOffset, y:-.425 + rowOffset});
         value.setVisible(display);
+    };
+    
+    //recursive function that finds the next valid overlay type and returns it.
+    overlayService.findNextOverlay = function(pos){
+        if(pos+1 >= SELECTION_ALLOW.length)
+        {
+            return SELECTION_NONE;
+        }
+        else if(SELECTION_ALLOW[pos+1])
+        {
+            return pos + 1;
+        }
+        else
+        {
+            return findNextOverlay(pos+1);
+        }
     };
     
     /** helper to draw a Hex */

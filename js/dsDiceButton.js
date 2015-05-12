@@ -2,7 +2,7 @@
 
 var diceButton = angular.module('diceButton', ['diceService']);
 
-diceButton.directive('diceButton', ['diceService', function(dsDiceService) {
+diceButton.directive('diceButton', ['config', 'diceService', function(config, dsDiceService) {
     return {
         restrict: 'E',
         scope: {
@@ -11,7 +11,7 @@ diceButton.directive('diceButton', ['diceService', function(dsDiceService) {
             imageroot: '@',
             dieimage: '@'//+dieside+'.png'
         },
-        templateUrl: 'https://dl.dropbox.com/u/1177409/dicestream/partials/diceButton.html',
+        templateUrl: config.filePrefix + 'partials/diceButton.html',
         controller: function($scope){
             // 'register' with the dice service so what ever die this button
             // is tracking can have its data backed in the service.
