@@ -2,19 +2,13 @@
 
 var dsImageService = angular.module('imageService', []);
 
-dsImageService.factory('imageService', function() {
-    
-    var IMAGEROOT = "https://s3.amazonaws.com/dicestream/images/"
-    var PNG = ".png";
+dsImageService.factory('imageService', ['config', function(config) {
     
     var imageService = {};
     
     imageService.imageURLFromDie = function(die, value){
-        return  IMAGEROOT + die.imageroot + '/d' + die.side + '-' + value + PNG;	  
+        return  config.imgroot + die.imageroot + '/d' + die.side + '-' + value + '.png';	  
     };
-    
-    
-
-    
+        
     return imageService;
-});
+}]);
