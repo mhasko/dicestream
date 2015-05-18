@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/css/dicestream.css" />
-    
+
     <div id="canvasDiv" class="disabled">
     	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
     	<canvas height="70px" width="600px" id="textCanvas"></canvas>
@@ -32,7 +32,9 @@
                         <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
                         <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
                     </div>
-                    <div id="rolledDiceDiv" ng-include="'https://dl.dropbox.com/u/1177409/dicestream/partials/rolledDiceInterface.html'"></div>
+                    <div id="rolledDiceDiv">
+                        <ds-rolled-dice die="{{rolledDie.side}}" value="{{rolledDie.value}}" url="{{rolledDie.url}}" position="{{$index}}" ng-repeat="rolledDie in getRolledDice()"></ds-rolled-dice>
+                    </div>
                 </div>
             </tab>
             <tab heading="Text">TextTab</tab>
@@ -41,26 +43,16 @@
         </tabset>
     </div>
 
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.js"></script>
+<!--
     <script type="text/javascript" src="https://code.createjs.com/easeljs-0.8.0.min.js"></script>
+-->
     <script type="text/javascript" src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
-<!--	
-    <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/minicolors/jquery.miniColors.js"></script>
--->
+
     <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/seedrandom/seedrandom.min.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-
-<!--	
-    <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/dicestream.js"></script>
-	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/dombuilder.js"></script>
-	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/actions.js"></script>
-	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/effects.js"></script>
-	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/dice.js"></script>
-	<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/js/lowerthird.js"></script>
--->
  
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDicestreamAppCtrl.js"></script>
@@ -70,9 +62,6 @@
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsOverlayService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceTabCtrl.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsRolledDice.js"></script>
-<!--
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsRolledDiceInterface.js"></script>
- -->
 </body>
 </html>
 ]]>

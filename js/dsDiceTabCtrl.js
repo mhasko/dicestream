@@ -15,9 +15,9 @@ dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, dice
         return diceService.getRolledDiceArray();
     };
     
-    $scope.toggleOverlay = function() {
-        alert("PRESSED THE BUTTON");  
-    };
+//    $scope.toggleOverlay = function() {
+//        alert("PRESSED THE BUTTON");  
+//    };
 }]);
 
 //return dsApp;
