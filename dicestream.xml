@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/css/dicestream.css" />
 
     <div id="canvasDiv" class="disabled">
-    	<canvas height="128px" width="128px" id="overlayCanvas"></canvas>
+    	<canvas height="512px" width="512px" id="overlayCanvas"></canvas>
     	<canvas height="70px" width="600px" id="textCanvas"></canvas>
     	<canvas height="100px" width="600px" id="mainThirdCanvas"></canvas>
     	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>

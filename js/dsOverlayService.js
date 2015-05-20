@@ -67,6 +67,27 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         value.setVisible(display);
     };
     
+//    /** creat a Hangout overlay from a Hangout resource */
+//    overlayService.makeOverlay = function(resource, scale, xval, yval){
+//        var overlay = resource.createOverlay({});
+//        overlay.setScale(scale, gapi.hangout.av.effects.ScaleReference.WIDTH);
+//        overlay.setPosition({x: xval, y: yval});// + _this.CANVAS_V_OFFSET});
+//        overlay.setVisible(true);
+//        return overlay;
+//    };
+		
+    /** create a hangout overlay from an HTML5 canvas context */
+    overlayService.makeOverlayFromContext = function(context, scale, xval, yval){
+        var canvasImage = gapi.hangout.av.effects.createImageResource(context.canvas.toDataURL());
+//        return _this.makeOverlay(canvasImage, scale, xval, yval);
+//            var overlay = resource.createOverlay({});
+        var overlay = canvasImage.createOverlay({});
+        overlay.setScale(scale, gapi.hangout.av.effects.ScaleReference.WIDTH);
+        overlay.setPosition({x: xval, y: yval});// + _this.CANVAS_V_OFFSET});
+        overlay.setVisible(true);
+        return overlay;
+    };
+    
     //recursive function that finds the next valid overlay type and returns it.
     overlayService.findNextOverlay = function(pos){
         if(pos+1 >= SELECTION_ALLOW.length)
@@ -85,24 +106,23 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     
     /** helper to draw a Hex */
     overlayService.drawHex = function(x,y,L,thick){
-		return _this.drawPolygon(x,y,6,L,thick);
+		return overlayService.drawPolygon(x,y,6,L,thick);
     };
 
     /** draw a regular polygon on an HTML5 canvas object */
 	overlayService.drawPolygon = function(x0,y0,numOfSides,L,lineThickness) {
-		var shapeContext = createContext(256, 256);
-			//var canvas = $('#overlayCanvas').clone();
-			//var shapeContext = canvas[0].getContext("2d");
+        var canvas = $('#overlayCanvas').clone();
+        var shapeContext = canvas[0].getContext("2d");
         var firstX;
         var firstY;
         shapeContext.translate(0.5, 0.5);
-        shapeContext.strokeStyle = _this.SELECTION_COLOR[_this.SELECTION_HEX];
+        shapeContext.strokeStyle = SELECTION_COLOR[SELECTION_HEX];
         shapeContext.lineWidth = lineThickness;
         shapeContext.beginPath();
         for(var i=0;i<numOfSides;i++)
         {
-            x = L * Math.cos(2*Math.PI*i/numOfSides) + x0;
-            y = L * Math.sin(2*Math.PI*i/numOfSides) + y0;
+            var x = L * Math.cos(2*Math.PI*i/numOfSides) + x0;
+            var y = L * Math.sin(2*Math.PI*i/numOfSides) + y0;
             if(i==0){
                 shapeContext.moveTo(x, y);
                 firstX = x;
@@ -123,33 +143,31 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
 
     /** draw a circle on an HTML5 canvas object */
     overlayService.drawCircle = function(x0,y0,radius,lineThickness) {
-        var circleContext = createContext(256, 256);
-        //var canvas = $('#overlayCanvas').clone();
-        //var circleContext = canvas[0].getContext("2d");
+        var canvas = $('#overlayCanvas').clone();
+        var circleContext = canvas[0].getContext("2d");
         circleContext.translate(0.5, 0.5);
         circleContext.beginPath();
         circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
         circleContext.lineWidth = lineThickness;
-        circleContext.strokeStyle = _this.SELECTION_COLOR[_this.SELECTION_CIRCLE];
+        circleContext.strokeStyle = SELECTION_COLOR[SELECTION_CIRCLE];
         circleContext.stroke();
         return circleContext;
     };
 
 	/** draw an x on an HTML5 canvas object */
     overlayService.drawX = function(lineThickness) {
-        var xContext = createContext(256, 256);
-        //var canvas = $('#overlayCanvas').clone();
-        //var xContext = canvas[0].getContext("2d");
+        var canvas = $('#overlayCanvas').clone();
+        var xContext = canvas[0].getContext("2d");
         xContext.translate(0.5, 0.5);
         xContext.lineWidth = lineThickness;
-        xContext.strokeStyle = _this.SELECTION_COLOR[_this.SELECTION_X];
+        xContext.strokeStyle = SELECTION_COLOR[SELECTION_X];
         xContext.beginPath();
 
-        xContext.moveTo(4, 4);
-        xContext.lineTo(28, 28);
+        xContext.moveTo(48, 48);
+        xContext.lineTo(464, 464);
 
-        xContext.moveTo(28, 4);
-        xContext.lineTo(4, 28);
+        xContext.moveTo(464, 48);
+        xContext.lineTo(48, 464);
         xContext.stroke();
         return xContext;
     };
