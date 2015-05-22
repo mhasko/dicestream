@@ -6,6 +6,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     var overlayService = {};
     
     var rolledDiceOverlayArray = [];
+    var effectOverlayArray = [];
     
     /** Number of dice positions to offset for the Google+ watermark */
     var WATERMARK_OFFSET = 3;
@@ -23,26 +24,31 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     var SELECTION_ALLOW = [true, true, true, true];
     
     /** selection overlay types */
-    var SELECTION_NONE = 0;
-    var SELECTION_CIRCLE = 1;
-    var SELECTION_HEX = 2;
-    var SELECTION_X = 3;
+    overlayService.SELECTION_NONE = 0;
+    overlayService.SELECTION_CIRCLE = 1;
+    overlayService.SELECTION_HEX = 2;
+    overlayService.SELECTION_X = 3;
 		
     /** dice image overlay colors */
-    var SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
+    overlayService.SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
     
     overlayService.getRolledDiceOverlayArray = function(){
         return rolledDiceOverlayArray;
     };
     
+    overlayService.getEffectOverlayArray = function() {
+        return effectOverlayArray;
+    };
+    
     overlayService.clearOverlayArrays = function(){
         rolledDiceOverlayArray.forEach(setDieArrayFalse);
         rolledDiceOverlayArray.length = 0;
-    }
+    };
             
     function setDieArrayFalse(value, index, array) {
         value.setVisible(false);
-    }
+    };
+    
     /** creates the dice overlay */
     overlayService.createOverlay = function(die, value){
         // create the google hangout image resource from the image
@@ -90,17 +96,12 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     
     //recursive function that finds the next valid overlay type and returns it.
     overlayService.findNextOverlay = function(pos){
-        if(pos+1 >= SELECTION_ALLOW.length)
-        {
-            return SELECTION_NONE;
-        }
-        else if(SELECTION_ALLOW[pos+1])
-        {
-            return pos + 1;
-        }
-        else
-        {
-            return findNextOverlay(pos+1);
+        if(parseInt(pos)+1 >= SELECTION_ALLOW.length) {
+            return overlayService.SELECTION_NONE;
+        } else if(SELECTION_ALLOW[parseInt(pos)+1]) {
+            return parseInt(pos) + 1;
+        } else {
+            return overlayService.findNextOverlay(pos+1);
         }
     };
     
@@ -116,7 +117,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var firstX;
         var firstY;
         shapeContext.translate(0.5, 0.5);
-        shapeContext.strokeStyle = SELECTION_COLOR[SELECTION_HEX];
+        shapeContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_HEX];
         shapeContext.lineWidth = lineThickness;
         shapeContext.beginPath();
         for(var i=0;i<numOfSides;i++)
@@ -149,7 +150,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         circleContext.beginPath();
         circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
         circleContext.lineWidth = lineThickness;
-        circleContext.strokeStyle = SELECTION_COLOR[SELECTION_CIRCLE];
+        circleContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_CIRCLE];
         circleContext.stroke();
         return circleContext;
     };
@@ -160,7 +161,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var xContext = canvas[0].getContext("2d");
         xContext.translate(0.5, 0.5);
         xContext.lineWidth = lineThickness;
-        xContext.strokeStyle = SELECTION_COLOR[SELECTION_X];
+        xContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_X];
         xContext.beginPath();
 
         xContext.moveTo(48, 48);

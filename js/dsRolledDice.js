@@ -13,7 +13,7 @@ dsRolledDice.directive('dsRolledDice', ['config', 'overlayService', function(con
         },
         templateUrl: config.filePrefix + 'partials/rolledDice.html',
         controller: function($scope, overlayService){
-
+            $scope.currentSelection = 0
         },
         link: function(scope, element, attrs) {
             var SELECTION_OFFSET_X = .054;
@@ -23,16 +23,37 @@ dsRolledDice.directive('dsRolledDice', ['config', 'overlayService', function(con
 			var newy = overlayService.getRolledDiceOverlayArray()[scope.position].getPosition().y+.15;
             
             scope.selectDieOverlay = function(){
-//                console.log(scope.die);
-//                console.log(scope.value);
-//                console.log(scope.url);
-//                console.log(scope.position);
+                // If we have a selection on this die, remove it
+                if(scope.currentSelection > overlayService.SELECTION_NONE && overlayService.getEffectOverlayArray()[scope.position]){
+                    overlayService.getEffectOverlayArray()[scope.position].setVisible(false);
+                    overlayService.getEffectOverlayArray()[scope.position].dispose();
+                }	
                 
-        
-//                var circleContext = overlayService.drawCircle(256,256,220,STROKE_WIDTH);
-//                var circleContext = overlayService.drawX(STROKE_WIDTH+15);
-                var circleContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
-				var putInArray = overlayService.makeOverlayFromContext(circleContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+                var nextOverlay = overlayService.findNextOverlay(scope.currentSelection);
+                scope.currentSelection = nextOverlay;
+                
+                switch(nextOverlay){
+
+                    case overlayService.SELECTION_CIRCLE:
+                        scope.rolledDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_CIRCLE]}
+                        var effectContext = overlayService.drawCircle(256,256,220,STROKE_WIDTH);
+				        overlayService.getEffectOverlayArray()[scope.position] = overlayService.makeOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+                        break;
+                    case overlayService.SELECTION_HEX:
+                        scope.rolledDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_HEX]}
+                        var effectContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
+				        overlayService.getEffectOverlayArray()[scope.position] = overlayService.makeOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+                        break;
+                    case overlayService.SELECTION_X:
+                        scope.rolledDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_X]}
+                        //We want kind of a fatter x.
+                        var effectContext = overlayService.drawX(STROKE_WIDTH+15);
+				        overlayService.getEffectOverlayArray()[scope.position] = overlayService.makeOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
+                        break;
+                    case overlayService.SELECTION_NONE:
+                    default:
+                        scope.rolledDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_NONE]}
+                }
             };            
         }        
     };
