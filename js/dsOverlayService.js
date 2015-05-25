@@ -5,8 +5,8 @@ var dsOverlayService = angular.module('overlayService', ['imageService']);
 dsOverlayService.factory('overlayService', ['imageService', function(dsImageService) {
     var overlayService = {};
     
-    var rolledDiceOverlayArray = [];
-    var effectOverlayArray = [];
+    var trayDiceOverlayArray = [];
+    var dieSelectionOverlayArray = [];
     
     /** Number of dice positions to offset for the Google+ watermark */
     var WATERMARK_OFFSET = 3;
@@ -29,33 +29,36 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     overlayService.SELECTION_HEX = 2;
     overlayService.SELECTION_X = 3;
 		
-    /** dice image overlay colors */
+    /** css values for dice image overlay colors */
     overlayService.SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
     
-    overlayService.getRolledDiceOverlayArray = function(){
-        return rolledDiceOverlayArray;
+    overlayService.getTrayDiceOverlayArray = function(){
+        return trayDiceOverlayArray;
     };
     
-    overlayService.getEffectOverlayArray = function() {
-        return effectOverlayArray;
+    overlayService.getDieSelectionOverlayArray = function() {
+        return dieSelectionOverlayArray;
     };
     
     overlayService.clearOverlayArrays = function(){
-        rolledDiceOverlayArray.forEach(setDieArrayFalse);
-        rolledDiceOverlayArray.length = 0;
+        trayDiceOverlayArray.forEach(setArrayFalse);
+        trayDiceOverlayArray.length = 0;
+        
+        dieSelectionOverlayArray.forEach(setArrayFalse);
+        dieSelectionOverlayArray.length = 0;
     };
             
-    function setDieArrayFalse(value, index, array) {
+    function setArrayFalse(value, index, array) {
         value.setVisible(false);
     };
     
     /** creates the dice overlay */
-    overlayService.createOverlay = function(die, value){
+    overlayService.createDieOverlay = function(die, value){
         // create the google hangout image resource from the image
         var dieImage = gapi.hangout.av.effects.createImageResource(dsImageService.imageURLFromDie(die, value));
         // create the google hangout overlay object
         var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
-        rolledDiceOverlayArray.push(overlay);
+        trayDiceOverlayArray.push(overlay);
         return overlay;
     };
 
@@ -63,45 +66,44 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     overlayService.positionOverlays = function(value, display){//index, display){
         //index is an array index.  We need to use that value along with the constant
         //for the allowable number of dice in a row to first determine the 'grid' 
-        //position of the die, then use the offset value to computer the position
+        //position of the die, then use the offset value to compute the position
         //values for the overlay.
-//        var watermarkedIndex = index + WATERMARK_OFFSET;
-        var watermarkedIndex = rolledDiceOverlayArray.length - 1 + WATERMARK_OFFSET;
+
+        var watermarkedIndex = trayDiceOverlayArray.length - 1 + WATERMARK_OFFSET;
         var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * DICE_COL_OFFSET;
         var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * DICE_ROW_OFFSET;
         value.setPosition({x: -.40 + columnOffset, y:-.425 + rowOffset});
         value.setVisible(display);
     };
-    
-//    /** creat a Hangout overlay from a Hangout resource */
-//    overlayService.makeOverlay = function(resource, scale, xval, yval){
-//        var overlay = resource.createOverlay({});
-//        overlay.setScale(scale, gapi.hangout.av.effects.ScaleReference.WIDTH);
-//        overlay.setPosition({x: xval, y: yval});// + _this.CANVAS_V_OFFSET});
-//        overlay.setVisible(true);
-//        return overlay;
-//    };
 		
     /** create a hangout overlay from an HTML5 canvas context */
-    overlayService.makeOverlayFromContext = function(context, scale, xval, yval){
+    overlayService.createOverlayFromContext = function(context, scale, xval, yval){
+        // create the google hangout image resource from html5 context
         var canvasImage = gapi.hangout.av.effects.createImageResource(context.canvas.toDataURL());
-//        return _this.makeOverlay(canvasImage, scale, xval, yval);
-//            var overlay = resource.createOverlay({});
+        // create the google hangout overlay object
         var overlay = canvasImage.createOverlay({});
         overlay.setScale(scale, gapi.hangout.av.effects.ScaleReference.WIDTH);
-        overlay.setPosition({x: xval, y: yval});// + _this.CANVAS_V_OFFSET});
+        overlay.setPosition({x: xval, y: yval});
         overlay.setVisible(true);
         return overlay;
     };
     
-    //recursive function that finds the next valid overlay type and returns it.
+    /** recursive function that finds the next valid overlay type and returns it. */
     overlayService.findNextOverlay = function(pos){
-        if(parseInt(pos)+1 >= SELECTION_ALLOW.length) {
+        var nextOverlayValue = parseInt(pos)+1;
+        // We've hit the end of the array, return the first array value /
+        // no selection value.
+        if(nextOverlayValue >= SELECTION_ALLOW.length) {
             return overlayService.SELECTION_NONE;
-        } else if(SELECTION_ALLOW[parseInt(pos)+1]) {
-            return parseInt(pos) + 1;
-        } else {
-            return overlayService.findNextOverlay(pos+1);
+        } 
+        // This selection type is allowed, so return it
+        else if(SELECTION_ALLOW[nextOverlayValue]) {
+            return nextOverlayValue;
+        } 
+        // The user has disallowed this selection, let's go to the next array
+        // value and see if it's valid or not
+        else {
+            return overlayService.findNextOverlay(nextOverlayValue);
         }
     };
     

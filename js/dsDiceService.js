@@ -2,7 +2,7 @@
 
 var dsDiceService = angular.module('diceService', ['overlayService', 'imageService']);
 
-dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService', 'imageService', function($rootScope, $compile, dsOverlayService, dsImageService) {
+dsDiceService.factory('diceService', ['overlayService', 'imageService', function(dsOverlayService, dsImageService) {
     // diceArray is the backing data object for the dice, so we know 
     // what to display and what to roll. 
     // [id1:{
@@ -23,49 +23,52 @@ dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService'
     //      explode: false}
     // ]
     var diceService = {};
-    var guiDiceArray = {};
-    var rolledDiceArray = [];
     
-    /** initializes the various arrays used to hold the overlays */
-    var effectOverlayArray = [];
+    /** array of json formatted 'dice' is used to roll dice
+        The diceButtons 'register' themselves by entering their data into this array when they
+        are created.  If the count value are >0 for a given type, when a roll happens the type
+        will be rolled 'count' number of times */
+    var diceToRollArray = {};
     
-    diceService.getRolledDiceArray = function(){
-        return rolledDiceArray;   
+    /** array of json formatted 'dice' that has been rolled and is displayed via overlays.
+        Dice in here are considered in the 'dicetray' and persist until cleared*/
+    var dicetrayArray = [];
+    
+    diceService.getDicetrayArray = function(){
+        return dicetrayArray;   
     };
     
-    diceService.getGuiDiceArray = function(){
-        return guiDiceArray;
+    diceService.getDiceToRollArray = function(){
+        return diceToRollArray;
     };
     
     diceService.clearDice = function() {
-        for(var die in guiDiceArray) {
-            if(!guiDiceArray.hasOwnProperty(die)) {continue;}
-            guiDiceArray[die].count = 0;   
+        for(var die in diceToRollArray) {
+            if(!diceToRollArray.hasOwnProperty(die)) {continue;}
+            diceToRollArray[die].count = 0;   
         }
         
-        rolledDiceArray.length = 0;
+        dicetrayArray.length = 0;
         dsOverlayService.clearOverlayArrays();
     };
     
     diceService.setDice = function(id, side, count, root) {
-        if(!guiDiceArray[id]){guiDiceArray[id] = {};}
-        guiDiceArray[id].side = side;
-        guiDiceArray[id].count = count;
-        if(root){guiDiceArray[id].imageroot = root;}
+        if(!diceToRollArray[id]){diceToRollArray[id] = {};}
+        diceToRollArray[id].side = side;
+        diceToRollArray[id].count = count;
+        if(root){diceToRollArray[id].imageroot = root;}
     };
     
     diceService.rollDice = function() {
-        for(var die in guiDiceArray) {
-            if(!guiDiceArray.hasOwnProperty(die)) {continue;}
+        for(var die in diceToRollArray) {
+            if(!diceToRollArray.hasOwnProperty(die)) {continue;}
             //Use the seedrandom RNG to use a better RNG than Math.random.
             //seedrandom uses many sources of entropy and/or any browser 
             //based crypto random functions.
             Math.seedrandom();
-            for(var i=0;i<guiDiceArray[die].count;i++)
+            for(var i=0;i<diceToRollArray[die].count;i++)
             {
-                this.rollSpecificDice(guiDiceArray[die]);
-                //hack for exploding dice
-//                if(dice.explode && value==dice.side){j--;}
+                this.rollSpecificDice(diceToRollArray[die]);
             }
 			
         };
@@ -77,11 +80,11 @@ dsDiceService.factory('diceService', ['$rootScope', '$compile', 'overlayService'
         var value = Math.ceil(die.side*Math.random());
 
         // Create the die overlay
-        var overlay = dsOverlayService.createOverlay(die, value);
+        var overlay = dsOverlayService.createDieOverlay(die, value);
         
-        // Add rolled die to the rolledDieArray, so the rolled die div can
+        // Add rolled die to the dicetrayArray, so the tray div can
         // display the correct image
-        rolledDiceArray.push({side:die.side,value:value,url:dsImageService.imageURLFromDie(die, value)});
+        dicetrayArray.push({side:die.side,value:value,url:dsImageService.imageURLFromDie(die, value)});
 
         //position and display the dice overlay on the video screen
         dsOverlayService.positionOverlays(overlay, true);

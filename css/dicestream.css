@@ -25,7 +25,7 @@ ul, ol{
 	margin-right: 20%;
 }
 
-#rolledDiceDiv{
+#dicetrayDiv{
 	position: relative;
 }
 
@@ -117,11 +117,15 @@ ul, ol{
 	padding: 0 5px 0 5px;
 }
 
-.rolledDice{
-	height: 32px;
-	width: 32px;
+.trayDie{
+	height: 38px;
+	width: 38px;
 	display: inline-block;
 	margin: 0 5px 0 5px;
+}
+
+.trayDieImage{
+    margin: 3px 3px 3px 3px;
 }
 
 .removeText{

@@ -9,7 +9,7 @@ diceButton.directive('diceButton', ['config', 'diceService', function(config, ds
             id: '@dieid',
             side: '@sides',
             imageroot: '@',
-            dieimage: '@'//+dieside+'.png'
+            dieimage: '@'
         },
         templateUrl: config.filePrefix + 'partials/diceButton.html',
         controller: function($scope){
@@ -17,7 +17,7 @@ diceButton.directive('diceButton', ['config', 'diceService', function(config, ds
             // is tracking can have its data backed in the service.
             dsDiceService.setDice($scope.id, $scope.side, 0, $scope.imageroot);
             // bind the diedata value to the matching value in the diceService.  
-            $scope.diedata = dsDiceService.getGuiDiceArray()[$scope.id];
+            $scope.diedata = dsDiceService.getDiceToRollArray()[$scope.id];
             
         },
         link: function(scope, element, attrs) {

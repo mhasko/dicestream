@@ -12,7 +12,8 @@
 <body id="ds">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/css/dicestream.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/css/dicestream.css" /> -->
+    <link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/css/dicestream.css" />
 
     <div id="canvasDiv" class="disabled">
     	<canvas height="512px" width="512px" id="overlayCanvas"></canvas>
@@ -32,8 +33,8 @@
                         <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
                         <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
                     </div>
-                    <div id="rolledDiceDiv">
-                        <ds-rolled-dice die="{{rolledDie.side}}" value="{{rolledDie.value}}" url="{{rolledDie.url}}" position="{{$index}}" ng-repeat="rolledDie in getRolledDice()"></ds-rolled-dice>
+                    <div id="dicetrayDiv">
+                        <ds-tray-dice die="{{trayDie.side}}" value="{{trayDie.value}}" url="{{trayDie.url}}" position="{{$index}}" ng-repeat="trayDie in getDicetray()"></ds-tray-dice>
                     </div>
                 </div>
             </tab>
@@ -57,11 +58,11 @@
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDicestreamAppCtrl.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsImageService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceButton.js"></script>
+    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceButtonDirective.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsOverlayService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceTabCtrl.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsRolledDice.js"></script>
+    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTrayDiceDirective.js"></script>
 </body>
 </html>
 ]]>
