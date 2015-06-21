@@ -7,9 +7,10 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     
     var trayDiceOverlayArray = [];
     var dieSelectionOverlayArray = [];
+    var cardsOverlayArray = [];  
     
     /** Number of dice positions to offset for the Google+ watermark */
-    var WATERMARK_OFFSET = 3;
+    var WATERMARK_OFFSET = 0;
 
     /** Space between rows of dice*/
     var DICE_ROW_OFFSET = .08;
@@ -18,19 +19,26 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     var DICE_COL_OFFSET = .125;
 
     /** Sets the number of dice per row. */
-    var NUM_DICE_PER_ROW = 9;
-    
-    /** permissions for overlay types - none, circle, hex, X*/
-    var SELECTION_ALLOW = [true, true, true, true];
+    var NUM_DICE_PER_ROW = 10;
     
     /** selection overlay types */
     overlayService.SELECTION_NONE = 0;
     overlayService.SELECTION_CIRCLE = 1;
     overlayService.SELECTION_HEX = 2;
     overlayService.SELECTION_X = 3;
+    
+
+    /** permissions for overlay types - none, circle, hex, X*/
+    var validSelectionTypes = [true, true, true, true];
 		
     /** css values for dice image overlay colors */
-    overlayService.SELECTION_COLOR = ['transparent', '#54A954','#000000','#802015'];
+    overlayService.selectionColorFor = ['transparent', '#54A954','#000000','#802015'];
+    
+    /** default text color for new cards*/
+    overlayService.cardTextColor = 'rgba(0,0,0,1)';
+    
+    /** default background color for new cards*/
+    overlayService.cardBGColor = 'rgba(255,153,0, .5)';
     
     overlayService.getTrayDiceOverlayArray = function(){
         return trayDiceOverlayArray;
@@ -40,12 +48,25 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         return dieSelectionOverlayArray;
     };
     
+    overlayService.addNewCard = function(card) {
+        cardsOverlayArray.push(card);
+    };
+    
+    overlayService.getCardsOverlayArray = function() {
+        return cardsOverlayArray;
+    };
+    
     overlayService.clearOverlayArrays = function(){
         trayDiceOverlayArray.forEach(setArrayFalse);
         trayDiceOverlayArray.length = 0;
         
         dieSelectionOverlayArray.forEach(setArrayFalse);
         dieSelectionOverlayArray.length = 0;
+    };
+    
+    overlayService.clearTextCardArrays = function() {
+        cardsOverlayArray.forEach(setArrayFalse);
+        cardsOverlayArray.length = 0;
     };
             
     function setArrayFalse(value, index, array) {
@@ -88,16 +109,26 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         return overlay;
     };
     
+    /** create a text overlay, using fabric.js*/
+    overlayService.createTextOverlay = function(text, scale, xpos, ypos) {
+        var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
+        
+        var textObj = new fabric.Text(text, {left: xpos, top: ypos, textBackgroundColor: 'rgba(255,153,00, .3)'});
+        fcanvas.add(textObj);
+        
+        return fcanvas.getContext();
+    };
+    
     /** recursive function that finds the next valid overlay type and returns it. */
     overlayService.findNextOverlay = function(pos){
         var nextOverlayValue = parseInt(pos)+1;
         // We've hit the end of the array, return the first array value /
         // no selection value.
-        if(nextOverlayValue >= SELECTION_ALLOW.length) {
+        if(nextOverlayValue >= validSelectionTypes.length) {
             return overlayService.SELECTION_NONE;
         } 
         // This selection type is allowed, so return it
-        else if(SELECTION_ALLOW[nextOverlayValue]) {
+        else if(validSelectionTypes[nextOverlayValue]) {
             return nextOverlayValue;
         } 
         // The user has disallowed this selection, let's go to the next array
@@ -119,7 +150,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var firstX;
         var firstY;
         shapeContext.translate(0.5, 0.5);
-        shapeContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_HEX];
+        shapeContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_HEX];
         shapeContext.lineWidth = lineThickness;
         shapeContext.beginPath();
         for(var i=0;i<numOfSides;i++)
@@ -152,7 +183,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         circleContext.beginPath();
         circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
         circleContext.lineWidth = lineThickness;
-        circleContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_CIRCLE];
+        circleContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_CIRCLE];
         circleContext.stroke();
         return circleContext;
     };
@@ -163,7 +194,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var xContext = canvas[0].getContext("2d");
         xContext.translate(0.5, 0.5);
         xContext.lineWidth = lineThickness;
-        xContext.strokeStyle = overlayService.SELECTION_COLOR[overlayService.SELECTION_X];
+        xContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_X];
         xContext.beginPath();
 
         xContext.moveTo(48, 48);

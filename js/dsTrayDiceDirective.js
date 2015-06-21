@@ -35,24 +35,24 @@ dsTrayDice.directive('dsTrayDice', ['config', 'overlayService', function(config,
                 switch(nextOverlay){
 
                     case overlayService.SELECTION_CIRCLE:
-                        scope.trayDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_CIRCLE]}
+                        scope.trayDieSpan = {'background-color':overlayService.selectionColorFor[overlayService.SELECTION_CIRCLE]}
                         var effectContext = overlayService.drawCircle(256,256,220,STROKE_WIDTH);
 				        overlayService.getDieSelectionOverlayArray()[scope.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
                         break;
                     case overlayService.SELECTION_HEX:
-                        scope.trayDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_HEX]}
+                        scope.trayDieSpan = {'background-color':overlayService.selectionColorFor[overlayService.SELECTION_HEX]}
                         var effectContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
 				        overlayService.getDieSelectionOverlayArray()[scope.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
                         break;
                     case overlayService.SELECTION_X:
-                        scope.trayDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_X]}
+                        scope.trayDieSpan = {'background-color':overlayService.selectionColorFor[overlayService.SELECTION_X]}
                         //We want kind of a fatter x.
                         var effectContext = overlayService.drawX(STROKE_WIDTH+15);
 				        overlayService.getDieSelectionOverlayArray()[scope.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy-SELECTION_OFFSET_Y);
                         break;
                     case overlayService.SELECTION_NONE:
                     default:
-                        scope.trayDieSpan = {'background-color':overlayService.SELECTION_COLOR[overlayService.SELECTION_NONE]}
+                        scope.trayDieSpan = {'background-color':overlayService.selectionColorFor[overlayService.SELECTION_NONE]}
                 }
             };            
         }        

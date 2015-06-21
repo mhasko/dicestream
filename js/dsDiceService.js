@@ -70,7 +70,6 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
             {
                 this.rollSpecificDice(diceToRollArray[die]);
             }
-			
         };
     };
 
