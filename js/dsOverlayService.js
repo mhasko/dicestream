@@ -113,7 +113,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     overlayService.createTextOverlay = function(text, scale, xpos, ypos) {
         var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
         
-        var textObj = new fabric.Text(text, {left: xpos, top: ypos, textBackgroundColor: 'rgba(255,153,00, .3)'});
+        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: 'rgba(255,153,00, .3)'});
         fcanvas.add(textObj);
         
         return fcanvas.getContext();
