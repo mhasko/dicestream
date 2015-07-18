@@ -127,8 +127,10 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var bgColorTC = tinycolor(bgColor);
         bgColorTC.setAlpha(.3);
         var textColorTC = tinycolor(textColor);
+        textColorTC.setAlpha(1);
         
-        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: textColorTC.toRgbString()/*'rgba(255,153,00, .3)'*/});
+        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: bgColorTC.toRgbString()/*'rgba(255,153,00, .3)'*/});
+        textObj.setColor(textColorTC.toRgbString());
         fcanvas.add(textObj);
         
         return fcanvas.getContext();

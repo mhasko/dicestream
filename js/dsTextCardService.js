@@ -39,16 +39,16 @@ dsTextCardService.factory('textCardService', ['overlayService', 'config', functi
         }
     };
         
-    //todo make replace card at? 
-    //1) replace card with new card
-    //2) remove and recreated card at that position
-    textCardService.redrawCards = function() {
-        overlayService.clearTextCardArrays();
-        for(var i = 0;i<textCardArray.length;i++) {
-            overlayService.addNewCard(drawTextCard(textCardArray[i].text, textCardArray[i].textcolor, textCardArray[i].bgcolor, i));
-        }
-        
-    };
+//    //todo make replace card at? 
+//    //1) replace card with new card
+//    //2) remove and recreated card at that position
+//    textCardService.redrawCards = function() {
+//        overlayService.clearTextCardArrays();
+//        for(var i = 0;i<textCardArray.length;i++) {
+//            overlayService.addNewCard(drawTextCard(textCardArray[i].text, textCardArray[i].textcolor, textCardArray[i].bgcolor, i));
+//        }
+//        
+//    };
     
     textCardService.redrawCardAt = function(index) {
         // get the data for the card we want to redraw

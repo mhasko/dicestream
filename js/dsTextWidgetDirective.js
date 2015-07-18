@@ -30,7 +30,16 @@ textWidget.directive('textWidget', ['config', 'textCardService', function(config
                     textCardService.redrawCardAt($scope.index);
                 }
               }
-             );
+            );
+            
+            $scope.$watch(function(scope) { return scope.bgcolor },
+              function(newValue, oldValue) {
+                if(newValue && textCardService.getCardAt($scope.index)) {
+                    textCardService.getCardAt($scope.index).bgcolor = newValue;
+                    textCardService.redrawCardAt($scope.index);
+                }
+              }
+            );
 
         },
         link: function(scope, element, attrs) {
