@@ -132,6 +132,9 @@ ul, ol{
 	margin: 0 5px 0 0px;
 }
 
+.textColorSelect{
+    width: 110px;   
+}
 .slider-title{
 	font-size: 14px;
 	position: relative;

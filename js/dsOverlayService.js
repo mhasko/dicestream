@@ -73,6 +73,16 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         value.setVisible(false);
     };
     
+    overlayService.redrawCardAt = function(index, newCardOverlay) {
+        // get the old card overlay at the specified location and set it not visible
+        var oldCardOverlay = cardsOverlayArray[index];
+       
+        
+        cardsOverlayArray[index] = newCardOverlay;
+        oldCardOverlay.setVisible(false);
+        oldCardOverlay.dispose();
+    };
+    
     /** creates the dice overlay */
     overlayService.createDieOverlay = function(die, value){
         // create the google hangout image resource from the image
@@ -110,10 +120,15 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     };
     
     /** create a text overlay, using fabric.js*/
-    overlayService.createTextOverlay = function(text, scale, xpos, ypos) {
+    overlayService.createTextOverlay = function(text, textColor, bgColor, scale, xpos, ypos) {
         var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
         
-        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: 'rgba(255,153,00, .3)'});
+        //translate the #rrggbb value of the colors to rgba via a tinycolor.js object
+        var bgColorTC = tinycolor(bgColor);
+        bgColorTC.setAlpha(.3);
+        var textColorTC = tinycolor(textColor);
+        
+        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: textColorTC.toRgbString()/*'rgba(255,153,00, .3)'*/});
         fcanvas.add(textObj);
         
         return fcanvas.getContext();

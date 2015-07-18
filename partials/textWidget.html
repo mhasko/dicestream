@@ -1,3 +1,7 @@
-<span>[C]</span>
-<button class="button btn btn-mini" ng-click="deleteCard()">x</button>
+<button class="button btn btn-mini" ng-click="toggleColors()"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
 <input type="text" ng-model="cardtext"></input>
+<button class="button btn btn-mini" ng-click="deleteCard()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+<div ng-hide="colorOptionsHidden">
+    <div class="textColorSelect"><color-picker ng-model="bgcolor" color-picker-pos="'top left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false" ></color-picker>{{bgcolor}}</div>
+    <div class="textColorSelect"><color-picker ng-model="textcolor" color-picker-pos="'top left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker>{{textcolor}}</div>
+</div>

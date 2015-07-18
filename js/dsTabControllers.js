@@ -26,6 +26,7 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
     };
     
     $scope.addCard = function(cardtext) {
-        textCardService.addNewCard({text:cardtext, textcolor:"#000000", bgcolor:"#ffffff"});    
+        // TODO use the default values here.
+        textCardService.addNewCard({text:cardtext, textcolor:"#000000", bgcolor:"#ff9900"});    
     };
 }]);
