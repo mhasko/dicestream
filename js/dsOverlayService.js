@@ -125,14 +125,33 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         
         //translate the #rrggbb value of the colors to rgba via a tinycolor.js object
         var bgColorTC = tinycolor(bgColor);
-        bgColorTC.setAlpha(.3);
+        bgColorTC.setAlpha(.4);
         var textColorTC = tinycolor(textColor);
-        textColorTC.setAlpha(1);
         
-        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: bgColorTC.toRgbString()/*'rgba(255,153,00, .3)'*/});
+        var textObj = new fabric.Text(text, {left: xpos, top: ypos, fontFamily: 'Roboto', textBackgroundColor: bgColorTC.toRgbString()});
         textObj.setColor(textColorTC.toRgbString());
         fcanvas.add(textObj);
         
+        return fcanvas.getContext();
+    };
+    
+    overlayService.createLowerThirdContext = function(firstLine, secondLine, color) {
+        // create the fabric.js canvas we'll be adding hte various layers on
+        // 600 x 100
+        var fcanvas = new fabric.Canvas($('#mainThirdCanvas').clone().attr('id'));
+        
+        // create the rectangle that has the text strings
+        var topRect = new fabric.Rect({left:25, top:25, fill:'white', width: 2100, height: 300, rx:20, ry:20, strokeWidth:1, stroke:'rgba(124,124,124,1)'});
+        // TODO USE default color
+        topRect.setShadow({color: 'rgba(0,129,0,0.7)', offsetX:20, offsetY:20, blur:5, fillShadow: true, strokeShadow: false});
+        fcanvas.add(topRect);
+        
+        
+        var mainTitle = new fabric.Text(firstLine, {left:60, top:20, fontFamily:'Roboto', fontWeight:'bold', fontSize:200});
+        fcanvas.add(mainTitle);
+        
+        var secTitle = new fabric.Text(secondLine, {left:60, top:230, fontFamily:'Roboto', fontSize:80});
+        fcanvas.add(secTitle);
         return fcanvas.getContext();
     };
     

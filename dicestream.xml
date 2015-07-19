@@ -20,9 +20,9 @@
     <div id="canvasDiv" class="disabled">
     	<canvas height="512px" width="512px" id="overlayCanvas"></canvas>
     	<canvas height="70px" width="600px" id="textCanvas"></canvas>
-    	<canvas height="100px" width="600px" id="mainThirdCanvas"></canvas>
-    	<canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
-    	<canvas height="256px" width="256px" id="imgThirdCanvas"></canvas>
+    	<canvas height="400px" width="2400px" id="mainThirdCanvas"></canvas> <!--was 100x600 -->
+    	<!--canvas height="90px"  width="550px" id="secThirdCanvas"></canvas>
+    	<canvas height="256px" width="256px" id="imgThirdCanvas"></canvas-->
     	<canvas height="128px" width="600px" id="counterCanvas"></canvas>
     	<!--canvas height="1256px" width="1256px" id="selectionCanvas"></canvas-->
     </div>
@@ -42,14 +42,22 @@
             </tab>
             <tab heading="Text">
                 <div id="textTab" ng-controller="textTabCtrl">
-                    <input type="text" ng-model="inputText" />
-                    <input class="button btn" type="button" value="Text" id="text" ng-click="addCard(inputText)"/>
-                    <div id="texttrayDiv">
-                        <text-widget cardtext="{{card.text}}" color="{{card.color}}" index={{$index}} ng-repeat="card in getTextCards()"></text-widget>
+                    <div id="textCards">
+                        <input type="text" ng-model="inputText" />
+                        <input class="button btn" type="button" value="Text" id="text" ng-click="addCard(inputText)"/>
+                        <div id="texttrayDiv">
+                            <text-widget cardtext="{{card.text}}" color="{{card.color}}" index={{$index}} ng-repeat="card in getTextCards()"></text-widget>
+                        </div>
                     </div>
                 </div>
             </tab>
-            <tab heading="Lower 3rd">3rd</tab>
+            <tab heading="Lower Third">
+                <div id="lowerThirdTab" ng-controller="lowerThirdTabCtrl">
+                    <input type="text" ng-model="lowerThirdName" />
+                    <input type="text" ng-model="lowerThirdSecond" />
+                    <input class="button btn" type="button" value="{{lowerThirdButton}}" ng-click="buildLowerThird(lowerThirdName, lowerThirdSecond)" />
+                </div>
+            </tab>
             <tab heading="Settings">Settings</tab>
         </tabset>
     </div>
@@ -70,6 +78,7 @@
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsOverlayService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTextCardService.js"></script>
+    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsLowerThirdService.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTabControllers.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTrayDiceDirective.js"></script>
     <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTextWidgetDirective.js"></script>

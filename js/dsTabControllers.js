@@ -30,3 +30,9 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
         textCardService.addNewCard({text:cardtext, textcolor:"#000000", bgcolor:"#ff9900"});    
     };
 }]);
+
+dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', function($scope, lowerThirdService) {
+    $scope.buildLowerThird = function(firstLine, secondLine, color) {
+        lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, '#0099ff');  
+    }; 
+}]);
