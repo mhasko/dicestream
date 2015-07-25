@@ -32,7 +32,28 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
 }]);
 
 dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', function($scope, lowerThirdService) {
-    $scope.buildLowerThird = function(firstLine, secondLine, color) {
-        lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, '#0099ff');  
+    var lowerThirdOverlay;
+    $scope.lowerThirdButtonText = "Create Lower Third";
+    
+    $scope.buildLowerThird = function() {
+        if(lowerThirdOverlay) {
+            clearLowerThird();
+        }
+        lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);  
+        $scope.lowerThirdButtonText = "Update Lower Third";
     }; 
+    
+    $scope.$watch(function(scope) { return scope.lowerThirdColor },
+        function(newValue, oldValue) {
+            if(lowerThirdOverlay) {
+                clearLowerThird();
+                lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, newValue); 
+            }
+        }
+    );
+    
+    var clearLowerThird = function(){
+        lowerThirdOverlay.setVisible(false);
+        lowerThirdOverlay.dispose();
+    };
 }]);

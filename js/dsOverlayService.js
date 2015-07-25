@@ -141,9 +141,9 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var fcanvas = new fabric.Canvas($('#mainThirdCanvas').clone().attr('id'));
         
         // create the rectangle that has the text strings
-        var topRect = new fabric.Rect({left:25, top:25, fill:'white', width: 2100, height: 300, rx:20, ry:20, strokeWidth:1, stroke:'rgba(124,124,124,1)'});
-        // TODO USE default color
-        topRect.setShadow({color: 'rgba(0,129,0,0.7)', offsetX:20, offsetY:20, blur:5, fillShadow: true, strokeShadow: false});
+        var topRect = new fabric.Rect({left:25, top:25, fill:'white', width: 2200, height: 300, rx:20, ry:20, strokeWidth:1, stroke:'rgba(124,124,124,1)'});
+        // TODO USE default color 'rgba(0,129,0,1)'
+        topRect.setShadow({color: tinycolor(color).toRgbString(), offsetX:30, offsetY:30, blur:5, fillShadow: true, strokeShadow: false});
         fcanvas.add(topRect);
         
         

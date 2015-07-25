@@ -9,8 +9,8 @@ dsLowerThirdService.factory('lowerThirdService', ['overlayService', 'config', fu
     var LOWER_THIRD_X_POS = .1;
     var LOWER_THIRD_Y_POS = .4;
 
-    lowerThirdService.createLowerThird = function(firstLine, secondLine) {
-        var lowerThirdContext = overlayService.createLowerThirdContext(firstLine, secondLine);
+    lowerThirdService.createLowerThird = function(firstLine, secondLine, color) {
+        var lowerThirdContext = overlayService.createLowerThirdContext(firstLine, secondLine, color);
         return overlayService.createOverlayFromContext(lowerThirdContext, .75, LOWER_THIRD_X_POS, LOWER_THIRD_Y_POS);
     };
     

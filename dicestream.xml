@@ -55,7 +55,8 @@
                 <div id="lowerThirdTab" ng-controller="lowerThirdTabCtrl">
                     <input type="text" ng-model="lowerThirdName" />
                     <input type="text" ng-model="lowerThirdSecond" />
-                    <input class="button btn" type="button" value="{{lowerThirdButton}}" ng-click="buildLowerThird(lowerThirdName, lowerThirdSecond)" />
+                    <color-picker ng-model="lowerThirdColor" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker>
+                    <input class="button btn" type="button" value="{{lowerThirdButtonText}}" ng-click="buildLowerThird()" />
                 </div>
             </tab>
             <tab heading="Settings">Settings</tab>

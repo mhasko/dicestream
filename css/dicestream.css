@@ -29,6 +29,10 @@ ul, ol{
 	position: relative;
 }
 
+#lowerThirdTab{
+    height:300px;   
+}
+
 #stringDiv{
 
 }
