@@ -13,9 +13,9 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
-    <!-- <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/css/dicestream.css" /> -->
-    <link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/css/dicestream.css" />
-    <link rel="stylesheet" type="text/css" href="https://dl.dropbox.com/u/1177409/dicestream/css/angularjs-color-picker.css" />
+
+    <link rel="stylesheet" type="text/css" href="%rootPath%/css/dicestream.css" />
+    <link rel="stylesheet" type="text/css" href="%rootPath%/css/angularjs-color-picker.css" />
 
     <div id="canvasDiv" class="disabled">
     	<canvas height="512px" width="512px" id="overlayCanvas"></canvas>
@@ -27,7 +27,7 @@
         <tabset>
             <tab heading="Dice">
                 <div id="diceTab" ng-controller="diceTabCtrl">
-                    <div id="diceInterfaceDiv" ng-include="'https://dl.dropbox.com/u/1177409/dicestream/partials/baseDiceSelection.html'"></div>
+                    <div id="diceInterfaceDiv" ng-include="'%rootPath%/partials/baseDiceSelection.html'"></div>
                     <div id="diceButtonDiv">
                         <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
                         <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
@@ -81,21 +81,21 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
     <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/seedrandom/seedrandom.min.js"></script>
     
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/lib/tinycolor.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/lib/angularjs-color-picker.min.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/lib/tinycolor.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/lib/angularjs-color-picker.min.js"></script>
 
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dicestream.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDicestreamAppCtrl.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsImageService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceButtonDirective.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsDiceService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsOverlayService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTextCardService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsLowerThirdService.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTabControllers.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTrayDiceDirective.js"></script>
-    <script type="text/javascript" src="https://dl.dropbox.com/u/1177409/dicestream/js/dsTextWidgetDirective.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dicestream.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsDicestreamAppCtrl.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsImageService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsDiceButtonDirective.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsDiceService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsOverlayService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsTextCardService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsLowerThirdService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsTabControllers.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsTrayDiceDirective.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
 </body>
 </html>
 ]]>

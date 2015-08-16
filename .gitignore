@@ -166,3 +166,9 @@ pip-log.txt
 ## WebStorm
 ############
 .idea/
+
+############
+## misc
+############
+node_modules/
+public/
