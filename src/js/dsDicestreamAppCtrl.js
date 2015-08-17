@@ -7,7 +7,6 @@ dsApp.config(function($sceDelegateProvider){
 });
 
 dsApp.constant('config', {
-    filePrefix: 'https://dl.dropbox.com/u/1177409/dicestream/',
-//    file-prefix: 'https://s3.amazonaws.com/dicestream/',
+    filePrefix: '%rootPath%',
     imgroot: 'https://s3.amazonaws.com/dicestream/images/'
 });

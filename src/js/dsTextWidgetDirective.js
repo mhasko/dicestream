@@ -12,7 +12,7 @@ textWidget.directive('textWidget', ['config', 'textCardService', function(config
             bgcolor: '@',
             index: '@'
         },
-        templateUrl: config.filePrefix + 'partials/textWidget.html',
+        templateUrl: config.filePrefix + '/partials/textWidget.html',
         controller: function($scope){            
             $scope.colorOptionsHidden = true;
             $scope.toggleColors = function() {
