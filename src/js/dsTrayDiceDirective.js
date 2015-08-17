@@ -11,7 +11,7 @@ dsTrayDice.directive('dsTrayDice', ['config', 'overlayService', function(config,
             url: '@',
             position: '@'
         },
-        templateUrl: config.filePrefix + 'partials/trayDie.html',
+        templateUrl: config.filePrefix + '/partials/trayDie.html',
         controller: function($scope, overlayService){
             $scope.currentSelection = 0
         },

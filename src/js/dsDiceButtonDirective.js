@@ -11,7 +11,7 @@ diceButton.directive('diceButton', ['config', 'diceService', function(config, ds
             imageroot: '@',
             dieimage: '@'
         },
-        templateUrl: config.filePrefix + 'partials/diceButton.html',
+        templateUrl: config.filePrefix + '/partials/diceButton.html',
         controller: function($scope){
             // 'register' with the dice service so what ever die this button
             // is tracking can have its data backed in the service.
