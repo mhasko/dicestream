@@ -6,17 +6,25 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         copy: {
-            main: {
-                files: [
-                    {expand: true, cwd: '', src: ['src/**'], dest: 'public/'}
-                ],
-                options: {
-                    process: function (content, srcpath) {
-                        return content.replace(/%rootPath%/g,"https://dl.dropbox.com/u/1177409/dicestream/public/src");
+            prod: {
+                    files: [
+                        {expand: true, cwd: '', src: ['src/**'], dest: 'public/'}
+                    ],
+                    options: {
+                        process: function (content, srcpath) {
+                            return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/dicestream/public/src");
+                        }
                     }
-                }
-                //src: 'src/**',
-                //dest: 'public/'
+            },
+            dev: {
+                    files: [
+                        {expand: true, cwd: '', src: ['src/**'], dest: 'dev/'}
+                    ],
+                    options: {
+                        process: function (content, srcpath) {
+                            return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
+                        }
+                    }
             }
         }
 
@@ -79,8 +87,5 @@ module.exports = function (grunt) {
     //grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    // Define your tasks here
-    grunt.registerTask('default', ['copy']);
+    grunt.registerTask('default', ['copy:dev']);
 };
-
-// [1] Not using server-side controllers in order to simplify things
