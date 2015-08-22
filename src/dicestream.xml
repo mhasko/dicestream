@@ -57,25 +57,29 @@
                 </div>
             </tab>
             <tab heading="Settings">
-                [s] [x] Circle Color<br/>
-                [s] [x] Hex Color<br/>
-                [s] [x] X color<br/>
-                [x] Clear Selection after roll<br/>
-                [x] Clear Dice  Before New Roll<br/>
-                [x] Mirror video<br/>
-                ------
-                [s] default text card color bg<br/>
-                [s] default text card font color<br/>
-                [s] default lower third color<br/>
-                [input] default lower third text<br/>
-                [input]<br/>
-                ------
-                [(v) selection of dice types ]<br/>
+                <div id="settingsTab" ng-controller="settingsCtrl">
+                    <color-select text="Circle Color"></color-select>
+                    <color-select text="Hex Color"></color-select>
+                    <color-select text="X Color"></color-select>
+                    [x] Clear Selection after roll<br/>
+                    [x] Clear Dice  Before New Roll<br/>
+                    [x] Mirror video<br/>
+                    ------
+                    <color-select hide-checkbox="true" text="Default text card bg color"></color-select>
+                    [s] default text card color bg<br/>
+                    [s] default text card font color<br/>
+                    [s] default lower third color<br/>
+                    [input] default lower third text<br/>
+                    [input]<br/>
+                    ------
+                    [(v) selection of dice types ]<br/>
+                </div>
             </tab>
         </tabset>
     </div>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-cookies.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.js"></script> 
     <script type="text/javascript" src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
@@ -96,6 +100,7 @@
     <script type="text/javascript" src="%rootPath%/js/dsTabControllers.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsTrayDiceDirective.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
 </body>
 </html>
 ]]>

@@ -53,6 +53,11 @@ ul, ol{
 	font-size: 11pt;
 }
 
+.shortColorBox{
+    display:inline-block;
+	width:120px;
+}
+
 .helpDiv{
 	padding: 0 0 0 10px;
 	list-style-type: none;	
