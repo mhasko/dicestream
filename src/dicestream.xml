@@ -58,21 +58,28 @@
             </tab>
             <tab heading="Settings">
                 <div id="settingsTab" ng-controller="settingsCtrl">
-                    <color-select text="Circle Color"></color-select>
-                    <color-select text="Hex Color"></color-select>
-                    <color-select text="X Color"></color-select>
-                    [x] Clear Selection after roll<br/>
-                    [x] Clear Dice  Before New Roll<br/>
-                    [x] Mirror video<br/>
-                    ------
-                    <color-select hide-checkbox="true" text="Default text card bg color"></color-select>
-                    [s] default text card color bg<br/>
-                    [s] default text card font color<br/>
-                    [s] default lower third color<br/>
-                    [input] default lower third text<br/>
-                    [input]<br/>
-                    ------
-                    [(v) selection of dice types ]<br/>
+                    <div>
+                        <div>Dice</div>
+                        <color-select text="Circle Color"></color-select>
+                        <color-select text="Hex Color"></color-select>
+                        <color-select text="X Color"></color-select>
+                        <div><input type="checkbox" /><span>Clear Selection after roll</span></div>
+                        <div><input type="checkbox" /><span>Clear Dice Before new Roll</span></div>
+                        <div><input type="checkbox" /><span>Mirror Video</span></div>
+                    </div>
+                    <div>
+                        <div>Text Cards</div>
+                        <color-select hide-checkbox="true" text="Text card bg color"></color-select>
+                        <color-select hide-checkbox="true" text="Text card color"></color-select>
+                        <color-select hide-checkbox="true" text="Default text card font color"></color-select>
+                    </div>
+                    <div>
+                        <div>Lower Third</div>
+                        <color-select hide-checkbox="true" text="Default lower third color"></color-select>
+                        <input type="text" ng-model="lowerThirdNameDefault" />
+                        <input type="text" ng-model="lowerThirdSecondDefault" />
+                        <div><input type="checkbox" /><span>Show At Startup</span></div>
+                    </div>
                 </div>
             </tab>
         </tabset>

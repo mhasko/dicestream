@@ -52,10 +52,24 @@ ul, ol{
 #version{
 	font-size: 11pt;
 }
+.csWrapper{
+}
 
-.shortColorBox{
-    display:inline-block;
+.csWrapper .csCheckbox {
+    display: inline-block;
+    position: relative;
+}
+
+.csWrapper .csColorBox{
+    display: inline-block;
+    top: 5px;
+    position: relative;
 	width:120px;
+}
+
+.csWrapper .csLabel{
+    display: inline-block;
+    position: relative;
 }
 
 .helpDiv{
