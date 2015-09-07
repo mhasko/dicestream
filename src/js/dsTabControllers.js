@@ -31,30 +31,43 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
     };
 }]);
 
-dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', function($scope, lowerThirdService) {
+dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, settingsService) {
     var lowerThirdOverlay;
     $scope.lowerThirdButtonText = "Create Lower Third";
-    
-    $scope.buildLowerThird = function() {
+
+    //Load the defaults from the settings as a convience
+    $scope.lowerThirdColor = settingsService.currentSettings.LOWER_COLOR.color;
+    $scope.lowerThirdName  = settingsService.currentSettings.LOWER_TEXT_FIRST.text;
+    $scope.lowerThirdSecond = settingsService.currentSettings.LOWER_TEXT_SECOND.text;
+
+    $scope.buildLowerThird = function(name, second, color) {
         if(lowerThirdOverlay) {
             clearLowerThird();
         }
-        lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);  
+        lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);
+        lowerThirdOverlay.setVisible(true);
         $scope.lowerThirdButtonText = "Update Lower Third";
-    }; 
+    };
+
+    $scope.clear = function() {
+        clearLowerThird();
+        $scope.lowerThirdButtonText = "Create Lower Third";
+    };
     
     $scope.$watch(function(scope) { return scope.lowerThirdColor },
         function(newValue, oldValue) {
             if(lowerThirdOverlay) {
                 clearLowerThird();
-                lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, newValue); 
+                $scope.lowerThirdColor = newValue;
+                lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);
+                lowerThirdOverlay.setVisible(true);
             }
         }
     );
     
     var clearLowerThird = function(){
         lowerThirdOverlay.setVisible(false);
-        lowerThirdOverlay.dispose();
+        //lowerThirdOverlay.dispose();
     };
 }]);
 

@@ -1,8 +1,10 @@
-<div id="diceInterfaceDiv" ng-include="'%rootPath%/partials/baseDiceSelection.html'"></div>
-<div id="diceButtonDiv">
-    <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
-    <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
-</div>
-<div id="dicetrayDiv">
-    <ds-tray-dice die="{{trayDie.side}}" value="{{trayDie.value}}" url="{{trayDie.url}}" position="{{$index}}" ng-repeat="trayDie in getDicetray()"></ds-tray-dice>
+<div ng-controller="diceTabCtrl">
+    <div id="diceInterfaceDiv" ng-include="'%rootPath%/partials/baseDiceSelection.html'"></div>
+    <div id="diceButtonDiv">
+        <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
+        <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
+    </div>
+    <div id="dicetrayDiv">
+        <ds-tray-dice die="{{trayDie.side}}" value="{{trayDie.value}}" url="{{trayDie.url}}" position="{{$index}}" ng-repeat="trayDie in getDicetray()"></ds-tray-dice>
+    </div>
 </div>

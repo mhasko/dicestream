@@ -146,10 +146,11 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         topRect.setShadow({color: tinycolor(color).toRgbString(), offsetX:30, offsetY:30, blur:5, fillShadow: true, strokeShadow: false});
         fcanvas.add(topRect);
         
-        
+        if(!firstLine){firstLine=' ';}
         var mainTitle = new fabric.Text(firstLine, {left:60, top:20, fontFamily:'Roboto', fontWeight:'bold', fontSize:200});
         fcanvas.add(mainTitle);
-        
+
+        if(!secondLine){secondLine=' ';}
         var secTitle = new fabric.Text(secondLine, {left:60, top:230, fontFamily:'Roboto', fontSize:80});
         fcanvas.add(secTitle);
         return fcanvas.getContext();

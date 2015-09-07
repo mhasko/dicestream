@@ -26,16 +26,16 @@
     <div id="app-gui" ng-app="dicestreamApp">
         <tabset>
             <tab heading="Dice">
-                <div id="diceTab" ng-include="'%rootPath%/partials/diceTab.html'" ng-controller="diceTabCtrl"></div>
+                <div id="diceTab" ng-include="'%rootPath%/partials/diceTab.html'"></div>
             </tab>
             <tab heading="Text">
-                <div id="textTab" ng-include="'%rootPath%/partials/textCardTab.html'" ng-controller="textTabCtrl"></div>
+                <div id="textTab" ng-include="'%rootPath%/partials/textCardTab.html'"></div>
             </tab>
             <tab heading="Lower Third">
-                <div id="lowerThirdTab" ng-include="'%rootPath%/partials/lowerThirdTab.html'" ng-controller="lowerThirdTabCtrl"></div>
+                <div id="lowerThirdTab" ng-include="'%rootPath%/partials/lowerThirdTab.html'"></div>
             </tab>
             <tab heading="Settings">
-                <div id="settingsTab" ng-include="'%rootPath%/partials/settingsTab.html'" ng-controller="settingsCtrl"></div>
+                <div id="settingsTab" ng-include="'%rootPath%/partials/settingsTab.html'"></div>
             </tab>
         </tabset>
     </div>

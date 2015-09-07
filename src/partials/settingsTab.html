@@ -1,24 +1,26 @@
-<div>
-    <div>Dice</div>
-    <color-select text="Circle Color" color="settings.CIRCLE.color" is-checked="settings.CIRCLE.enabled"></color-select>
-    <color-select text="Hex Color" color="settings.HEX.color" is-checked="settings.HEX.enabled"></color-select>
-    <color-select text="X Color" color="settings.X.color" is-checked="settings.X.enabled"></color-select>
-    <div><input type="checkbox" ng-checked="settings.CLEAR_SELECTION.enabled"/><span>Clear Selection after roll</span></div>
-    <div><input type="checkbox" ng-checked="settings.CLEAR_TRAY.enabled"/><span>Clear Dice Before new Roll</span></div>
-</div>
-<div>
-    <div>Text Cards</div>
-    <color-select hide-checkbox="true" text="Text card bg color" color="settings.CARD_BG_COLOR.color"></color-select>
-    <color-select hide-checkbox="true" text="Text card color" color="settings.CARD_TEXT_COLOR.color"></color-select>
-</div>
-<div>
-    <div>Lower Third</div>
-    <color-select hide-checkbox="true" text="Default lower third color" color="settings.LOWER_COLOR.color"></color-select>
-    <input type="text" ng-model="settings.LOWER_TEXT_FIRST.text" />
-    <input type="text" ng-model="settings.LOWER_TEXT_SECOND.text" />
-    <div><input type="checkbox" /><span>Show Lower 3rd At Startup</span></div>
-</div>
-<div>
-    <div>Misc</div>
-    <div><input type="checkbox" ng-checked="settings.MIRROR_VID.enabled"/><span>Mirror Video</span></div>
+<div ng-controller="settingsCtrl">
+    <div>
+        <div>Dice</div>
+        <color-select text="Circle Color" color="settings.CIRCLE.color" is-checked="settings.CIRCLE.enabled"></color-select>
+        <color-select text="Hex Color" color="settings.HEX.color" is-checked="settings.HEX.enabled"></color-select>
+        <color-select text="X Color" color="settings.X.color" is-checked="settings.X.enabled"></color-select>
+        <div><input type="checkbox" ng-checked="settings.CLEAR_SELECTION.enabled"/><span>Clear Selection after roll</span></div>
+        <div><input type="checkbox" ng-checked="settings.CLEAR_TRAY.enabled"/><span>Clear Dice Before new Roll</span></div>
+    </div>
+    <div>
+        <div>Text Cards</div>
+        <color-select hide-checkbox="true" text="Text card bg color" color="settings.CARD_BG_COLOR.color"></color-select>
+        <color-select hide-checkbox="true" text="Text card color" color="settings.CARD_TEXT_COLOR.color"></color-select>
+    </div>
+    <div>
+        <div>Lower Third</div>
+        <!--<color-select hide-checkbox="true" text="Default lower third color" color="settings.LOWER_COLOR.color"></color-select>-->
+        <!--<input type="text" ng-model="settings.LOWER_TEXT_FIRST.text" />-->
+        <!--<input type="text" ng-model="settings.LOWER_TEXT_SECOND.text" />-->
+        <div><input type="checkbox" /><span>Show Lower 3rd At Startup</span></div>
+    </div>
+    <div>
+        <div>Misc</div>
+        <div><input type="checkbox" ng-checked="settings.MIRROR_VID.enabled"/><span>Mirror Video</span></div>
+    </div>
 </div>
