@@ -16,7 +16,7 @@ dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, dice
     };
 }]);
 
-dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, textCardService) {
+dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, settingsService) {
     //[{text: "test1",
     //  textcolor: "#000000",
     //  bgcolor: "#ffffff"},...]
@@ -26,8 +26,7 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
     };
     
     $scope.addCard = function(cardtext) {
-        // TODO use the default values here.
-        textCardService.addNewCard({text:cardtext, textcolor:"#000000", bgcolor:"#ff9900"});    
+        textCardService.addNewCard({text:cardtext, textcolor:settingsService.currentSettings.CARD_TEXT_COLOR.color, bgcolor:settingsService.currentSettings.CARD_BG_COLOR.color});
     };
 }]);
 

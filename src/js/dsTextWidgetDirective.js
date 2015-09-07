@@ -25,7 +25,7 @@ textWidget.directive('textWidget', ['config', 'textCardService', function(config
             
             $scope.$watch(function(scope) { return scope.textcolor },
               function(newValue, oldValue) {
-                if(newValue && textCardService.getCardAt($scope.index)) {
+                if(!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
                     textCardService.getCardAt($scope.index).textcolor = newValue;
                     textCardService.redrawCardAt($scope.index);
                 }
@@ -34,7 +34,7 @@ textWidget.directive('textWidget', ['config', 'textCardService', function(config
             
             $scope.$watch(function(scope) { return scope.bgcolor },
               function(newValue, oldValue) {
-                if(newValue && textCardService.getCardAt($scope.index)) {
+                if(!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
                     textCardService.getCardAt($scope.index).bgcolor = newValue;
                     textCardService.redrawCardAt($scope.index);
                 }
