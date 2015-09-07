@@ -58,15 +58,7 @@ dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', function($
     };
 }]);
 
-dsApp.controller('settingsCtrl', ['$scope', '$cookies', function($scope, $cookies){
-    //$cookies.put('blarg', 'test');
-    //var test = $cookies.get('blarg');
-    var optionsOne = $cookies.get('dicestream.options.one');
-    var optionsTwo = $cookies.get('dicestream.options.two');
-    if(!optionsOne || !optionsTwo){
-        var options = {one:'one',two:'two'}; //todo load default set of options
-        $cookies.put('dicestream.options.one', options.one);
-        $cookies.put('dicestream.options.two', options.two)
-    }
-    $scope.test = 'ctrl work';
+dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, settingsService){
+
+    $scope.settings = settingsService.currentSettings;
 }]);

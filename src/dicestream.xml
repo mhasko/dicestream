@@ -57,30 +57,7 @@
                 </div>
             </tab>
             <tab heading="Settings">
-                <div id="settingsTab" ng-controller="settingsCtrl">
-                    <div>
-                        <div>Dice</div>
-                        <color-select text="Circle Color"></color-select>
-                        <color-select text="Hex Color"></color-select>
-                        <color-select text="X Color"></color-select>
-                        <div><input type="checkbox" /><span>Clear Selection after roll</span></div>
-                        <div><input type="checkbox" /><span>Clear Dice Before new Roll</span></div>
-                        <div><input type="checkbox" /><span>Mirror Video</span></div>
-                    </div>
-                    <div>
-                        <div>Text Cards</div>
-                        <color-select hide-checkbox="true" text="Text card bg color"></color-select>
-                        <color-select hide-checkbox="true" text="Text card color"></color-select>
-                        <color-select hide-checkbox="true" text="Default text card font color"></color-select>
-                    </div>
-                    <div>
-                        <div>Lower Third</div>
-                        <color-select hide-checkbox="true" text="Default lower third color"></color-select>
-                        <input type="text" ng-model="lowerThirdNameDefault" />
-                        <input type="text" ng-model="lowerThirdSecondDefault" />
-                        <div><input type="checkbox" /><span>Show At Startup</span></div>
-                    </div>
-                </div>
+                <div id="settingsTab" ng-include="'%rootPath%/partials/settings.html'" ng-controller="settingsCtrl"></div>
             </tab>
         </tabset>
     </div>
@@ -108,6 +85,7 @@
     <script type="text/javascript" src="%rootPath%/js/dsTrayDiceDirective.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsSettingsService.js"></script>
 </body>
 </html>
 ]]>

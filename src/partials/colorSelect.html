@@ -1,5 +1,5 @@
 <div class="csWrapper">
-    <div class="csCheckbox" ng-show="showCheckbox()"><input type="checkbox"></div>
-    <div class="csColorBox"><color-picker ng-model="cirlceColor" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker></div>
+    <div class="csCheckbox" ng-show="showCheckbox()"><input type="checkbox" ng-checked="{{isChecked}}"></div>
+    <div class="csColorBox"><color-picker ng-model="color" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker></div>
     <div class="csLabel">{{text}}</div>
 </div>
