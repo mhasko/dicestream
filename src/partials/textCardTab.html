@@ -1,0 +1,7 @@
+<div id="textCards">
+    <input type="text" ng-model="inputText" />
+    <input class="button btn" type="button" value="Text" id="text" ng-click="addCard(inputText)"/>
+    <div id="texttrayDiv">
+        <text-widget cardtext="{{card.text}}" color="{{card.color}}" index={{$index}} ng-repeat="card in getTextCards()"></text-widget>
+    </div>
+</div>

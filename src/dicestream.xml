@@ -26,38 +26,16 @@
     <div id="app-gui" ng-app="dicestreamApp">
         <tabset>
             <tab heading="Dice">
-                <div id="diceTab" ng-controller="diceTabCtrl">
-                    <div id="diceInterfaceDiv" ng-include="'%rootPath%/partials/baseDiceSelection.html'"></div>
-                    <div id="diceButtonDiv">
-                        <input class="button btn btn-primary" type="button" value="Roll" id="roll" name="" ng-click="roll()"/>
-                        <input class="button btn btn-primary" type="button" value="Clear" id="clear" name="" ng-click="clear()"/>
-                    </div>
-                    <div id="dicetrayDiv">
-                        <ds-tray-dice die="{{trayDie.side}}" value="{{trayDie.value}}" url="{{trayDie.url}}" position="{{$index}}" ng-repeat="trayDie in getDicetray()"></ds-tray-dice>
-                    </div>
-                </div>
+                <div id="diceTab" ng-include="'%rootPath%/partials/diceTab.html'" ng-controller="diceTabCtrl"></div>
             </tab>
             <tab heading="Text">
-                <div id="textTab" ng-controller="textTabCtrl">
-                    <div id="textCards">
-                        <input type="text" ng-model="inputText" />
-                        <input class="button btn" type="button" value="Text" id="text" ng-click="addCard(inputText)"/>
-                        <div id="texttrayDiv">
-                            <text-widget cardtext="{{card.text}}" color="{{card.color}}" index={{$index}} ng-repeat="card in getTextCards()"></text-widget>
-                        </div>
-                    </div>
-                </div>
+                <div id="textTab" ng-include="'%rootPath%/partials/textCardTab.html'" ng-controller="textTabCtrl"></div>
             </tab>
             <tab heading="Lower Third">
-                <div id="lowerThirdTab" ng-controller="lowerThirdTabCtrl">
-                    <input type="text" ng-model="lowerThirdName" />
-                    <input type="text" ng-model="lowerThirdSecond" />
-                    <color-picker ng-model="lowerThirdColor" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker>
-                    <input class="button btn" type="button" value="{{lowerThirdButtonText}}" ng-click="buildLowerThird()" />
-                </div>
+                <div id="lowerThirdTab" ng-include="'%rootPath%/partials/lowerThirdTab.html'" ng-controller="lowerThirdTabCtrl"></div>
             </tab>
             <tab heading="Settings">
-                <div id="settingsTab" ng-include="'%rootPath%/partials/settings.html'" ng-controller="settingsCtrl"></div>
+                <div id="settingsTab" ng-include="'%rootPath%/partials/settingsTab.html'" ng-controller="settingsCtrl"></div>
             </tab>
         </tabset>
     </div>
