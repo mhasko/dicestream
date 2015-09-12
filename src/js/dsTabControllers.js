@@ -16,7 +16,7 @@ dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, dice
     };
 }]);
 
-dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, settingsService) {
+dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, current) {
     //[{text: "test1",
     //  textcolor: "#000000",
     //  bgcolor: "#ffffff"},...]
@@ -26,18 +26,18 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService',
     };
     
     $scope.addCard = function(cardtext) {
-        textCardService.addNewCard({text:cardtext, textcolor:settingsService.currentSettings.CARD_TEXT_COLOR.color, bgcolor:settingsService.currentSettings.CARD_BG_COLOR.color});
+        textCardService.addNewCard({text:cardtext, textcolor:current.settings.CARD_TEXT_COLOR.color, bgcolor:current.settings.CARD_BG_COLOR.color});
     };
 }]);
 
-dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, settingsService) {
+dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, current) {
     var lowerThirdOverlay;
     $scope.lowerThirdButtonText = "Create Lower Third";
 
     //Load the defaults from the settings as a convience
-    $scope.lowerThirdColor = settingsService.currentSettings.LOWER_COLOR.color;
-    $scope.lowerThirdName  = settingsService.currentSettings.LOWER_TEXT_FIRST.text;
-    $scope.lowerThirdSecond = settingsService.currentSettings.LOWER_TEXT_SECOND.text;
+    $scope.lowerThirdColor = current.settings.LOWER_COLOR.color;
+    $scope.lowerThirdName  = current.settings.LOWER_TEXT_FIRST.text;
+    $scope.lowerThirdSecond = current.settings.LOWER_TEXT_SECOND.text;
 
     $scope.buildLowerThird = function(name, second, color) {
         if(lowerThirdOverlay) {
@@ -70,7 +70,7 @@ dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsS
     };
 }]);
 
-dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, settingsService){
+dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, current){
 
-    $scope.settings = settingsService.currentSettings;
+    $scope.settings = current.settings;
 }]);

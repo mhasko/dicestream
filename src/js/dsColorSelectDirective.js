@@ -11,7 +11,7 @@ colorSelect.directive('colorSelect', ['config', function(config){
         scope: {
             text: '@',
             hideCheckbox: '@',
-            isChecked: '=',
+            checked: '=',
             color: '='
         },
         templateUrl: config.filePrefix + '/partials/colorSelect.html',
