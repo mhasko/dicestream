@@ -73,4 +73,12 @@ dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsS
 dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, current){
 
     $scope.settings = current.settings;
+
+    $scope.save = function(){
+        current.saveSettings();
+    };
+
+    $scope.toggleMirroredVideo = function(){
+        gapi.hangout.av.setLocalParticipantVideoMirrored(current.settings.MISC.MIRROR_VID.enabled);
+    };
 }]);

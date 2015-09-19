@@ -11,6 +11,7 @@ colorSelect.directive('colorSelect', ['config', function(config){
         scope: {
             text: '@',
             hideCheckbox: '@',
+            change: '=',
             checked: '=',
             color: '='
         },
