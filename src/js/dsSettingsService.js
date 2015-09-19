@@ -28,7 +28,7 @@ dsSettingsService.factory('settingsService', ['config', '$cookies', function(con
         LOWER_TEXT_SECOND : {text:''},
         //},
         MISC : {
-            MIRROR_VID : {enabled:true}
+            MIRROR_VID : {enabled:false}
         }
     };
 
