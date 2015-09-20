@@ -32,18 +32,16 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService',
 
 dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, current) {
     var lowerThirdOverlay;
+    $scope.settings = current.settings;
     $scope.lowerThirdButtonText = "Create Lower Third";
-
-    //Load the defaults from the settings as a convience
-    $scope.lowerThirdColor = current.settings.LOWER_COLOR.color;
-    $scope.lowerThirdName  = current.settings.LOWER_TEXT_FIRST.text;
-    $scope.lowerThirdSecond = current.settings.LOWER_TEXT_SECOND.text;
 
     $scope.buildLowerThird = function(name, second, color) {
         if(lowerThirdOverlay) {
             clearLowerThird();
         }
-        lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);
+        lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
+            current.settings.LOWER_TEXT_SECOND.text,
+            current.settings.LOWER_COLOR.color);
         lowerThirdOverlay.setVisible(true);
         $scope.lowerThirdButtonText = "Update Lower Third";
     };
@@ -58,7 +56,9 @@ dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsS
             if(lowerThirdOverlay) {
                 clearLowerThird();
                 $scope.lowerThirdColor = newValue;
-                lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);
+                lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
+                    current.settings.LOWER_TEXT_SECOND.text,
+                    current.settings.LOWER_COLOR.color);
                 lowerThirdOverlay.setVisible(true);
             }
         }

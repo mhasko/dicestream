@@ -1,7 +1,7 @@
 <div ng-controller="lowerThirdTabCtrl">
-<input type="text" ng-model="lowerThirdName" />
-<input type="text" ng-model="lowerThirdSecond" />
-<color-picker ng-model="lowerThirdColor" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker>
-<input class="button btn" type="button" value="{{lowerThirdButtonText}}" ng-click="buildLowerThird()" />
-<input class="button btn" type="button" value="Clear Lower Third" ng-click="clear()" />
+    <input type="text" ng-model="settings.LOWER_TEXT_FIRST.text" />
+    <input type="text" ng-model="settings.LOWER_TEXT_SECOND.text" />
+    <color-picker ng-model="settings.LOWER_COLOR.color" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker>
+    <input class="button btn" type="button" value="{{lowerThirdButtonText}}" ng-click="buildLowerThird()" />
+    <input class="button btn" type="button" value="Clear Lower Third" ng-click="clear()" />
 </div>
