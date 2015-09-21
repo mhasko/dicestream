@@ -64,6 +64,7 @@
     <script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
     <script type="text/javascript" src="%rootPath%/js/dsSettingsService.js"></script>
+    <script type="text/javascript" src="%rootPath%/js/dsCounterDirective.js"></script>
 </body>
 </html>
 ]]>

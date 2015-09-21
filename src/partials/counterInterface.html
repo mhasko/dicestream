@@ -1,0 +1,7 @@
+<div class="csWrapper">
+    <div class="csCheckbox"><input type="checkbox" ng-model="showCounter"></div>
+    <div class="csColorBox"><color-picker ng-model="counterColor" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker></div>
+    <button class="button btn btn-mini" ng-click="decCount()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+    <button class="button btn btn-mini" ng-click="incCount()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <span class="dieCount label">{{counter}}</span>
+</div>
