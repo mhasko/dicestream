@@ -9,33 +9,46 @@ dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService',
     return {
         restrict: 'E',
         scope: {
-            //die: '@',
-            //value: '@',
-            //url: '@',
-            //position: '@'
+            //showChecked: '=',
+            //counterColor: '='
         },
         templateUrl: config.filePrefix + '/partials/counterInterface.html',
         controller: function($scope, overlayService){
             var overlay;
+            $scope.showCounter = true;
+            //$scope.counterColor
             $scope.counter = 0;
 
             $scope.$watch(function(scope) { return scope.counter },
                 function(newValue, oldValue) {
-                    if(overlay) {
-                        overlay.setVisible(false);
-                    }
-
-                    var textContext= overlayService.createCounterOverlay(newValue.toString(), '#0099FF');//, .5, 0, 0);
-                    overlay = overlayService.createOverlayFromContext(textContext,1,.87,-.38);
+                    redrawCounter(newValue.toString(), $scope.counterColor);
                 }
             );
 
+            $scope.$watch(function(scope) { return scope.counterColor},
+                function(newValue, oldValue) {
+                    //if(newValue) {
+                        redrawCounter($scope.counter.toString(), newValue);
+                    //}
+                }
+            );
+
+            var redrawCounter = function(text, color) {
+                if(overlay) {
+                    overlay.setVisible(false);
+                }
+
+                var textContext= overlayService.createCounterOverlay(text, color);
+                overlay = overlayService.createOverlayFromContext(textContext,1,.87,-.38);
+            }
+
+            $scope.toggleCounter = function() {
+                overlay.setVisible($scope.showCounter);
+            }
         },
         link: function(scope, element, attrs) {
             scope.incCount = function() {
                 if(scope.counter < 99) {
-                //    scope.diedata.count = 1;
-                //} else {
                     scope.counter += 1;
                 }
             };
