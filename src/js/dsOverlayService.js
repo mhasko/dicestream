@@ -122,7 +122,23 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         
         return fcanvas.getContext();
     };
-    
+
+    /** create a text overlay, using fabric.js*/
+    overlayService.createCounterOverlay = function(text, textColor) {//}, scale, xpos, ypos) {
+        var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
+
+        ////translate the #rrggbb value of the colors to rgba via a tinycolor.js object
+        //var bgColorTC = tinycolor(bgColor);
+        //bgColorTC.setAlpha(.4);
+        var textColorTC = tinycolor(textColor);
+
+        var textObj = new fabric.Text(text, {fontFamily: 'Roboto', fontSize: 60});
+        textObj.setColor(textColorTC.toRgbString());
+        fcanvas.add(textObj);
+
+        return fcanvas.getContext();
+    };
+
     overlayService.createLowerThirdContext = function(firstLine, secondLine, color) {
         // create the fabric.js canvas we'll be adding hte various layers on
         // 600 x 100

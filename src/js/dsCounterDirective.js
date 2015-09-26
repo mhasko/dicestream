@@ -16,7 +16,20 @@ dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService',
         },
         templateUrl: config.filePrefix + '/partials/counterInterface.html',
         controller: function($scope, overlayService){
-            $scope.counter = 0
+            var overlay;
+            $scope.counter = 0;
+
+            $scope.$watch(function(scope) { return scope.counter },
+                function(newValue, oldValue) {
+                    if(overlay) {
+                        overlay.setVisible(false);
+                    }
+
+                    var textContext= overlayService.createCounterOverlay(newValue.toString(), '#0099FF');//, .5, 0, 0);
+                    overlay = overlayService.createOverlayFromContext(textContext,1,.87,-.38);
+                }
+            );
+
         },
         link: function(scope, element, attrs) {
             scope.incCount = function() {
