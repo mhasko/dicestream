@@ -9,7 +9,8 @@ diceButton.directive('diceButton', ['config', 'diceService', function(config, ds
             id: '@dieid',
             side: '@sides',
             imageroot: '@',
-            dieimage: '@'
+            dieimage: '@',
+            position: '@side'
         },
         templateUrl: config.filePrefix + '/partials/diceButton.html',
         controller: function($scope){

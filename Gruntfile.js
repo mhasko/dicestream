@@ -16,6 +16,16 @@ module.exports = function (grunt) {
                         }
                     }
             },
+            publicbeta: {
+                files: [
+                    {expand: true, cwd: '', src: ['src/**'], dest: 'publicbeta/'}
+                ],
+                options: {
+                    process: function (content, srcpath) {
+                        return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/publicbetadicestream/public/src");
+                    }
+                }
+            },
             dev: {
                     files: [
                         {expand: true, cwd: '', src: ['src/**'], dest: 'dev/'}
