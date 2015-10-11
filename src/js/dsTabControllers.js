@@ -16,7 +16,7 @@ dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, dice
     };
 }]);
 
-dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, textCardService) {
+dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, current) {
     //[{text: "test1",
     //  textcolor: "#000000",
     //  bgcolor: "#ffffff"},...]
@@ -26,34 +26,59 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', function($scope, t
     };
     
     $scope.addCard = function(cardtext) {
-        // TODO use the default values here.
-        textCardService.addNewCard({text:cardtext, textcolor:"#000000", bgcolor:"#ff9900"});    
+        textCardService.addNewCard({text:cardtext, textcolor:current.settings.CARD_TEXT_COLOR.color, bgcolor:current.settings.CARD_BG_COLOR.color});
     };
 }]);
 
-dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', function($scope, lowerThirdService) {
+dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, current) {
     var lowerThirdOverlay;
+    $scope.settings = current.settings;
     $scope.lowerThirdButtonText = "Create Lower Third";
-    
-    $scope.buildLowerThird = function() {
+
+    $scope.buildLowerThird = function(name, second, color) {
         if(lowerThirdOverlay) {
             clearLowerThird();
         }
-        lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, $scope.lowerThirdColor);  
+        lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
+            current.settings.LOWER_TEXT_SECOND.text,
+            current.settings.LOWER_COLOR.color);
+        lowerThirdOverlay.setVisible(true);
         $scope.lowerThirdButtonText = "Update Lower Third";
-    }; 
+    };
+
+    $scope.clear = function() {
+        clearLowerThird();
+        $scope.lowerThirdButtonText = "Create Lower Third";
+    };
     
     $scope.$watch(function(scope) { return scope.lowerThirdColor },
         function(newValue, oldValue) {
             if(lowerThirdOverlay) {
                 clearLowerThird();
-                lowerThirdOverlay = lowerThirdService.createLowerThird($scope.lowerThirdName, $scope.lowerThirdSecond, newValue); 
+                $scope.lowerThirdColor = newValue;
+                lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
+                    current.settings.LOWER_TEXT_SECOND.text,
+                    current.settings.LOWER_COLOR.color);
+                lowerThirdOverlay.setVisible(true);
             }
         }
     );
     
     var clearLowerThird = function(){
         lowerThirdOverlay.setVisible(false);
-        lowerThirdOverlay.dispose();
+        //lowerThirdOverlay.dispose();
+    };
+}]);
+
+dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, current){
+
+    $scope.settings = current.settings;
+
+    $scope.save = function(){
+        current.saveSettings();
+    };
+
+    $scope.toggleMirroredVideo = function(){
+        gapi.hangout.av.setLocalParticipantVideoMirrored(current.settings.MISC.MIRROR_VID.enabled);
     };
 }]);

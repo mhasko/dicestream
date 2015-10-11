@@ -52,6 +52,40 @@ ul, ol{
 #version{
 	font-size: 11pt;
 }
+.csWrapper{
+	padding-top: 3px;
+	padding-left: 10px;
+}
+
+.csWrapper .csCheckbox {
+    display: inline-block;
+    position: relative;
+}
+
+.csColorBox{
+    display: inline-block;
+    top: 5px;
+    position: relative;
+	width:120px;
+}
+
+.csWrapper .csLabel{
+    display: inline-block;
+    position: relative;
+}
+
+.textWrapper{
+	padding-top:3px;
+	padding-left:10px;
+}
+
+.settingsHeader{
+	font-weight: bolder;
+}
+
+.settingsGroup:not(:first-child){
+	padding-top: 20px;
+}
 
 .helpDiv{
 	padding: 0 0 0 10px;
@@ -91,12 +125,12 @@ ul, ol{
 
 .leftDice{
 	position:relative;
-	left:25px;
+	left: -7px;
 }
 
 .rightDice{
 	position: absolute;
-	left: 140px;
+	left: 162px;
 }
 
 .dierow{
@@ -184,4 +218,8 @@ ul, ol{
 
 .disabled{	
 	visibility: hidden;
+}
+
+.tabBorder{
+	padding-left:15px;
 }

@@ -1,0 +1,10 @@
+<div id="lowerThirdTab" class="tabBorder" ng-controller="lowerThirdTabCtrl">
+    <div class="lowerThirdLabel">Main Text</div><input type="text" ng-model="settings.LOWER_TEXT_FIRST.text" />
+    <div class="lowerThirdLabel">Secondary Text (Title, alternative name, etc)</div><input type="text" ng-model="settings.LOWER_TEXT_SECOND.text" />
+    <div class="lowerThirdLabel">Lower Third Highlight Color</div>
+    <div class="csColorBox"><color-picker ng-model="settings.LOWER_COLOR.color" color-picker-pos="'bottom left'" color-picker-swatch-only="false" color-picker-format="'hex'" color-picker-alpha="false"></color-picker></div>
+    <div class="lowerThirdButtonDiv">
+        <span><input class="button btn" type="button" value="{{lowerThirdButtonText}}" ng-click="buildLowerThird()" /></span>
+        <span><input class="button btn" type="button" value="Clear" ng-click="clear()" /></span>
+    </div>
+</div>

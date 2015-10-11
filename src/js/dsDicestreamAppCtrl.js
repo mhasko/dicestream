@@ -1,9 +1,10 @@
 'use strict';
 
-var dsApp = angular.module('dicestreamApp', ['ui.bootstrap', 'diceButton', 'diceService','dsTrayDice', 'textWidget', 'lowerThirdService']);
+var dsApp = angular.module('dicestreamApp', ['ui.bootstrap', 'ngCookies', 'diceButton',
+    'diceService','dsTrayDice', 'textWidget', 'colorSelect', 'lowerThirdService', 'settingsService', 'dsCounter']);
 
 dsApp.config(function($sceDelegateProvider){
-    $sceDelegateProvider.resourceUrlWhitelist(['https://dl.dropbox.com/u/1177409/**', 'https://s3.amazonaws.com/dicestream/**', 'self']);
+    $sceDelegateProvider.resourceUrlWhitelist(['https://dl.dropbox.com/u/1177409/**', 'https://s3.amazonaws.com/dicestream/**', 'https://s3.amazonaws.com/publicbetadicestream/**','self']);
 });
 
 dsApp.constant('config', {
