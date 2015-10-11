@@ -1,8 +1,8 @@
 'use strict';
 
-var dsOverlayService = angular.module('overlayService', ['imageService']);
+var dsOverlayService = angular.module('overlayService', ['imageService', 'settingsService']);
 
-dsOverlayService.factory('overlayService', ['imageService', function(dsImageService) {
+dsOverlayService.factory('overlayService', ['imageService', 'settingsService', function(dsImageService, current) {
     var overlayService = {};
     
     var trayDiceOverlayArray = [];
@@ -26,19 +26,8 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     overlayService.SELECTION_CIRCLE = 1;
     overlayService.SELECTION_HEX = 2;
     overlayService.SELECTION_X = 3;
-    
 
-    /** permissions for overlay types - none, circle, hex, X*/
-    var validSelectionTypes = [true, true, true, true];
-		
-    /** css values for dice image overlay colors */
-    overlayService.selectionColorFor = ['transparent', '#54A954','#000000','#802015'];
-    
-    /** default text color for new cards*/
-    overlayService.cardTextColor = 'rgba(0,0,0,1)';
-    
-    /** default background color for new cards*/
-    overlayService.cardBGColor = 'rgba(255,153,0, .5)';
+    var validSelectionTypes = ["NONE","CIRCLE", "HEX", "X"];
     
     overlayService.getTrayDiceOverlayArray = function(){
         return trayDiceOverlayArray;
@@ -76,8 +65,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     overlayService.redrawCardAt = function(index, newCardOverlay) {
         // get the old card overlay at the specified location and set it not visible
         var oldCardOverlay = cardsOverlayArray[index];
-       
-        
+
         cardsOverlayArray[index] = newCardOverlay;
         oldCardOverlay.setVisible(false);
         oldCardOverlay.dispose();
@@ -94,7 +82,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
     };
 
     /** displays the dice overlays across the top of the screen */
-    overlayService.positionOverlays = function(value, display){//index, display){
+    overlayService.positionOverlays = function(value, display){
         //index is an array index.  We need to use that value along with the constant
         //for the allowable number of dice in a row to first determine the 'grid' 
         //position of the die, then use the offset value to compute the position
@@ -134,7 +122,23 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         
         return fcanvas.getContext();
     };
-    
+
+    /** create a text overlay, using fabric.js*/
+    overlayService.createCounterOverlay = function(text, textColor) {//}, scale, xpos, ypos) {
+        var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
+
+        ////translate the #rrggbb value of the colors to rgba via a tinycolor.js object
+        //var bgColorTC = tinycolor(bgColor);
+        //bgColorTC.setAlpha(.4);
+        var textColorTC = tinycolor(textColor);
+
+        var textObj = new fabric.Text(text, {fontFamily: 'Roboto', fontSize: 60});
+        textObj.setColor(textColorTC.toRgbString());
+        fcanvas.add(textObj);
+
+        return fcanvas.getContext();
+    };
+
     overlayService.createLowerThirdContext = function(firstLine, secondLine, color) {
         // create the fabric.js canvas we'll be adding hte various layers on
         // 600 x 100
@@ -142,29 +146,31 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         
         // create the rectangle that has the text strings
         var topRect = new fabric.Rect({left:25, top:25, fill:'white', width: 2200, height: 300, rx:20, ry:20, strokeWidth:1, stroke:'rgba(124,124,124,1)'});
-        // TODO USE default color 'rgba(0,129,0,1)'
         topRect.setShadow({color: tinycolor(color).toRgbString(), offsetX:30, offsetY:30, blur:5, fillShadow: true, strokeShadow: false});
         fcanvas.add(topRect);
         
-        
+        if(!firstLine){firstLine=' ';}
         var mainTitle = new fabric.Text(firstLine, {left:60, top:20, fontFamily:'Roboto', fontWeight:'bold', fontSize:200});
         fcanvas.add(mainTitle);
-        
+
+        if(!secondLine){secondLine=' ';}
         var secTitle = new fabric.Text(secondLine, {left:60, top:230, fontFamily:'Roboto', fontSize:80});
         fcanvas.add(secTitle);
         return fcanvas.getContext();
     };
     
     /** recursive function that finds the next valid overlay type and returns it. */
+    //TODO recursive function is awesome, but maybe retire it and iterate over the
+    //json object better?
     overlayService.findNextOverlay = function(pos){
         var nextOverlayValue = parseInt(pos)+1;
         // We've hit the end of the array, return the first array value /
         // no selection value.
-        if(nextOverlayValue >= validSelectionTypes.length) {
+        if(nextOverlayValue >= Object.keys(current.settings.DICE.SELECTIONS).length+1) {
             return overlayService.SELECTION_NONE;
         } 
         // This selection type is allowed, so return it
-        else if(validSelectionTypes[nextOverlayValue]) {
+        else if(current.settings.DICE.SELECTIONS[validSelectionTypes[nextOverlayValue]].enabled){
             return nextOverlayValue;
         } 
         // The user has disallowed this selection, let's go to the next array
@@ -186,7 +192,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var firstX;
         var firstY;
         shapeContext.translate(0.5, 0.5);
-        shapeContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_HEX];
+        shapeContext.strokeStyle = current.settings.DICE.SELECTIONS.HEX.color;
         shapeContext.lineWidth = lineThickness;
         shapeContext.beginPath();
         for(var i=0;i<numOfSides;i++)
@@ -219,7 +225,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         circleContext.beginPath();
         circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
         circleContext.lineWidth = lineThickness;
-        circleContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_CIRCLE];
+        circleContext.strokeStyle = current.settings.DICE.SELECTIONS.CIRCLE.color;
         circleContext.stroke();
         return circleContext;
     };
@@ -230,7 +236,7 @@ dsOverlayService.factory('overlayService', ['imageService', function(dsImageServ
         var xContext = canvas[0].getContext("2d");
         xContext.translate(0.5, 0.5);
         xContext.lineWidth = lineThickness;
-        xContext.strokeStyle = overlayService.selectionColorFor[overlayService.SELECTION_X];
+        xContext.strokeStyle = current.settings.DICE.SELECTIONS.X.color;
         xContext.beginPath();
 
         xContext.moveTo(48, 48);
