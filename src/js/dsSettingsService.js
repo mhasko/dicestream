@@ -40,7 +40,12 @@ dsSettingsService.factory('settingsService', ['config', '$cookies', function(con
     };
 
     settingsService.loadSettings = function() {
-        settingsService.settings = $cookies.getObject('dicestream.settings');
+        var savedSettings = $cookies.getObject('dicestream.settings');
+        // if savedSettings is null, there's nothing saved...so don't fetch them
+        if(!savedSettings) {
+            settingsService.settings = savedSettings;
+        }
+        //settingsService.settings = $cookies.getObject('dicestream.settings');
     };
 
     settingsService.resetDefaultSettings = function() {
