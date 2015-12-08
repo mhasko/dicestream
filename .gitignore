@@ -174,3 +174,5 @@ node_modules/
 public/
 dev/
 publicbeta/
+
+.aws-keys.json

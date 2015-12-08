@@ -4,6 +4,43 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        aws: grunt.file.readJSON('.aws-keys.json'), // Read the file
+
+        aws_s3: {
+            options: {
+                accessKeyId: '<%= aws.AWSAccessKeyId %>', // Use the variables
+                secretAccessKey: '<%= aws.AWSSecretKey %>', // You can also use env variables
+                region: 'us-east-1',
+                uploadConcurrency: 5, // 5 simultaneous uploads
+                downloadConcurrency: 5 // 5 simultaneous downloads
+            },
+
+            prod: {
+                options: {
+                    bucket: 'dicestream',
+                    differential: true,
+                },
+                files: [
+                    {expand: true, cwd: 'public/src/', src: ['dicestream.xml'], dest: '/'},
+                    {expand: true, cwd: 'public/src/css', src: ['**'], dest: '/src/css'},
+                    {expand: true, cwd: 'public/src/js', src: ['**'], dest: '/src/js'},
+                    {expand: true, cwd: 'public/src/partials', src: ['**'], dest: '/src/partials'},
+                ]
+            },
+
+            publicbeta: {
+                options: {
+                    bucket: 'publicbetadicestream',
+                    differential: true, // Only uploads the files that have changed
+                },
+                files: [
+                    {expand: true, cwd: 'publicbeta/src/', src: ['dicestream.xml'], dest: '/'},
+                    {expand: true, cwd: 'publicbeta/src/css', src: ['**'], dest: '/src/css'},
+                    {expand: true, cwd: 'publicbeta/src/js', src: ['**'], dest: '/src/js'},
+                    {expand: true, cwd: 'publicbeta/src/partials', src: ['**'], dest: '/src/partials'},
+                ]
+            },
+        },
 
         copy: {
             prod: {
@@ -12,7 +49,7 @@ module.exports = function (grunt) {
                     ],
                     options: {
                         process: function (content, srcpath) {
-                            return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/dicestream/public/src");
+                            return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/dicestream/src");
                         }
                     }
             },
@@ -22,7 +59,7 @@ module.exports = function (grunt) {
                 ],
                 options: {
                     process: function (content, srcpath) {
-                        return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/publicbetadicestream/public/src");
+                        return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/publicbetadicestream/src");
                     }
                 }
             },
@@ -37,65 +74,11 @@ module.exports = function (grunt) {
                     }
             }
         }
-
-        //express: {
-        //
-        //    options: {
-        //        port: 9000,
-        //        serverreload: true
-        //    },
-        //
-        //    dev: {
-        //        options: {
-        //            bases: [
-        //                'public',
-        //                'public/templates' /* [1] */
-        //            ]
-        //        }
-        //    },
-        //
-        //    prod: {
-        //        options: {
-        //            bases: [
-        //                '.public',
-        //                '.public/templates' /* [1] */
-        //            ]
-        //        }
-        //    }
-        //},
-
-        //karma: {
-        //
-        //    options: {
-        //        frameworks: ['mocha', 'chai'],
-        //        reporters: ['spec'],
-        //        files: [
-        //            { pattern: 'public/components/**/*.js', included: false },
-        //            { pattern: 'public/js/**/*.js', included: false },
-        //            { pattern: 'test/browser/utils.js', included: false },
-        //            { pattern: 'test/browser/unit/**/*.js', included: false },
-        //            'test/browser/main.js'
-        //        ]
-        //    },
-        //
-        //    unit: {
-        //        options: {
-        //            port: 9999,
-        //            browsers: ['PhantomJS'],
-        //            autoWatch: false,
-        //            singleRun: true
-        //        }
-        //    }
-        //
-        //    /*integration: {
-        //        ...
-        //    }*/
-        //}
     });
 
-    //grunt.loadNpmTasks('grunt-express');
-    //grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-aws-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', ['copy:dev']);
+    grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };
