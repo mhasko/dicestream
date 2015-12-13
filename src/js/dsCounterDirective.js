@@ -10,13 +10,13 @@ dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService',
         restrict: 'E',
         scope: {
             //showChecked: '=',
-            //counterColor: '='
+            //counterColor: '=?'
         },
         templateUrl: config.filePrefix + '/partials/counterInterface.html',
         controller: function($scope, overlayService){
             var overlay;
             $scope.showCounter = true;
-            //$scope.counterColor
+            $scope.counterColor = current.settings.COUNTER_COLOR.color;
             $scope.counter = 0;
 
             $scope.$watch(function(scope) { return scope.counter },
@@ -28,6 +28,7 @@ dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService',
             $scope.$watch(function(scope) { return scope.counterColor},
                 function(newValue, oldValue) {
                     //if(newValue) {
+                        current.settings.COUNTER_COLOR = {color:newValue};
                         redrawCounter($scope.counter.toString(), newValue);
                     //}
                 }

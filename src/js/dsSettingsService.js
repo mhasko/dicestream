@@ -19,6 +19,7 @@ dsSettingsService.factory('settingsService', ['config', '$cookies', function(con
             CLEAR_SELECTION : {enabled: true},
             CLEAR_TRAY : {enabled: true},
         },
+        COUNTER_COLOR : {color: '#0099FF'},
         //}, CARDS :{
         CARD_BG_COLOR : {color: '#0099FF'},
         CARD_TEXT_COLOR : {color:'#000000'},
@@ -42,7 +43,7 @@ dsSettingsService.factory('settingsService', ['config', '$cookies', function(con
     settingsService.loadSettings = function() {
         var savedSettings = $cookies.getObject('dicestream.settings');
         // if savedSettings is null, there's nothing saved...so don't fetch them
-        if(!savedSettings) {
+        if(savedSettings) {
             settingsService.settings = savedSettings;
         }
         //settingsService.settings = $cookies.getObject('dicestream.settings');
