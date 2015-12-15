@@ -27,6 +27,7 @@ ul, ol{
 
 #dicetrayDiv{
 	position: relative;
+	margin-top: 10px;
 }
 
 #lowerThirdTab{
@@ -60,6 +61,7 @@ ul, ol{
 .csWrapper .csCheckbox {
     display: inline-block;
     position: relative;
+	top: -2px;
 }
 
 .csColorBox{
@@ -129,8 +131,8 @@ ul, ol{
 }
 
 .rightDice{
-	position: absolute;
-	left: 162px;
+	position: relative;
+	left: 16px;
 }
 
 .dierow{
