@@ -73,12 +73,24 @@ module.exports = function (grunt) {
                         }
                     }
             }
+        },
+
+        jscs: {
+            options: {
+                config: '.jscsrc',
+                verbose: true
+            },
+            all:{
+                src: ['src/js/ds{,*/}*.js']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-aws-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-jscs');
 
+    grunt.registerTaks('codecheck', ['jscs:all']);
     grunt.registerTask('default', ['copy:dev']);
     grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };

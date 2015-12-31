@@ -13,6 +13,8 @@
     "grunt-express": "^1.4.1",
     "grunt-karma": "^0.12.0",
     "grunt-sync": "^0.3.0",
+    "grunt-jscs": "^1.8.0",
+    "grunt-newer": "^1.1.0",
     "karma": "^0.13.8"
   },
   "description": "dicestream ==========",
