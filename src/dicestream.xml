@@ -4,69 +4,8 @@
                 <Require feature="rpc" />
                 <Require feature="views" />
         </ModulePrefs>
-        <Content type="html"><![CDATA[     
-
-<html>
-<head>
-</head>
-<body id="ds">
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="%rootPath%/css/dicestream.css" />
-    <link rel="stylesheet" type="text/css" href="%rootPath%/css/angularjs-color-picker.css" />
-
-    <div id="canvasDiv" class="disabled">
-    	<canvas height="512px" width="512px" id="overlayCanvas"></canvas>
-    	<canvas height="70px" width="600px" id="textCanvas"></canvas>
-    	<canvas height="400px" width="2400px" id="mainThirdCanvas"></canvas> <!--was 100x600 -->
-    	<canvas height="128px" width="600px" id="counterCanvas"></canvas>
-    </div>
-    <div id="app-gui" ng-app="dicestreamApp">
-        <tabset>
-            <tab heading="Dice">
-                <div id="diceTab" ng-include="'%rootPath%/partials/diceTab.html'"></div>
-            </tab>
-            <tab heading="Text">
-                <div id="textTab" ng-include="'%rootPath%/partials/textCardTab.html'"></div>
-            </tab>
-            <tab heading="Lower Third">
-                <div id="lowerThirdTab" ng-include="'%rootPath%/partials/lowerThirdTab.html'"></div>
-            </tab>
-            <tab heading="Settings">
-                <div id="settingsTab" ng-include="'%rootPath%/partials/settingsTab.html'"></div>
-            </tab>
-        </tabset>
-    </div>
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-cookies.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.js"></script> 
-    <script type="text/javascript" src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
-    <script type="text/javascript" src="https://s3.amazonaws.com/dicestream/seedrandom/seedrandom.min.js"></script>
-    
-    <script type="text/javascript" src="%rootPath%/js/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/lib/tinycolor.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/lib/angularjs-color-picker.min.js"></script>
-
-    <script type="text/javascript" src="%rootPath%/js/dicestream.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsDicestreamAppCtrl.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsImageService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsDiceButtonDirective.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsDiceService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsOverlayService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsTextCardService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsLowerThirdService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsTabControllers.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsTrayDiceDirective.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsSettingsService.js"></script>
-    <script type="text/javascript" src="%rootPath%/js/dsCounterDirective.js"></script>
-</body>
-</html>
-]]>
+        <Content type="html"><![CDATA[
+            %dicestreamhtml%
+        ]]>
 </Content>
 </Module>

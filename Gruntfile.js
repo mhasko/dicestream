@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**'], dest: 'public/'}
+                        {expand: true, cwd: '', src: ['src/**'], dest: '/Users/mhasko/Dropbox/Public/dicestream/public/'}
                     ],
                     options: {
                         process: function (content, srcpath) {
@@ -55,7 +55,7 @@ module.exports = function (grunt) {
             },
             publicbeta: {
                 files: [
-                    {expand: true, cwd: '', src: ['src/**'], dest: 'publicbeta/'}
+                    {expand: true, cwd: '', src: ['src/**'], dest: '/Users/mhasko/Dropbox/Public/dicestream/publicbeta/'}
                 ],
                 options: {
                     process: function (content, srcpath) {
@@ -65,10 +65,12 @@ module.exports = function (grunt) {
             },
             dev: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**'], dest: 'dev/'}
+                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/dev/'}
                     ],
                     options: {
                         process: function (content, srcpath) {
+
+                            content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
                             return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
                         }
                     }
