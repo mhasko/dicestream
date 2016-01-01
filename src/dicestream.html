@@ -5,9 +5,13 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="%rootPath%/css/dicestream.css" />
-<link rel="stylesheet" type="text/css" href="%rootPath%/css/angularjs-color-picker.css" />
+<!--<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>-->
+<link rel="stylesheet" type="text/css" href="css/dicestream.css" />
+<!--<link rel="stylesheet" type="text/css" href="%rootPath%/css/angularjs-color-picker.css" />-->
+
+<!-- bower:css -->
+<link rel="stylesheet" href="../bower_components/angular-color-picker/angularjs-color-picker.css" />
+<!-- endbower -->
 
 <div id="canvasDiv" class="disabled">
     <canvas height="512px" width="512px" id="overlayCanvas"></canvas>
@@ -31,7 +35,7 @@
         </tab>
     </tabset>
 </div>
-
+<!--
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-cookies.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.js"></script>
@@ -42,7 +46,9 @@
 <script type="text/javascript" src="%rootPath%/js/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script type="text/javascript" src="%rootPath%/js/lib/tinycolor.js"></script>
 <script type="text/javascript" src="%rootPath%/js/lib/angularjs-color-picker.min.js"></script>
+-->
 
+<!--
 <script type="text/javascript" src="%rootPath%/js/dicestream.js"></script>
 <script type="text/javascript" src="%rootPath%/js/dsDicestreamAppCtrl.js"></script>
 <script type="text/javascript" src="%rootPath%/js/dsImageService.js"></script>
@@ -57,5 +63,38 @@
 <script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
 <script type="text/javascript" src="%rootPath%/js/dsSettingsService.js"></script>
 <script type="text/javascript" src="%rootPath%/js/dsCounterDirective.js"></script>
+-->
+
+<!-- bower:js -->
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="../bower_components/google-hangouts-api/gapi.js"></script>
+<script src="../bower_components/seedrandom/seedrandom.js"></script>
+<script src="../bower_components/fabric.js/dist/fabric.min.js"></script>
+<script src="../bower_components/tinycolor/tinycolor.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../bower_components/angular-color-picker/angularjs-color-picker.js"></script>
+<!-- endbower -->
+
+<!-- start auto template tags -->
+<script type="text/javascript" src="counter/dsCounterDirective.js"></script>
+<script type="text/javascript" src="dice/dsDiceButtonDirective.js"></script>
+<script type="text/javascript" src="dice/dsTrayDiceDirective.js"></script>
+<script type="text/javascript" src="dicestream.js"></script>
+<script type="text/javascript" src="dsDicestreamAppCtrl.js"></script>
+<script type="text/javascript" src="lib/angularjs-color-picker.min.js"></script>
+<script type="text/javascript" src="lib/tinycolor.js"></script>
+<script type="text/javascript" src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script type="text/javascript" src="services/dsDiceService.js"></script>
+<script type="text/javascript" src="services/dsImageService.js"></script>
+<script type="text/javascript" src="services/dsLowerThirdService.js"></script>
+<script type="text/javascript" src="services/dsOverlayService.js"></script>
+<script type="text/javascript" src="services/dsSettingsService.js"></script>
+<script type="text/javascript" src="services/dsTextCardService.js"></script>
+<script type="text/javascript" src="tabs/dsTabControllers.js"></script>
+<script type="text/javascript" src="textCard/dsTextWidgetDirective.js"></script>
+<script type="text/javascript" src="ui/dsColorSelectDirective.js"></script>
+<!-- end auto template tags -->
 </body>
 </html>

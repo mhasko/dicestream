@@ -69,9 +69,9 @@ module.exports = function (grunt) {
                     ],
                     options: {
                         process: function (content, srcpath) {
-
-                            content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
-                            return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
+                            return content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                            //content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                            //return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
                         }
                     }
             }
@@ -85,14 +85,32 @@ module.exports = function (grunt) {
             all:{
                 src: ['src/js/ds{,*/}*.js']
             }
+        },
+
+        // Automatically inject Bower components into the app
+        wiredep: {
+            app: {
+                src: ['src/dicestream.html']
+            }
+        },
+
+        tags: {
+            build: {
+                src: [
+                    'src/**/*.js'
+                ],
+                dest: 'src/dicestream.html'
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-aws-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-wiredep');
+    grunt.loadNpmTasks('grunt-script-link-tags');
 
-    grunt.registerTaks('codecheck', ['jscs:all']);
+    grunt.registerTask('codecheck', ['jscs:all']);
     grunt.registerTask('default', ['copy:dev']);
     grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };
