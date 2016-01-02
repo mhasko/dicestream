@@ -12,7 +12,7 @@ dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService',
             //showChecked: '=',
             //counterColor: '=?'
         },
-        templateUrl: config.filePrefix + '/partials/counterInterface.html',
+        templateUrl: config.filePrefix + '/counter/counterInterface.html',
         controller: function($scope, overlayService){
             var overlay;
             $scope.showCounter = true;

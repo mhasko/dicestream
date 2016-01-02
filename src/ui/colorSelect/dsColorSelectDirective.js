@@ -15,7 +15,7 @@ colorSelect.directive('colorSelect', ['config', function(config){
             checked: '=',
             color: '='
         },
-        templateUrl: config.filePrefix + '/partials/colorSelect.html',
+        templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
         //compile: function(element, attrs){
         //    if (!attrs.showCheckbox) { attrs.attrOne = 'true'; }
         //},
