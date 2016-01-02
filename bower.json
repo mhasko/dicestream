@@ -29,6 +29,8 @@
     "jquery": "~2.1.4",
     "seedrandom": "~2.4.2",
     "fabric.js": "fabric#~1.5.0",
-    "angular-color-picker": "angularjs-color-picker#~0.8.0"
+    "angular-color-picker": "angularjs-color-picker#~0.8.0",
+    "bootstrap": "~3.3.6",
+    "angular-bootstrap": "~0.14.3"
   }
 }

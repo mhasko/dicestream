@@ -175,5 +175,6 @@ public/
 dev/
 publicbeta/
 bower_components/
+src/bower_components/
 
 .aws-keys.json

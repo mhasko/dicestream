@@ -6,11 +6,15 @@
 <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <!--<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>-->
-<link rel="stylesheet" type="text/css" href="css/dicestream.css" />
+<!--<link rel="stylesheet" type="text/css" href="css/dicestream.css" />-->
 <!--<link rel="stylesheet" type="text/css" href="%rootPath%/css/angularjs-color-picker.css" />-->
 
+<!-- start css template tags -->
+<link rel="stylesheet" type="text/css" href="%rootPath%/css/dicestream.css" media="screen"/>
+<!-- end css template tags -->
+
 <!-- bower:css -->
-<link rel="stylesheet" href="../bower_components/angular-color-picker/angularjs-color-picker.css" />
+<link rel="stylesheet" href="%rootPath%/bower_components/angular-color-picker/angularjs-color-picker.css" />
 <!-- endbower -->
 
 <div id="canvasDiv" class="disabled">
@@ -35,66 +39,35 @@
         </tab>
     </tabset>
 </div>
-<!--
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-cookies.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.js"></script>
-<script type="text/javascript" src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="https://s3.amazonaws.com/dicestream/seedrandom/seedrandom.min.js"></script>
-
-<script type="text/javascript" src="%rootPath%/js/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script type="text/javascript" src="%rootPath%/js/lib/tinycolor.js"></script>
-<script type="text/javascript" src="%rootPath%/js/lib/angularjs-color-picker.min.js"></script>
--->
-
-<!--
-<script type="text/javascript" src="%rootPath%/js/dicestream.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsDicestreamAppCtrl.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsImageService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsDiceButtonDirective.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsDiceService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsOverlayService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsTextCardService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsLowerThirdService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsTabControllers.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsTrayDiceDirective.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsTextWidgetDirective.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsColorSelectDirective.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsSettingsService.js"></script>
-<script type="text/javascript" src="%rootPath%/js/dsCounterDirective.js"></script>
--->
 
 <!-- bower:js -->
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-<script src="../bower_components/angular/angular.js"></script>
-<script src="../bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="../bower_components/google-hangouts-api/gapi.js"></script>
-<script src="../bower_components/seedrandom/seedrandom.js"></script>
-<script src="../bower_components/fabric.js/dist/fabric.min.js"></script>
-<script src="../bower_components/tinycolor/tinycolor.js"></script>
-<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="../bower_components/angular-color-picker/angularjs-color-picker.js"></script>
+<script src="%rootPath%/bower_components/jquery/dist/jquery.js"></script>
+<script src="%rootPath%/bower_components/angular/angular.js"></script>
+<script src="%rootPath%/bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="%rootPath%/bower_components/google-hangouts-api/gapi.js"></script>
+<script src="%rootPath%/bower_components/seedrandom/seedrandom.js"></script>
+<script src="%rootPath%/bower_components/fabric.js/dist/fabric.min.js"></script>
+<script src="%rootPath%/bower_components/tinycolor/tinycolor.js"></script>
+<script src="%rootPath%/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="%rootPath%/bower_components/angular-color-picker/angularjs-color-picker.js"></script>
+<script src="%rootPath%/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <!-- endbower -->
 
-<!-- start auto template tags -->
-<script type="text/javascript" src="counter/dsCounterDirective.js"></script>
-<script type="text/javascript" src="dice/dsDiceButtonDirective.js"></script>
-<script type="text/javascript" src="dice/dsTrayDiceDirective.js"></script>
-<script type="text/javascript" src="dicestream.js"></script>
-<script type="text/javascript" src="dsDicestreamAppCtrl.js"></script>
-<script type="text/javascript" src="lib/angularjs-color-picker.min.js"></script>
-<script type="text/javascript" src="lib/tinycolor.js"></script>
-<script type="text/javascript" src="lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script type="text/javascript" src="services/dsDiceService.js"></script>
-<script type="text/javascript" src="services/dsImageService.js"></script>
-<script type="text/javascript" src="services/dsLowerThirdService.js"></script>
-<script type="text/javascript" src="services/dsOverlayService.js"></script>
-<script type="text/javascript" src="services/dsSettingsService.js"></script>
-<script type="text/javascript" src="services/dsTextCardService.js"></script>
-<script type="text/javascript" src="tabs/dsTabControllers.js"></script>
-<script type="text/javascript" src="textCard/dsTextWidgetDirective.js"></script>
-<script type="text/javascript" src="ui/dsColorSelectDirective.js"></script>
-<!-- end auto template tags -->
+<!-- start script template tags -->
+<script type="text/javascript" src="%rootPath%/counter/dsCounterDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dice/dsDiceButtonDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dice/dsTrayDiceDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dicestream.js"></script>
+<script type="text/javascript" src="%rootPath%/dsDicestreamAppCtrl.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsDiceService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsImageService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsLowerThirdService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsOverlayService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsSettingsService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsTextCardService.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/dsTabControllers.js"></script>
+<script type="text/javascript" src="%rootPath%/textCard/dsTextWidgetDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/ui/dsColorSelectDirective.js"></script>
+<!-- end script template tags -->
 </body>
 </html>
