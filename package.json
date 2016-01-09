@@ -42,5 +42,10 @@
   "bugs": {
     "url": "https://github.com/mhasko/dicestream/issues"
   },
-  "homepage": "https://github.com/mhasko/dicestream#readme"
+  "homepage": "https://github.com/mhasko/dicestream#readme",
+  "dependencies": {
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-newer": "^1.1.1",
+    "grunt-sync": "^0.5.1"
+  }
 }

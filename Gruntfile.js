@@ -6,6 +6,24 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         aws: grunt.file.readJSON('.aws-keys.json'), // Read the file
 
+        watch: {
+            bower: {
+                files: ['bower.json'],
+                tasks: ['wiredep']
+            },
+            js: {
+                files: ['src/**/{,*/}*.js'],
+                tasks: ['default' ],
+            },
+            //jsTest: {
+            //    files: ['test/spec/{,*/}*.js'],
+            //    tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
+            //},
+            gruntfile: {
+                files: ['Gruntfile.js']
+            }
+        },
+
         aws_s3: {
             options: {
                 accessKeyId: '<%= aws.AWSAccessKeyId %>', // Use the variables
@@ -45,7 +63,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**'], dest: '/Users/mhasko/Dropbox/Public/dicestream/public/'}
+                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/public/'}
                     ],
                     options: {
                         process: function (content, srcpath) {
@@ -55,7 +73,7 @@ module.exports = function (grunt) {
             },
             publicbeta: {
                 files: [
-                    {expand: true, cwd: '', src: ['src/**'], dest: '/Users/mhasko/Dropbox/Public/dicestream/publicbeta/'}
+                    {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/publicbeta/'}
                 ],
                 options: {
                     process: function (content, srcpath) {
@@ -83,7 +101,7 @@ module.exports = function (grunt) {
                 verbose: true
             },
             all:{
-                src: ['src/js/ds{,*/}*.js']
+                src: ['src/**/ds{,*/}*.js']
             }
         },
 
@@ -148,8 +166,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-jscs');
     grunt.loadNpmTasks('grunt-wiredep');
     grunt.loadNpmTasks('grunt-script-link-tags');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask('codecheck', ['jscs:all']);
-    grunt.registerTask('default', ['wiredep', 'tags', 'copy:dev']);
+    grunt.registerTask('default', [/*'newer:jscs:all',*/'wiredep', 'tags', 'newer:copy:dev']);
     grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };
