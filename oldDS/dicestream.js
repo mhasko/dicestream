@@ -28,10 +28,10 @@ if(!DICESTREAM.MAIN) {
 //			jQuery("#app-gui").height(_this.max_height-20);
 //		};
 
-		// Wait for gadget to load.                                                       
+		// Wait for gadget to load.
 		gadgets.util.registerOnLoadHandler(init);
 		gapi.hangout.av.setLocalParticipantVideoMirrored(false);
-		//Resize the div size on a window resize.  
+		//Resize the div size on a window resize.
 		$(window).on('resize', function(){
 			_this.max_height = window.innerHeight;
 //			scale();

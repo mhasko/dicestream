@@ -67,6 +67,8 @@ module.exports = function (grunt) {
                     ],
                     options: {
                         process: function (content, srcpath) {
+                            content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                            content = content.replace(/%whitelistpath%/, "https://s3.amazonaws.com/dicestream/**");
                             return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/dicestream/src");
                         }
                     }
@@ -77,6 +79,8 @@ module.exports = function (grunt) {
                 ],
                 options: {
                     process: function (content, srcpath) {
+                        content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                        content = content.replace(/%whitelistpath%/, "https://s3.amazonaws.com/publicbetadicestream/**");
                         return content.replace(/%rootPath%/g,"https://s3.amazonaws.com/publicbetadicestream/src");
                     }
                 }
@@ -89,6 +93,7 @@ module.exports = function (grunt) {
                         process: function (content, srcpath) {
                             //return content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
                             content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                            content = content.replace(/%whitelistpath%/, "https://dl.dropbox.com/u/1177409/**");
                             return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
                         }
                     }
