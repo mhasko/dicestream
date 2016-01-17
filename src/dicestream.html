@@ -21,20 +21,21 @@
     <canvas height="128px" width="600px" id="counterCanvas"></canvas>
 </div>
 <div id="app-gui" ng-app="dicestreamApp">
-    <tabset>
-        <tab heading="Dice">
+    <uib-tabset>
+        <uib-tab heading="Dice">
             <div id="diceTab" ng-include="'%rootPath%/tabs/diceTab.html'"></div>
-        </tab>
-        <tab heading="Text">
+        </uib-tab>
+        <uib-tab heading="Text">
             <div id="textTab" ng-include="'%rootPath%/tabs/textCardTab.html'"></div>
-        </tab>
-        <tab heading="Lower Third">
+        </uib-tab>
+        <uib-tab heading="Lower Third">
             <div id="lowerThirdTab" ng-include="'%rootPath%/tabs/lowerThirdTab.html'"></div>
-        </tab>
-        <tab heading="Settings">
+        </uib-tab>
+        <uib-tab heading="Settings">
             <div id="settingsTab" ng-include="'%rootPath%/tabs/settingsTab.html'"></div>
-        </tab>
-    </tabset>
+        </uib-tab>
+    </uib-tabset>
+    D
 </div>
 
 <!-- bower:js -->
@@ -61,7 +62,11 @@
 <script type="text/javascript" src="%rootPath%/services/dsOverlayService.js"></script>
 <script type="text/javascript" src="%rootPath%/services/dsSettingsService.js"></script>
 <script type="text/javascript" src="%rootPath%/services/dsTextCardService.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/dicetab.controller.js"></script>
 <script type="text/javascript" src="%rootPath%/tabs/dsTabControllers.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/lowerthirdtab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/settingstab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/texttab.controller.js"></script>
 <script type="text/javascript" src="%rootPath%/textCard/dsTextWidgetDirective.js"></script>
 <script type="text/javascript" src="%rootPath%/ui/colorSelect/dsColorSelectDirective.js"></script>
 <!-- end script template tags -->
