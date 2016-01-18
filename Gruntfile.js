@@ -15,6 +15,10 @@ module.exports = function (grunt) {
                 files: ['src/**/{,*/}*.js'],
                 tasks: ['default' ],
             },
+            html: {
+                files: ['src/**/{,*/}*.html'],
+                tasks: ['wiredep', 'tags', 'copy:dev'],
+            },
             //jsTest: {
             //    files: ['test/spec/{,*/}*.js'],
             //    tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
