@@ -2,7 +2,7 @@
 
 var dsApp = angular.module('dicestreamApp');
 
-dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, diceService) {
+dsApp.controller('diceTabCtrl2', ['$scope', 'diceService', function ($scope, diceService) {
     $scope.roll = function() {
         diceService.rollDice();
     };
@@ -16,7 +16,7 @@ dsApp.controller('diceTabCtrl', ['$scope', 'diceService', function ($scope, dice
     };
 }]);
 
-dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, current) {
+dsApp.controller('textTabCtrl2', ['$scope', 'textCardService', 'settingsService', function($scope, textCardService, current) {
     //[{text: "test1",
     //  textcolor: "#000000",
     //  bgcolor: "#ffffff"},...]
@@ -30,7 +30,7 @@ dsApp.controller('textTabCtrl', ['$scope', 'textCardService', 'settingsService',
     };
 }]);
 
-dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, current) {
+dsApp.controller('lowerThirdTabCtrl2', ['$scope', 'lowerThirdService', 'settingsService', function($scope, lowerThirdService, current) {
     var lowerThirdOverlay;
     $scope.settings = current.settings;
     $scope.lowerThirdButtonText = "Create Lower Third";
@@ -67,10 +67,10 @@ dsApp.controller('lowerThirdTabCtrl', ['$scope', 'lowerThirdService', 'settingsS
     var clearLowerThird = function(){
         lowerThirdOverlay.setVisible(false);
         //lowerThirdOverlay.dispose();
-    };
+    };//
 }]);
 
-dsApp.controller('settingsCtrl', ['$scope', 'settingsService', function($scope, current){
+dsApp.controller('settingsCtrl2', ['$scope', 'settingsService', function($scope, current){
 
     $scope.settings = current.settings;
 

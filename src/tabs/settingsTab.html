@@ -1,16 +1,16 @@
-<div id="settingsTab" class="tabBorder" ng-controller="settingsCtrl">
+<div id="settingsTab" class="tabBorder" ng-controller="settingsCtrl as vm">
     <div class="settingsGroup">
         <div class="settingsHeader">Dice</div>
-        <color-select text="Circle Color" color="settings.DICE.SELECTIONS.CIRCLE.color" checked="settings.DICE.SELECTIONS.CIRCLE.enabled" change="save()"></color-select>
-        <color-select text="Hex Color" color="settings.DICE.SELECTIONS.HEX.color" checked="settings.DICE.SELECTIONS.HEX.enabled"></color-select>
-        <color-select text="X Color" color="settings.DICE.SELECTIONS.X.color" checked="settings.DICE.SELECTIONS.X.enabled"></color-select>
-        <div class="textWrapper"><input type="checkbox" ng-checked="settings.DICE.CLEAR_SELECTION.enabled" ng-click="save()"/><span>Clear Selection after roll</span></div>
-        <div class="textWrapper"><input type="checkbox" ng-checked="settings.DICE.CLEAR_TRAY.enabled" ng-click="save()"/><span>Clear Dice Before new Roll</span></div>
+        <color-select text="Circle Color" color="vm.settings.DICE.SELECTIONS.CIRCLE.color" checked="vm.settings.DICE.SELECTIONS.CIRCLE.enabled" change="vm.save()"></color-select>
+        <color-select text="Hex Color" color="vm.settings.DICE.SELECTIONS.HEX.color" checked="vm.settings.DICE.SELECTIONS.HEX.enabled"></color-select>
+        <color-select text="X Color" color="vm.settings.DICE.SELECTIONS.X.color" checked="vm.settings.DICE.SELECTIONS.X.enabled"></color-select>
+        <div class="textWrapper"><input type="checkbox" ng-checked="vm.settings.DICE.CLEAR_SELECTION.enabled" ng-click="vm.save()"/><span>Clear Selection after roll</span></div>
+        <div class="textWrapper"><input type="checkbox" ng-checked="vm.settings.DICE.CLEAR_TRAY.enabled" ng-click="vm.save()"/><span>Clear Dice Before new Roll</span></div>
     </div>
     <div class="settingsGroup">
         <div class="settingsHeader">Text Cards</div>
-        <color-select hide-checkbox="true" text="Text card bg color" color="settings.CARD_BG_COLOR.color"></color-select>
-        <color-select hide-checkbox="true" text="Text card color" color="settings.CARD_TEXT_COLOR.color"></color-select>
+        <color-select hide-checkbox="true" text="Text card bg color" color="vm.settings.CARD_BG_COLOR.color"></color-select>
+        <color-select hide-checkbox="true" text="Text card color" color="vm.settings.CARD_TEXT_COLOR.color"></color-select>
     </div>
     <!--<div class="settingsGroup">-->
         <!--<div>Lower Third</div>-->
@@ -18,6 +18,6 @@
     <!--</div>-->
     <div class="settingsGroup">
         <div class="settingsHeader">Misc</div>
-        <div class="textWrapper"><input type="checkbox" ng-model="settings.MISC.MIRROR_VID.enabled" ng-click="toggleMirroredVideo()"/><span>Mirror Video</span></div>
+        <div class="textWrapper"><input type="checkbox" ng-model="vm.settings.MISC.MIRROR_VID.enabled" ng-click="vm.toggleMirroredVideo()"/><span>Mirror Video</span></div>
     </div>
 </div>
