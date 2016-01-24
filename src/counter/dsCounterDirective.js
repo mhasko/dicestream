@@ -30,22 +30,9 @@ function CounterController($scope, overlayService, current) {
     vm.showCounter = true;
     vm.counterColor = current.settings.COUNTER_COLOR.color;
     vm.counter = 0;
-
-    vm.toggleCounter = function() {
-        overlay.setVisible(vm.showCounter);
-    };
-
-    vm.incCount = function() {
-        if(vm.counter < 99) {
-            vm.counter += 1;
-        }
-    };
-
-    vm.decCount = function() {
-        if(vm.counter > 0) {
-            vm.counter -= 1;
-        }
-    };
+    vm.toggleCounter = toggleCounter;
+    vm.incCount = increaseCount;
+    vm.decCount = decreaseCount;
 
     $scope.$watch('vm.counter', function(newValue) {
         if(newValue){
@@ -59,6 +46,24 @@ function CounterController($scope, overlayService, current) {
             redrawCounter(vm.counter.toString(), newValue);
         }
     });
+
+    function increaseCount() {
+        // hard max on the counter
+        if(vm.counter < 99) {
+            vm.counter += 1;
+        }
+    }
+
+    function decreaseCount() {
+        // hard min on the counter
+        if(vm.counter > 0) {
+            vm.counter -= 1;
+        }
+    }
+
+    function toggleCounter() {
+        overlay.setVisible(vm.showCounter);
+    }
 
     var redrawCounter = function(text, color) {
         if(overlay) {
