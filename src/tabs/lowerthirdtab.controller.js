@@ -21,32 +21,24 @@
                 vm.settings.LOWER_TEXT_SECOND.text,
                 vm.settings.LOWER_COLOR.color);
             lowerThirdOverlay.setVisible(true);
-            $scope.lowerThirdButtonText = "Update Lower Third";
+            vm.lowerThirdButtonText = "Update Lower Third";
         };
 
         vm.clear = function() {
             clearLowerThird();
-            $scope.lowerThirdButtonText = "Create Lower Third";
+            vm.lowerThirdButtonText = "Create Lower Third";
         };
 
-        //vm.$watch(function(scope) { return scope.lowerThirdColor },
-        //    function(newValue, oldValue) {
-        $scope.$watch(vm.lowerThirdColor, function(newValue, oldValue){
+        $scope.$watch('vm.settings.LOWER_COLOR.color', function(newValue){
             if(lowerThirdOverlay) {
                 clearLowerThird();
-                $scope.lowerThirdColor = newValue;
-                lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
-                    vm.settings.LOWER_TEXT_SECOND.text,
-                    vm.settings.LOWER_COLOR.color);
-                lowerThirdOverlay.setVisible(true);
             }
+            vm.settings.LOWER_COLOR.color = newValue;
+            lowerThirdOverlay = lowerThirdService.createLowerThird(current.settings.LOWER_TEXT_FIRST.text,
+                vm.settings.LOWER_TEXT_SECOND.text,
+                vm.settings.LOWER_COLOR.color);
+            lowerThirdOverlay.setVisible(true);
         });
-
-        //
-        //$scope.$watch('vm.title', function(current, original) {
-        //    $log.info('vm.title was %s', original);
-        //    $log.info('vm.title is now %s', current);
-        //});
 
         var clearLowerThird = function(){
             lowerThirdOverlay.setVisible(false);

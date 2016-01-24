@@ -13,7 +13,7 @@
 
         vm.save = function(){
             current.saveSettings();
-        };//
+        };
 
         vm.toggleMirroredVideo = function(){
             gapi.hangout.av.setLocalParticipantVideoMirrored(vm.settings.MISC.MIRROR_VID.enabled);
