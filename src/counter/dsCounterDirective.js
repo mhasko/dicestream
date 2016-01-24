@@ -3,62 +3,69 @@
  */
 'use strict';
 
-var dsCounter = angular.module('dsCounter', ['overlayService', 'settingsService']);
+angular
+    .module('dsCounter', ['overlayService', 'settingsService'])
+    .directive('dsCounter', dsCounter);
 
-dsCounter.directive('dsCounter', ['config', 'overlayService', 'settingsService', function(config, overlayService, current) {
-    return {
+dsCounter.$inject = ['config'];
+
+function dsCounter(config) {
+    var directive = {
         restrict: 'E',
-        scope: {
-            //showChecked: '=',
-            //counterColor: '=?'
-        },
+        scope: {},
         templateUrl: config.filePrefix + '/counter/counterInterface.html',
-        controller: function($scope, overlayService){
-            var overlay;
-            $scope.showCounter = true;
-            $scope.counterColor = current.settings.COUNTER_COLOR.color;
-            $scope.counter = 0;
+        controller: CounterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
 
-            $scope.$watch(function(scope) { return scope.counter },
-                function(newValue, oldValue) {
-                    redrawCounter(newValue.toString(), $scope.counterColor);
-                }
-            );
+    return directive;
+}
 
-            $scope.$watch(function(scope) { return scope.counterColor},
-                function(newValue, oldValue) {
-                    //if(newValue) {
-                        current.settings.COUNTER_COLOR = {color:newValue};
-                        redrawCounter($scope.counter.toString(), newValue);
-                    //}
-                }
-            );
+CounterController.$inject = ['$scope', 'overlayService', 'settingsService'];
 
-            var redrawCounter = function(text, color) {
-                if(overlay) {
-                    overlay.setVisible(false);
-                }
+function CounterController($scope, overlayService, current) {
+    var vm = this;
+    var overlay;
+    vm.showCounter = true;
+    vm.counterColor = current.settings.COUNTER_COLOR.color;
+    vm.counter = 0;
 
-                var textContext= overlayService.createCounterOverlay(text, color);
-                overlay = overlayService.createOverlayFromContext(textContext,1,.87,-.38);
-            }
+    vm.toggleCounter = function() {
+        overlay.setVisible(vm.showCounter);
+    };
 
-            $scope.toggleCounter = function() {
-                overlay.setVisible($scope.showCounter);
-            }
-        },
-        link: function(scope, element, attrs) {
-            scope.incCount = function() {
-                if(scope.counter < 99) {
-                    scope.counter += 1;
-                }
-            };
-
-            scope.decCount = function() {
-                if(scope.counter > 0) {
-                    scope.counter -= 1;
-                }
-            };
+    vm.incCount = function() {
+        if(vm.counter < 99) {
+            vm.counter += 1;
         }
     };
-}]);
+
+    vm.decCount = function() {
+        if(vm.counter > 0) {
+            vm.counter -= 1;
+        }
+    };
+
+    $scope.$watch('vm.counter', function(newValue) {
+        if(newValue){
+            redrawCounter(newValue.toString(), vm.counterColor);
+        }
+    });
+
+    $scope.$watch('vm.counterColor', function(newValue) {
+        if(newValue) {
+            current.settings.COUNTER_COLOR = {color: newValue};
+            redrawCounter(vm.counter.toString(), newValue);
+        }
+    });
+
+    var redrawCounter = function(text, color) {
+        if(overlay) {
+            overlay.setVisible(false);
+        }
+
+        var textContext= overlayService.createCounterOverlay(text, color);
+        overlay = overlayService.createOverlayFromContext(textContext,1,.87,-.38);
+    }
+}

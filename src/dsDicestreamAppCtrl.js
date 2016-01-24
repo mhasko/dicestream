@@ -3,6 +3,7 @@
     
     angular
         .module('dicestreamApp', [
+            //TODO -- Once modules are done, reorder this for clarity
             'ui.bootstrap',
             'ngCookies',
             'diceButton',
@@ -23,14 +24,11 @@
         })
         .run(DicestreamRun);
 
-    DicestreamConfig.$inject = [$sceDelegateProvider];
-
     function DicestreamConfig($sceDelegateProvider) {
         // White list the src path. Dicestream requires absolute file paths
         //  since it 'runs' on google's domain so we need to white list the
         //  src path since, to Angular, it appears cross domain.
         $sceDelegateProvider.resourceUrlWhitelist(['%whitelistpath%', 'self']);
-    //});
     }
 
     function DicestreamRun(){
@@ -45,7 +43,7 @@
 
                     // TODO -- add a loading spinner, and at this point remove it
                 }
-            });
-    //});
+            }
+        );
     }
 })();
