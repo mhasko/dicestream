@@ -1,9 +1,14 @@
 'use strict';
 
-var diceButton = angular.module('diceButton', ['diceService']);
+angular
+    .module('diceButton', ['diceService'])
+    .directive('diceButton', diceButton);
 
-diceButton.directive('diceButton', ['config', 'diceService', function(config, dsDiceService) {
-    return {
+diceButton.$inject = ['config'];
+
+function diceButton(config) {
+
+    var directive = {
         restrict: 'E',
         scope: {
             id: '@dieid',
@@ -13,31 +18,41 @@ diceButton.directive('diceButton', ['config', 'diceService', function(config, ds
             position: '@side'
         },
         templateUrl: config.filePrefix + '/dice/dicebutton.html',
-        controller: function($scope){
-            // 'register' with the dice service so what ever die this button
-            // is tracking can have its data backed in the service.
-            dsDiceService.setDice($scope.id, $scope.side, 0, $scope.imageroot);
-            // bind the diedata value to the matching value in the diceService.  
-            $scope.diedata = dsDiceService.getDiceToRollArray()[$scope.id];
-            
-        },
-        link: function(scope, element, attrs) {
-
-            scope.incDieCount = function() {
-                if(scope.diedata.count < 99) {
-                    if(scope.diedata.count == 0) {
-                        scope.diedata.count = 1;
-                    } else {
-                        scope.diedata.count += 1;
-                    }
-                }
-            };
-            
-            scope.decDieCount = function() {
-                if(scope.diedata.count > 0) {
-                    scope.diedata.count -= 1;
-                }  
-            };
-        }
+        controller: DiceButtonController,
+        controllerAs: 'vm',
+        bindToController: true
     };
-}]);
+
+    return directive;
+}
+
+DiceButtonController.$inject = ['diceService'];
+
+function DiceButtonController(dsDiceService) {
+    var vm = this;
+
+    // bind the diedata value to the matching value in the diceService.
+    vm.diedata = dsDiceService.getDiceToRollArray()[vm.id];
+    vm.incDieCount = increaseCount;
+    vm.decDieCount = decreaseCount;
+
+    // 'register' with the dice service so what ever die this button
+    //  is tracking can have its data backed in the service.
+    dsDiceService.setDice(vm.id, vm.side, 0, vm.imageroot);
+
+    function increaseCount() {
+        if(vm.diedata.count < 99) {
+            if(vm.diedata.count == 0) {
+                vm.diedata.count = 1;
+            } else {
+                vm.diedata.count += 1;
+            }
+        }
+    }
+
+    function decreaseCount() {
+        if(vm.diedata.count > 0) {
+            vm.diedata.count -= 1;
+        }
+    }
+}
