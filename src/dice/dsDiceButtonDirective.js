@@ -20,7 +20,8 @@ function diceButton(config) {
         templateUrl: config.filePrefix + '/dice/dicebutton.html',
         controller: DiceButtonController,
         controllerAs: 'vm',
-        bindToController: true
+        bindToController: true,
+        link: linkForDiceButton
     };
 
     return directive;
@@ -28,17 +29,20 @@ function diceButton(config) {
 
 DiceButtonController.$inject = ['diceService'];
 
-function DiceButtonController(dsDiceService) {
+function DiceButtonController(diceService) {
     var vm = this;
-
-    // bind the diedata value to the matching value in the diceService.
-    vm.diedata = dsDiceService.getDiceToRollArray()[vm.id];
-    vm.incDieCount = increaseCount;
-    vm.decDieCount = decreaseCount;
 
     // 'register' with the dice service so what ever die this button
     //  is tracking can have its data backed in the service.
-    dsDiceService.setDice(vm.id, vm.side, 0, vm.imageroot);
+    diceService.setDice(vm.id, vm.side, 0, vm.imageroot);
+
+    // bind the diedata value to the matching value in the diceService.
+    vm.diedata = diceService.getDiceToRollArray()[vm.id];
+}
+
+function linkForDiceButton(scope, element, attrs, vm) {
+    vm.incDieCount = increaseCount;
+    vm.decDieCount = decreaseCount;
 
     function increaseCount() {
         if(vm.diedata.count < 99) {
@@ -56,3 +60,4 @@ function DiceButtonController(dsDiceService) {
         }
     }
 }
+

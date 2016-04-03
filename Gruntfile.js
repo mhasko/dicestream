@@ -17,7 +17,7 @@ module.exports = function (grunt) {
             },
             html: {
                 files: ['src/**/{,*/}*.html'],
-                tasks: ['wiredep', 'tags', 'copy:dev'],
+                tasks: ['wiredep', 'tags', 'newer:copy:dev'],
             },
             //jsTest: {
             //    files: ['test/spec/{,*/}*.js'],
