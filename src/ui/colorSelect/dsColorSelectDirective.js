@@ -1,12 +1,16 @@
 /**
  * Created by mhasko on 8/21/15.
  */
-'use strict'
+'use strict';
 
-var colorSelect = angular.module('colorSelect', []);
+angular
+    .module('colorSelect', [])
+    .directive('colorSelect', colorSelect);
 
-colorSelect.directive('colorSelect', ['config', function(config){
-    return{
+colorSelect.$inject = ['config'];
+
+function colorSelect(config) {
+    var directive = {
         restrict: 'E',
         scope: {
             text: '@',
@@ -16,19 +20,15 @@ colorSelect.directive('colorSelect', ['config', function(config){
             color: '='
         },
         templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
-        //compile: function(element, attrs){
-        //    if (!attrs.showCheckbox) { attrs.attrOne = 'true'; }
-        //},
-        controller: function($scope){
-            $scope.showCheckbox = function(){
-                return $scope.hideCheckbox !== 'true';
-            };
-
-        },
-        link: function(scope, element, attrs) {
-            //scope.showCheckbox = function(){
-            //    return scope.hideCheckbox !== 'true';
-            //};
-        }
+        controller: colorSelectController
     };
-}]);
+    return directive;
+}
+
+colorSelectController.$inject = ['$scope'];
+
+function colorSelectController($scope) {
+    $scope.showCheckbox = function(){
+        return $scope.hideCheckbox !== 'true';
+    };
+}
