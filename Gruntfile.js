@@ -19,6 +19,10 @@ module.exports = function (grunt) {
                 files: ['src/**/{,*/}*.html'],
                 tasks: ['wiredep', 'tags', 'newer:copy:dev'],
             },
+            css: {
+                files: ['src/**/{,*/}*.css'],
+                tasks: ['wiredep', 'tags', 'newer:copy:dev']
+            },
             //jsTest: {
             //    files: ['test/spec/{,*/}*.js'],
             //    tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
@@ -43,10 +47,7 @@ module.exports = function (grunt) {
                     differential: true,
                 },
                 files: [
-                    {expand: true, cwd: 'public/src/', src: ['dicestream.xml'], dest: '/'},
-                    {expand: true, cwd: 'public/src/css', src: ['**'], dest: '/src/css'},
-                    {expand: true, cwd: 'public/src/js', src: ['**'], dest: '/src/js'},
-                    {expand: true, cwd: 'public/src/partials', src: ['**'], dest: '/src/partials'},
+                    {expand: true, cwd: 'dist/public/src/', src: ['*/**'], dest: '/'}
                 ]
             },
 
@@ -56,10 +57,7 @@ module.exports = function (grunt) {
                     differential: true, // Only uploads the files that have changed
                 },
                 files: [
-                    {expand: true, cwd: 'publicbeta/src/', src: ['dicestream.xml'], dest: '/'},
-                    {expand: true, cwd: 'publicbeta/src/css', src: ['**'], dest: '/src/css'},
-                    {expand: true, cwd: 'publicbeta/src/js', src: ['**'], dest: '/src/js'},
-                    {expand: true, cwd: 'publicbeta/src/partials', src: ['**'], dest: '/src/partials'},
+                    {expand: true, cwd: 'dist/publicbeta/src/', src: ['*/**'], dest: '/'}
                 ]
             },
         },
@@ -67,7 +65,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/public/'}
+                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: 'dist/public/'}
                     ],
                     options: {
                         process: function (content, srcpath) {
@@ -79,7 +77,7 @@ module.exports = function (grunt) {
             },
             publicbeta: {
                 files: [
-                    {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/publicbeta/'}
+                    {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: 'dist/publicbeta/'}
                 ],
                 options: {
                     process: function (content, srcpath) {

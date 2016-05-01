@@ -171,9 +171,7 @@ pip-log.txt
 ## misc
 ############
 node_modules/
-public/
-dev/
-publicbeta/
+dist/
 bower_components/
 src/bower_components/
 
