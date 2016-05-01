@@ -28,7 +28,9 @@ function colorSelect(config) {
 colorSelectController.$inject = ['$scope'];
 
 function colorSelectController($scope) {
-    $scope.showCheckbox = function(){
-        return $scope.hideCheckbox !== 'true';
+    var vm = this;
+
+    vm.showCheckbox = function(){
+        return vm.hideCheckbox !== 'true';
     };
 }
