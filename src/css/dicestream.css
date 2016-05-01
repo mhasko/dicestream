@@ -7,7 +7,7 @@ ul, ol{
 }
 
 #canvasDiv{
-	height: 0px;
+	height: 0;
 }
 
 #app-gui{
@@ -169,7 +169,7 @@ ul, ol{
 }
 
 .removeText{
-	margin: 0 5px 0 0px;
+	margin: 0 5px 0 0;
 }
 
 .slider-title{
@@ -187,7 +187,7 @@ ul, ol{
 #screenStringDiv  ul .textCheckbox{
 	position: relative;
 	width: 160px;
-	margin: 3px 0px;
+	margin: 3px 0;
 }
 
 .lower3rdtextfield{
@@ -220,7 +220,8 @@ ul, ol{
 }
 
 .tabBorder{
-	padding-left:15px;
+	padding-left:10px;
+	padding-right:10px;
 }
 
 .text-widget-details{
@@ -230,4 +231,22 @@ ul, ol{
 .text-widget-border{
 	border-radius: 5px;
 	border: 1px solid #0099ff;
+}
+
+.textCardInput{
+	border-radius: 5px;
+	border: 1px solid #0099ff;
+	margin-bottom: 20px;
+}
+
+.textWidget{
+	margin-bottom: 10px;
+}
+
+.textWidget .textField{
+	margin: 0 0 0 0;
+}
+
+.lowerThirdButtonDiv{
+	margin-top: 30px;
 }

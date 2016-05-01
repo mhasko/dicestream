@@ -17,7 +17,7 @@ function diceButton(config) {
             dieimage: '@',
             position: '@side'
         },
-        templateUrl: config.filePrefix + '/dice/dicebutton.html',
+        templateUrl: config.filePrefix + '/dice/diceButton.html',
         controller: DiceButtonController,
         controllerAs: 'vm',
         bindToController: true,

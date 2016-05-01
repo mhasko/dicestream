@@ -1,6 +1,8 @@
 <div id="textCardsTab" class="tabBorder" ng-controller="textTabCtrl as vm">
-    <input type="text" ng-model="inputText" />
-    <input class="button btn" type="button" value="Text" id="text" ng-click="vm.addCard(inputText)"/>
+    <div class="textCardInput">
+        <input type="text" ng-model="inputText" />
+        <input class="button btn" type="button" value="Text" id="text" ng-click="vm.addCard(inputText)"/>
+    </div>
     <div id="texttrayDiv">
         <text-widget cardtext="{{card.text}}" bgcolor="{{card.bgcolor}}" textcolor="{{card.textcolor}}"
                      index={{$index}} ng-repeat="card in vm.getTextCards()"></text-widget>

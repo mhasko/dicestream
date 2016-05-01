@@ -1,6 +1,6 @@
-<div ng-class="{'text-widget-border' : !colorOptionsHidden, 'text-widget-details' : !colorOptionsHidden}">
+<div class="textWidget" ng-class="{'text-widget-border' : !colorOptionsHidden, 'text-widget-details' : !colorOptionsHidden}">
     <button class="button btn btn-mini" ng-click="toggleColors()"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
-    <input type="text" ng-model="cardtext"></input>
+    <input class="textField" type="text" ng-model="cardtext"/>
     <button class="button btn btn-mini" ng-click="deleteCard()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
     <div class="text-widget-details" ng-hide="colorOptionsHidden">
         <color-select text="Background Color" hide-checkbox="true" color="bgcolor"></color-select>
