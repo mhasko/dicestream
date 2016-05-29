@@ -1,23 +1,26 @@
-'use strict';
+(function() {
 
-angular
-    .module('lowerThirdService', ['overlayService'])
-    .factory('lowerThirdService', lowerThirdService);
+    'use strict';
 
-lowerThirdService.$inject = ['overlayService', 'config'];
+    angular
+        .module('lowerThirdService', ['overlayService'])
+        .factory('lowerThirdService', lowerThirdService);
 
-function lowerThirdService(overlayService, config) {
-    var LOWER_THIRD_X_POS = .1;
-    var LOWER_THIRD_Y_POS = .4;
+    lowerThirdService.$inject = ['overlayService', 'config'];
 
-    var lowerThirdService = {
-        createLowerThird:createLowerThird
-    };
+    function lowerThirdService(overlayService, config) {
+        var LOWER_THIRD_X_POS = .1;
+        var LOWER_THIRD_Y_POS = .4;
 
-    return lowerThirdService;
+        var lowerThirdService = {
+            createLowerThird: createLowerThird
+        };
 
-    function createLowerThird(firstLine, secondLine, color) {
-        var lowerThirdContext = overlayService.createLowerThirdContext(firstLine, secondLine, color);
-        return overlayService.createOverlayFromContext(lowerThirdContext, .75, LOWER_THIRD_X_POS, LOWER_THIRD_Y_POS);
+        return lowerThirdService;
+
+        function createLowerThird(firstLine, secondLine, color) {
+            var lowerThirdContext = overlayService.createLowerThirdContext(firstLine, secondLine, color);
+            return overlayService.createOverlayFromContext(lowerThirdContext, .75, LOWER_THIRD_X_POS, LOWER_THIRD_Y_POS);
+        }
     }
-}
+})();

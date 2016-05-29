@@ -1,60 +1,61 @@
-'use strict';
+(function() {
 
-angular
-    .module('textWidget', ['textCardService', 'ui.bootstrap', 'color.picker'])
-    .directive('textWidget', textWidget);
+    'use strict';
 
-textWidget.$inject = ['config'];
+    angular
+        .module('textWidget', ['textCardService', 'ui.bootstrap', 'color.picker'])
+        .directive('textWidget', textWidget);
 
-function textWidget(config){
-    var directive = {
-        restrict: 'E',
-        scope: {
-            cardtext: '@',
-            textcolor: '@',
-            bgcolor: '@',
-            index: '@'
-        },
-        templateUrl: config.filePrefix + '/textCard/textWidget.html',
-        controller: TextWidgetDirective
-    };
+    textWidget.$inject = ['config'];
 
-    return directive;
-}
+    function textWidget(config) {
+        var directive = {
+            restrict: 'E',
+            scope: {
+                cardtext: '@',
+                textcolor: '@',
+                bgcolor: '@',
+                index: '@'
+            },
+            templateUrl: config.filePrefix + '/textCard/textWidget.html',
+            controller: TextWidgetDirective
+        };
 
-TextWidgetDirective.$inject = ['$scope', 'textCardService'];
+        return directive;
+    }
 
-function TextWidgetDirective($scope, textCardService) {
-    $scope.colorOptionsHidden = true;
-    $scope.toggleColors = function () {
-        $scope.colorOptionsHidden = !$scope.colorOptionsHidden;
-    };
+    TextWidgetDirective.$inject = ['$scope', 'textCardService'];
 
-    $scope.deleteCard = function () {
-        textCardService.deleteCardAt($scope.index);
-    };
+    function TextWidgetDirective($scope, textCardService) {
+        $scope.colorOptionsHidden = true;
+        $scope.toggleColors = function () {
+            $scope.colorOptionsHidden = !$scope.colorOptionsHidden;
+        };
 
-    $scope.$watch(function (scope) {
-            return scope.textcolor
-        },
-        function (newValue, oldValue) {
-            if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
-                textCardService.getCardAt($scope.index).textcolor = newValue;
-                textCardService.redrawCardAt($scope.index);
+        $scope.deleteCard = function () {
+            textCardService.deleteCardAt($scope.index);
+        };
+
+        $scope.$watch(function (scope) {
+                return scope.textcolor
+            },
+            function (newValue, oldValue) {
+                if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
+                    textCardService.getCardAt($scope.index).textcolor = newValue;
+                    textCardService.redrawCardAt($scope.index);
+                }
             }
-        }
-    );
+        );
 
-    $scope.$watch(function (scope) {
-            return scope.bgcolor
-        },
-        function (newValue, oldValue) {
-            if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
-                textCardService.getCardAt($scope.index).bgcolor = newValue;
-                textCardService.redrawCardAt($scope.index);
+        $scope.$watch(function (scope) {
+                return scope.bgcolor
+            },
+            function (newValue, oldValue) {
+                if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
+                    textCardService.getCardAt($scope.index).bgcolor = newValue;
+                    textCardService.redrawCardAt($scope.index);
+                }
             }
-        }
-    );
-
-}
-
+        );
+    }
+})();

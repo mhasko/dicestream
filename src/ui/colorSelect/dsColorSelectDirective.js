@@ -1,36 +1,38 @@
 /**
  * Created by mhasko on 8/21/15.
  */
-'use strict';
+(function() {
+    'use strict';
 
-angular
-    .module('colorSelect', [])
-    .directive('colorSelect', colorSelect);
+    angular
+        .module('colorSelect', [])
+        .directive('colorSelect', colorSelect);
 
-colorSelect.$inject = ['config'];
+    colorSelect.$inject = ['config'];
 
-function colorSelect(config) {
-    var directive = {
-        restrict: 'E',
-        scope: {
-            text: '@',
-            hideCheckbox: '@',
-            change: '=',
-            checked: '=',
-            color: '='
-        },
-        templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
-        controller: colorSelectController
-    };
-    return directive;
-}
+    function colorSelect(config) {
+        var directive = {
+            restrict: 'E',
+            scope: {
+                text: '@',
+                hideCheckbox: '@',
+                change: '=',
+                checked: '=',
+                color: '='
+            },
+            templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
+            controller: colorSelectController
+        };
+        return directive;
+    }
 
-colorSelectController.$inject = ['$scope'];
+    colorSelectController.$inject = ['$scope'];
 
-function colorSelectController($scope) {
-    var vm = this;
+    function colorSelectController($scope) {
+        var vm = this;
 
-    vm.showCheckbox = function(){
-        return vm.hideCheckbox !== 'true';
-    };
-}
+        vm.showCheckbox = function () {
+            return vm.hideCheckbox !== 'true';
+        };
+    }
+})();
