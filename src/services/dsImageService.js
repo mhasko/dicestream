@@ -1,14 +1,22 @@
 'use strict';
 
-var dsImageService = angular.module('imageService', []);
+angular
+    .module('imageService', [])
+    .factory('imageService', imageService);
 
-dsImageService.factory('imageService', ['config', function(config) {
+imageService.$inject = ['config'];
+
+function imageService(config) {
     
-    var imageService = {};
-    
-    imageService.imageURLFromDie = function(die, value){
-        return  config.imgroot + die.imageroot + '/d' + die.side + '-' + value + '.png';	  
+    var imageService = {
+        imageURLFromDie: imageURLFromDie
     };
+
+    return imageService;
+    
+    function imageURLFromDie(die, value){
+        return  config.imgroot + die.imageroot + '/d' + die.side + '-' + value + '.png';	  
+    }
     
     /** TODO returns an svg image with the selected color */
 //    imageService.imageURLFromColor = function(die, value, color){
@@ -16,6 +24,4 @@ dsImageService.factory('imageService', ['config', function(config) {
 //        svgdie.DOSOMETHIGNTOMAKETHECOLOR = color;
 //        return svgdie;
 //    };
-        
-    return imageService;
-}]);
+}

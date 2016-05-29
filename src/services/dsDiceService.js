@@ -1,8 +1,12 @@
 'use strict';
 
-var dsDiceService = angular.module('diceService', ['overlayService', 'imageService']);
+angular
+    .module('diceService', ['overlayService', 'imageService'])
+    .factory('diceService', diceService);
 
-dsDiceService.factory('diceService', ['overlayService', 'imageService', function(dsOverlayService, dsImageService) {
+diceService.$inject = ['overlayService', 'imageService'];
+
+function diceService(dsOverlayService, dsImageService) {
     // diceArray is the backing data object for the dice, so we know 
     // what to display and what to roll. 
     // [id1:{
@@ -22,8 +26,7 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
     //      imgRoot: path/to/image/dir
     //      explode: false}
     // ]
-    var diceService = {};
-    
+
     /** array of json formatted 'dice' is used to roll dice
         The diceButtons 'register' themselves by entering their data into this array when they
         are created.  If the count value are >0 for a given type, when a roll happens the type
@@ -33,16 +36,27 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
     /** array of json formatted 'dice' that has been rolled and is displayed via overlays.
         Dice in here are considered in the 'dicetray' and persist until cleared*/
     var dicetrayArray = [];
+
+    var diceService = {
+        getDicetrayArray: getDicetrayArray,
+        getDiceToRollArray: getDiceToRollArray,
+        clearDice: clearDice,
+        setDice: setDice,
+        rollDice: rollDice,
+        rollSpecificDice: rollSpecificDice
+    };
+
+    return diceService;
     
-    diceService.getDicetrayArray = function(){
+    function getDicetrayArray(){
         return dicetrayArray;   
-    };
+    }
     
-    diceService.getDiceToRollArray = function(){
+    function getDiceToRollArray(){
         return diceToRollArray;
-    };
-    
-    diceService.clearDice = function() {
+    }
+
+    function clearDice() {
         for(var die in diceToRollArray) {
             if(!diceToRollArray.hasOwnProperty(die)) {continue;}
             diceToRollArray[die].count = 0;   
@@ -50,16 +64,16 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
         
         dicetrayArray.length = 0;
         dsOverlayService.clearOverlayArrays();
-    };
-    
-    diceService.setDice = function(id, side, count, root) {
+    }
+
+    function setDice(id, side, count, root) {
         if(!diceToRollArray[id]){diceToRollArray[id] = {};}
         diceToRollArray[id].side = side;
         diceToRollArray[id].count = count;
         if(root){diceToRollArray[id].imageroot = root;}
-    };
-    
-    diceService.rollDice = function() {
+    }
+
+    function rollDice() {
         for(var die in diceToRollArray) {
             if(!diceToRollArray.hasOwnProperty(die)) {continue;}
             //Use the seedrandom RNG to use a better RNG than Math.random.
@@ -71,9 +85,9 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
                 this.rollSpecificDice(diceToRollArray[die]);
             }
         };
-    };
+    }
 
-    diceService.rollSpecificDice = function(die){
+    function rollSpecificDice(die){
         // use seedrandom to actualy generate a psuedo-random number.  
         // This is, like, actually rolling a die. 
         var value = Math.ceil(die.side*Math.random());
@@ -87,8 +101,5 @@ dsDiceService.factory('diceService', ['overlayService', 'imageService', function
 
         //position and display the dice overlay on the video screen
         dsOverlayService.positionOverlays(overlay, true);
-    };
-    
-    return diceService;
-		
-}]);
+    }
+}

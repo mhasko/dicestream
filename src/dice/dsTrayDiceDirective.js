@@ -4,9 +4,9 @@ angular
     .module('dsTrayDice', ['overlayService', 'settingsService'])
     .directive('dsTrayDice', dsTrayDice);
 
-dsTrayDice.$inject = ['config'];//, 'overlayService', 'settingsService'];
+dsTrayDice.$inject = ['config'];
 
-function dsTrayDice(config) {//}, overlayService, current) {
+function dsTrayDice(config) {
     var directive = {
         restrict: 'E',
         scope: {

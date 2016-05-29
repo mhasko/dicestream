@@ -1,10 +1,16 @@
 'use strict';
 
-var dsOverlayService = angular.module('overlayService', ['imageService', 'settingsService']);
+//TODO -- 5/1/16 this is kinda big, maybe split up into generic overlay services and modules for each type of overlay?
+//     -- or something different?  Make some of the things a bit generic?  This is where most of the dicestream
+//     -- magic lives, so tread carefully here.  Not going to touch but be mindful of this when adding new things
 
-dsOverlayService.factory('overlayService', ['imageService', 'settingsService', function(dsImageService, current) {
-    var overlayService = {};
-    
+angular
+    .module('overlayService', ['imageService', 'settingsService'])
+    .factory('overlayService', overlayService);
+
+overlayService.$inject = ['imageService', 'settingsService'];
+
+function overlayService(dsImageService, current) {
     var trayDiceOverlayArray = [];
     var dieSelectionOverlayArray = [];
     var cardsOverlayArray = [];  
@@ -20,69 +26,91 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
 
     /** Sets the number of dice per row. */
     var NUM_DICE_PER_ROW = 10;
-    
-    /** selection overlay types */
-    overlayService.SELECTION_NONE = 0;
-    overlayService.SELECTION_CIRCLE = 1;
-    overlayService.SELECTION_HEX = 2;
-    overlayService.SELECTION_X = 3;
 
     var validSelectionTypes = ["NONE","CIRCLE", "HEX", "X"];
-    
-    overlayService.getTrayDiceOverlayArray = function(){
+
+    var overlayService = {
+        /** selection overlay types */
+        SELECTION_NONE:0,
+        SELECTION_CIRCLE:1,
+        SELECTION_HEX:2,
+        SELECTION_X:3,
+        getTrayDiceOverlayArray:getTrayDiceOverlayArray,
+        getDieSelectionOverlayArray:getDieSelectionOverlayArray,
+        addNewCard:addNewCard,
+        getCardsOverlayArray:getCardsOverlayArray,
+        clearOverlayArrays:clearOverlayArrays,
+        clearTextCardArrays:clearTextCardArrays,
+        redrawCardAt:redrawCardAt,
+        createDieOverlay:createDieOverlay,
+        positionOverlays:positionOverlays,
+        createOverlayFromContext:createOverlayFromContext,
+        createTextOverlay:createTextOverlay,
+        createCounterOverlay:createCounterOverlay,
+        createLowerThirdContext:createLowerThirdContext,
+        findNextOverlay: findNextOverlay,
+        drawHex:drawHex,
+        drawPolygon:drawPolygon,
+        drawCircle:drawCircle,
+        drawX:drawX
+    };
+
+    return overlayService;
+
+    function getTrayDiceOverlayArray(){
         return trayDiceOverlayArray;
-    };
+    }
     
-    overlayService.getDieSelectionOverlayArray = function() {
+    function getDieSelectionOverlayArray() {
         return dieSelectionOverlayArray;
-    };
+    }
     
-    overlayService.addNewCard = function(card) {
+    function addNewCard(card) {
         cardsOverlayArray.push(card);
-    };
+    }
     
-    overlayService.getCardsOverlayArray = function() {
+    function getCardsOverlayArray() {
         return cardsOverlayArray;
-    };
+    }
     
-    overlayService.clearOverlayArrays = function(){
+    function clearOverlayArrays(){
         trayDiceOverlayArray.forEach(setArrayFalse);
         trayDiceOverlayArray.length = 0;
         
         dieSelectionOverlayArray.forEach(setArrayFalse);
         dieSelectionOverlayArray.length = 0;
-    };
+    }
     
-    overlayService.clearTextCardArrays = function() {
+    function clearTextCardArrays() {
         cardsOverlayArray.forEach(setArrayFalse);
         cardsOverlayArray.length = 0;
-    };
+    }
             
     function setArrayFalse(value, index, array) {
         value.setVisible(false);
-    };
+    }
     
-    overlayService.redrawCardAt = function(index, newCardOverlay) {
+    function redrawCardAt(index, newCardOverlay) {
         // get the old card overlay at the specified location and set it not visible
         var oldCardOverlay = cardsOverlayArray[index];
 
         cardsOverlayArray[index] = newCardOverlay;
         oldCardOverlay.setVisible(false);
         oldCardOverlay.dispose();
-    };
+    }
     
     /** creates the dice overlay */
-    overlayService.createDieOverlay = function(die, value){
+    function createDieOverlay(die, value){
         // create the google hangout image resource from the image
         var dieImage = gapi.hangout.av.effects.createImageResource(dsImageService.imageURLFromDie(die, value));
         // create the google hangout overlay object
         var overlay = dieImage.createOverlay({scale: {magnitude: .075, reference: gapi.hangout.av.effects.ScaleReference.WIDTH}});
         trayDiceOverlayArray.push(overlay);
         return overlay;
-    };
+    }
 
     /** displays the dice overlays across the top of the screen */
-    overlayService.positionOverlays = function(value, display){
+    function positionOverlays(value, display){
         //index is an array index.  We need to use that value along with the constant
         //for the allowable number of dice in a row to first determine the 'grid' 
         //position of the die, then use the offset value to compute the position
@@ -93,10 +121,10 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * DICE_ROW_OFFSET;
         value.setPosition({x: -.40 + columnOffset, y:-.425 + rowOffset});
         value.setVisible(display);
-    };
+    }
 		
     /** create a hangout overlay from an HTML5 canvas context */
-    overlayService.createOverlayFromContext = function(context, scale, xval, yval){
+    function createOverlayFromContext(context, scale, xval, yval){
         // create the google hangout image resource from html5 context
         var canvasImage = gapi.hangout.av.effects.createImageResource(context.canvas.toDataURL());
         // create the google hangout overlay object
@@ -105,10 +133,10 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         overlay.setPosition({x: xval, y: yval});
         overlay.setVisible(true);
         return overlay;
-    };
+    }
     
     /** create a text overlay, using fabric.js*/
-    overlayService.createTextOverlay = function(text, textColor, bgColor, scale, xpos, ypos) {
+    function createTextOverlay(text, textColor, bgColor, scale, xpos, ypos) {
         var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
         
         //translate the #rrggbb value of the colors to rgba via a tinycolor.js object
@@ -121,10 +149,10 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         fcanvas.add(textObj);
         
         return fcanvas.getContext();
-    };
+    }
 
     /** create a text overlay, using fabric.js*/
-    overlayService.createCounterOverlay = function(text, textColor) {//}, scale, xpos, ypos) {
+    function createCounterOverlay(text, textColor) {//}, scale, xpos, ypos) {
         var fcanvas = new fabric.Canvas($('#textCanvas').clone().attr('id'));
 
         ////translate the #rrggbb value of the colors to rgba via a tinycolor.js object
@@ -137,9 +165,9 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         fcanvas.add(textObj);
 
         return fcanvas.getContext();
-    };
+    }
 
-    overlayService.createLowerThirdContext = function(firstLine, secondLine, color) {
+    function createLowerThirdContext(firstLine, secondLine, color) {
         // create the fabric.js canvas we'll be adding hte various layers on
         // 600 x 100
         var fcanvas = new fabric.Canvas($('#mainThirdCanvas').clone().attr('id'));
@@ -157,12 +185,12 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         var secTitle = new fabric.Text(secondLine, {left:60, top:230, fontFamily:'Roboto', fontSize:80});
         fcanvas.add(secTitle);
         return fcanvas.getContext();
-    };
+    }
     
     /** recursive function that finds the next valid overlay type and returns it. */
     //TODO recursive function is awesome, but maybe retire it and iterate over the
     //json object better?
-    overlayService.findNextOverlay = function(pos){
+    function findNextOverlay(pos){
         var nextOverlayValue = parseInt(pos)+1;
         // We've hit the end of the array, return the first array value /
         // no selection value.
@@ -178,15 +206,15 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         else {
             return overlayService.findNextOverlay(nextOverlayValue);
         }
-    };
+    }
     
     /** helper to draw a Hex */
-    overlayService.drawHex = function(x,y,L,thick){
-		return overlayService.drawPolygon(x,y,6,L,thick);
-    };
+    function drawHex(x,y,L,thick){
+		return drawPolygon(x,y,6,L,thick);
+    }
 
     /** draw a regular polygon on an HTML5 canvas object */
-	overlayService.drawPolygon = function(x0,y0,numOfSides,L,lineThickness) {
+	function drawPolygon(x0,y0,numOfSides,L,lineThickness) {
         var canvas = $('#overlayCanvas').clone();
         var shapeContext = canvas[0].getContext("2d");
         var firstX;
@@ -215,10 +243,10 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         shapeContext.stroke();
 
         return shapeContext;
-    };
+    }
 
     /** draw a circle on an HTML5 canvas object */
-    overlayService.drawCircle = function(x0,y0,radius,lineThickness) {
+    function drawCircle(x0,y0,radius,lineThickness) {
         var canvas = $('#overlayCanvas').clone();
         var circleContext = canvas[0].getContext("2d");
         circleContext.translate(0.5, 0.5);
@@ -228,10 +256,10 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         circleContext.strokeStyle = current.settings.DICE.SELECTIONS.CIRCLE.color;
         circleContext.stroke();
         return circleContext;
-    };
+    }
 
 	/** draw an x on an HTML5 canvas object */
-    overlayService.drawX = function(lineThickness) {
+    function drawX(lineThickness) {
         var canvas = $('#overlayCanvas').clone();
         var xContext = canvas[0].getContext("2d");
         xContext.translate(0.5, 0.5);
@@ -246,7 +274,5 @@ dsOverlayService.factory('overlayService', ['imageService', 'settingsService', f
         xContext.lineTo(48, 464);
         xContext.stroke();
         return xContext;
-    };
-    
-    return overlayService;
-}]);
+    }
+}

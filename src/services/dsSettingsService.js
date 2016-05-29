@@ -4,11 +4,13 @@
 
 'use strict';
 
-var dsSettingsService = angular.module('settingsService', []);
+angular
+    .module('settingsService', [])
+    .factory('settingsService', setingsService);
 
-dsSettingsService.factory('settingsService', ['config', '$cookies', function(config, $cookies){
-    var settingsService = {};
+settingsService.$inject = ['config', '$cookies'];
 
+function settingsService(config, $cookies){
     var defaultSettings = {
         DICE:{
             SELECTIONS: {
@@ -32,29 +34,38 @@ dsSettingsService.factory('settingsService', ['config', '$cookies', function(con
             MIRROR_VID : {enabled:false}
         }
     };
-
-    // Init with the default values.  Any saved values will then be overwritten
-    settingsService.settings = defaultSettings;
-
-    settingsService.saveSettings = function() {
-        $cookies.putObject('dicestream.settings', settingsService.settings);
+    var DICESTREAM_COOKIE = 'dicestream.settings';
+    var settingsService = {
+        settings: defaultSettings,
+        saveSettings:saveSettings,
+        loadSettings:loadSettings,
+        resetDefaultSettings:resetDefaultSettings
     };
 
-    settingsService.loadSettings = function() {
-        var savedSettings = $cookies.getObject('dicestream.settings');
+    return settingsService;
+
+    // Init with the default values.  Any saved values will then be overwritten
+    //settingsService.settings = defaultSettings;
+
+    function saveSettings() {
+        $cookies.putObject(DICESTREAM_COOKIE, settingsService.settings);
+    }
+
+    function loadSettings() {
+        var savedSettings = $cookies.getObject(DICESTREAM_COOKIE);
         // if savedSettings is null, there's nothing saved...so don't fetch them
         if(savedSettings) {
             settingsService.settings = savedSettings;
         }
         //settingsService.settings = $cookies.getObject('dicestream.settings');
-    };
+    }
 
-    settingsService.resetDefaultSettings = function() {
+    function resetDefaultSettings() {
         settingsService.settings = defaultSettings;
         settingsService.saveSettings();
-    };
+    }
 
     //run at startup to load any saved settings
-    settingsService.loadSettings();
-    return settingsService;
-}]);
+    loadSettings();
+
+}
