@@ -1,6 +1,6 @@
-(function() {
+(function () {
     'use strict';
-    
+
     angular
         .module('dicestreamApp', [
             //TODO -- Once modules are done, reorder this for clarity
@@ -31,7 +31,7 @@
         $sceDelegateProvider.resourceUrlWhitelist(['%whitelistpath%', 'self']);
     }
 
-    function DicestreamRun(){
+    function DicestreamRun() {
         gapi.hangout.onApiReady.add(
             function (eventObj) {
                 if (eventObj.isApiReady) {
@@ -47,3 +47,4 @@
         );
     }
 })();
+

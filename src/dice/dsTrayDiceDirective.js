@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -26,7 +26,7 @@
         return directive;
     }
 
-    DiceTrayController.$inject = ['$scope','overlayService', 'settingsService'];
+    DiceTrayController.$inject = ['$scope', 'overlayService', 'settingsService'];
 
     function DiceTrayController($scope, overlayService, current) {
         var vm = this;
@@ -59,18 +59,22 @@
                 case overlayService.SELECTION_CIRCLE:
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.CIRCLE.color};
                     var effectContext = overlayService.drawCircle(256, 256, 220, STROKE_WIDTH);
-                    overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                    overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(
+                        effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
                 case overlayService.SELECTION_HEX:
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.HEX.color};
                     var effectContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
-                    overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                    overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(
+                        effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
                 case overlayService.SELECTION_X:
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.X.color};
                     // We want kind of a fatter x.
                     var effectContext = overlayService.drawX(STROKE_WIDTH + 15);
-                    overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                    overlayService.getDieSelectionOverlayArray()[vm.position] =
+                        overlayService.createOverlayFromContext(
+                            effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
                 case overlayService.SELECTION_NONE:
                 default:

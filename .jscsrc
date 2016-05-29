@@ -16,7 +16,7 @@
   "requireOperatorBeforeLineBreak": true,
   "requireCamelCaseOrUpperCaseIdentifiers": true,
   "maximumLineLength": {
-    "value": 100,
+    "value": 125,
     "allowComments": true,
     "allowRegex": true
   },
@@ -30,9 +30,9 @@
   "disallowMultipleVarDecl": null,
 
   "requireSpaceAfterKeywords": [
-    "if",
+//    "if",
     "else",
-    "for",
+//    "for",
     "while",
     "do",
     "switch",
@@ -55,14 +55,14 @@
   "disallowSpacesInsideObjectBrackets": "all",
   "disallowSpacesInsideArrayBrackets": "all",
   "disallowSpacesInsideParentheses": true,
-
-  "jsDoc": {
-    "checkAnnotations": true,
-    "checkParamNames": true,
-    "requireParamTypes": true,
-    "checkReturnTypes": true,
-    "checkTypes": true
-  },
+//
+//  "jsDoc": {
+//    "checkAnnotations": true,
+//    "checkParamNames": true,
+//    "requireParamTypes": true,
+//    "checkReturnTypes": true,
+//    "checkTypes": true
+//  },
 
   "disallowMultipleLineBreaks": true,
 

@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                     differential: true,
                 },
                 files: [
-                    {expand: true, cwd: 'dist/public/src/', src: ['*/**'], dest: '/'}
+                    {expand: true, cwd: 'dist/public/', src: ['src/**'], dest: '/'}
                 ]
             },
 
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
                     differential: true, // Only uploads the files that have changed
                 },
                 files: [
-                    {expand: true, cwd: 'dist/publicbeta/src/', src: ['*/**'], dest: '/'}
+                    {expand: true, cwd: 'dist/publicbeta/', src: ['src/**'], dest: '/'}
                 ]
             },
         },
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: 'dist/public/'}
+                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html', '!src/images/templates/**', '!src/images/marvel/**'], dest: 'dist/public/'}
                     ],
                     options: {
                         process: function (content, srcpath) {
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
             },
             publicbeta: {
                 files: [
-                    {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: 'dist/publicbeta/'}
+                    {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html', '!src/images/templates/**', '!src/images/marvel/**'], dest: 'dist/publicbeta/'}
                 ],
                 options: {
                     process: function (content, srcpath) {
@@ -108,7 +108,7 @@ module.exports = function (grunt) {
                 verbose: true
             },
             all:{
-                src: ['src/**/ds{,*/}*.js']
+                src: ['src/**/{,*/}*.js', '!Gruntfile.js', '!src/bower_components/**']
             }
         },
 
@@ -164,8 +164,6 @@ module.exports = function (grunt) {
                 dest: 'src/dicestream.html'
             }
         }
-
-
     });
 
     grunt.loadNpmTasks('grunt-aws-s3');
@@ -177,6 +175,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask('codecheck', ['jscs:all']);
-    grunt.registerTask('default', [/*'newer:jscs:all',*/'wiredep', 'tags', 'newer:copy:dev']);
+    grunt.registerTask('default', ['newer:jscs:all','wiredep', 'tags', 'newer:copy:dev']);
     grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };

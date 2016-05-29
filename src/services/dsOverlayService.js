@@ -1,5 +1,4 @@
-(function() {
-
+(function () {
     'use strict';
 
 //TODO -- 5/1/16 this is kinda big, maybe split up into generic overlay services and modules for each type of overlay?
@@ -29,7 +28,7 @@
         /** Sets the number of dice per row. */
         var NUM_DICE_PER_ROW = 10;
 
-        var validSelectionTypes = ["NONE", "CIRCLE", "HEX", "X"];
+        var validSelectionTypes = ['NONE', 'CIRCLE', 'HEX', 'X'];
 
         var overlayService = {
             /** selection overlay types */
@@ -124,8 +123,9 @@
             //values for the overlay.
 
             var watermarkedIndex = trayDiceOverlayArray.length - 1 + WATERMARK_OFFSET;
-            var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) * DICE_COL_OFFSET;
-            var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW ) * DICE_ROW_OFFSET;
+            var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) *
+                DICE_COL_OFFSET;
+            var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW) * DICE_ROW_OFFSET;
             value.setPosition({x: -.40 + columnOffset, y: -.425 + rowOffset});
             value.setVisible(display);
         }
@@ -255,7 +255,7 @@
         /** draw a regular polygon on an HTML5 canvas object */
         function drawPolygon(x0, y0, numOfSides, L, lineThickness) {
             var canvas = $('#overlayCanvas').clone();
-            var shapeContext = canvas[0].getContext("2d");
+            var shapeContext = canvas[0].getContext('2d');
             var firstX;
             var firstY;
             shapeContext.translate(0.5, 0.5);
@@ -285,7 +285,7 @@
         /** draw a circle on an HTML5 canvas object */
         function drawCircle(x0, y0, radius, lineThickness) {
             var canvas = $('#overlayCanvas').clone();
-            var circleContext = canvas[0].getContext("2d");
+            var circleContext = canvas[0].getContext('2d');
             circleContext.translate(0.5, 0.5);
             circleContext.beginPath();
             circleContext.arc(x0, y0, radius, 0, 2 * Math.PI, false);
@@ -298,7 +298,7 @@
         /** draw an x on an HTML5 canvas object */
         function drawX(lineThickness) {
             var canvas = $('#overlayCanvas').clone();
-            var xContext = canvas[0].getContext("2d");
+            var xContext = canvas[0].getContext('2d');
             xContext.translate(0.5, 0.5);
             xContext.lineWidth = lineThickness;
             xContext.strokeStyle = current.settings.DICE.SELECTIONS.X.color;

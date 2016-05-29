@@ -7,11 +7,11 @@
 
     LowerThirdCtrl.$inject = ['$scope', 'lowerThirdService', 'settingsService'];
 
-    function LowerThirdCtrl($scope, lowerThirdService, current){
+    function LowerThirdCtrl($scope, lowerThirdService, current) {
         var vm = this;
         var lowerThirdOverlay;
         vm.settings = current.settings;
-        vm.lowerThirdButtonText = "Create Lower Third";
+        vm.lowerThirdButtonText = 'Create Lower Third';
 
         vm.buildLowerThird = function(name, second, color) {
             if(lowerThirdOverlay) {
@@ -21,15 +21,15 @@
                 vm.settings.LOWER_TEXT_SECOND.text,
                 vm.settings.LOWER_COLOR.color);
             lowerThirdOverlay.setVisible(true);
-            vm.lowerThirdButtonText = "Update Lower Third";
+            vm.lowerThirdButtonText = 'Update Lower Third';
         };
 
         vm.clear = function() {
             clearLowerThird();
-            vm.lowerThirdButtonText = "Create Lower Third";
+            vm.lowerThirdButtonText = 'Create Lower Third';
         };
 
-        $scope.$watch('vm.settings.LOWER_COLOR.color', function(newValue){
+        $scope.$watch('vm.settings.LOWER_COLOR.color', function(newValue) {
             if(lowerThirdOverlay) {
                 clearLowerThird();
             }
@@ -40,7 +40,7 @@
             lowerThirdOverlay.setVisible(true);
         });
 
-        var clearLowerThird = function(){
+        var clearLowerThird = function() {
             lowerThirdOverlay.setVisible(false);
             //lowerThirdOverlay.dispose();
         };

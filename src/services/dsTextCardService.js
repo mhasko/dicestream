@@ -1,5 +1,4 @@
-(function() {
-
+(function () {
     'use strict';
 
     angular
@@ -24,7 +23,7 @@
 
         return textCardService;
 
-        function getCards(){
+        function getCards() {
             return textCardArray;
         }
 
@@ -32,7 +31,7 @@
             // add the card to the backing textCardArray
             textCardArray.push(card);
             // create the text overlay for the card, based on its position in the array, and display it
-            overlayService.addNewCard(drawTextCard(card.text, card.textcolor, card.bgcolor, textCardArray.length-1));
+            overlayService.addNewCard(drawTextCard(card.text, card.textcolor, card.bgcolor, textCardArray.length - 1));
         }
 
         function deleteCardAt(index) {
@@ -41,8 +40,9 @@
             // overlays aren't AngularJS-ified, so we're going to brute force a referesh by
             // deleting all the textcard overlays and rebuilding them in order
             overlayService.clearTextCardArrays();
-            for(var i = 0;i<textCardArray.length;i++) {
-                overlayService.addNewCard(drawTextCard(textCardArray[i].text, textCardArray[i].textcolor, textCardArray[i].bgcolor, i));
+            for(var i = 0;i < textCardArray.length;i++) {
+                overlayService.addNewCard(drawTextCard(textCardArray[i].text, textCardArray[i].textcolor,
+                    textCardArray[i].bgcolor, i));
             }
         }
 
@@ -58,12 +58,12 @@
             // create a new card overlay using the existing card data
             var overlay = drawTextCard(card.text, card.textcolor, card.bgcolor, index);
             overlayService.redrawCardAt(index, overlay);
-
         }
 
         function drawTextCard(text, textColor, bgColor, index) {
-            var textContext= overlayService.createTextOverlay(text, textColor, bgColor, 1, 0, 0);
-            var overlay = overlayService.createOverlayFromContext(textContext, .5, TEXT_X_LEFT_POSITION, TEXT_Y_POSITION*index);
+            var textContext = overlayService.createTextOverlay(text, textColor, bgColor, 1, 0, 0);
+            var overlay =
+                overlayService.createOverlayFromContext(textContext, .5, TEXT_X_LEFT_POSITION, TEXT_Y_POSITION * index);
             return overlay;
         }
     }

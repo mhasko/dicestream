@@ -7,15 +7,15 @@
 
     SettingsCtrl.$inject = ['settingsService'];
 
-    function SettingsCtrl(current){
+    function SettingsCtrl(current) {
         var vm = this;
         vm.settings = current.settings;
 
-        vm.save = function(){
+        vm.save = function() {
             current.saveSettings();
         };
 
-        vm.toggleMirroredVideo = function(){
+        vm.toggleMirroredVideo = function() {
             gapi.hangout.av.setLocalParticipantVideoMirrored(vm.settings.MISC.MIRROR_VID.enabled);
         };
     }
