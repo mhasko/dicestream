@@ -47,7 +47,7 @@
 
         function increaseCount() {
             if(vm.diedata.count < 99) {
-                if(vm.diedata.count == 0) {
+                if(vm.diedata.count === 0) {
                     vm.diedata.count = 1;
                 } else {
                     vm.diedata.count += 1;

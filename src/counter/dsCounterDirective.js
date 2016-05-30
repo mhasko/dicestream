@@ -69,7 +69,7 @@
             }
 
             var textContext = overlayService.createCounterOverlay(text, color);
-            overlay = overlayService.createOverlayFromContext(textContext, 1, .87, -.38);
-        }
+            overlay = overlayService.createOverlayFromContext(textContext, 1, 0.87, -0.38);
+        };
     }
 })();

@@ -3,11 +3,11 @@
 
     angular
         .module('colorSelect', [])
-        .directive('colorSelect', colorSelect);
+        .directive('colorSelect', ColorSelect);
 
-    colorSelect.$inject = ['config'];
+    ColorSelect.$inject = ['config'];
 
-    function colorSelect(config) {
+    function ColorSelect(config) {
         var directive = {
             restrict: 'E',
             scope: {
@@ -18,14 +18,14 @@
                 color: '='
             },
             templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
-            controller: colorSelectController
+            controller: ColorSelectController
         };
         return directive;
     }
 
-    colorSelectController.$inject = ['$scope'];
+    ColorSelectController.$inject = ['$scope'];
 
-    function colorSelectController($scope) {
+    function ColorSelectController($scope) {
         var vm = this;
 
         vm.showCheckbox = function () {

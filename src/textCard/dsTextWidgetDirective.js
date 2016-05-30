@@ -36,7 +36,7 @@
         };
 
         $scope.$watch(function (scope) {
-                return scope.textcolor
+                return scope.textcolor;
             },
             function (newValue, oldValue) {
                 if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {
@@ -47,7 +47,7 @@
         );
 
         $scope.$watch(function (scope) {
-                return scope.bgcolor
+                return scope.bgcolor;
             },
             function (newValue, oldValue) {
                 if (!$scope.colorOptionsHidden && newValue && textCardService.getCardAt($scope.index)) {

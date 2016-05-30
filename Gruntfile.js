@@ -13,7 +13,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['src/**/{,*/}*.js'],
-                tasks: ['default' ],
+                tasks: ['default'],
             },
             html: {
                 files: ['src/**/{,*/}*.html'],
@@ -112,6 +112,10 @@ module.exports = function (grunt) {
             }
         },
 
+        jshint: {
+            all: ['Gruntfile.js', 'src/**/*.js', '!src/bower_components/**/*.js']
+        },
+
         // Automatically inject Bower components into the app
         wiredep: {
             app: {
@@ -173,8 +177,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-script-link-tags');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
-    grunt.registerTask('codecheck', ['jscs:all']);
-    grunt.registerTask('default', ['newer:jscs:all','wiredep', 'tags', 'newer:copy:dev']);
+    grunt.registerTask('codecheck', ['jscs:all', 'jshint:all']);
+    grunt.registerTask('default', ['newer:jscs:all', 'newer:jshint:all', 'wiredep', 'tags', 'newer:copy:dev']);
     grunt.registerTask('pbe', ['copy:publicbeta', 'aws_s3:publicbeta']);
 };

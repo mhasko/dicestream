@@ -8,8 +8,8 @@
     lowerThirdService.$inject = ['overlayService', 'config'];
 
     function lowerThirdService(overlayService, config) {
-        var LOWER_THIRD_X_POS = .1;
-        var LOWER_THIRD_Y_POS = .4;
+        var LOWER_THIRD_X_POS = 0.1;
+        var LOWER_THIRD_Y_POS = 0.4;
 
         var lowerThirdService = {
             createLowerThird: createLowerThird
@@ -19,7 +19,7 @@
 
         function createLowerThird(firstLine, secondLine, color) {
             var lowerThirdContext = overlayService.createLowerThirdContext(firstLine, secondLine, color);
-            return overlayService.createOverlayFromContext(lowerThirdContext, .75, LOWER_THIRD_X_POS, LOWER_THIRD_Y_POS);
+            return overlayService.createOverlayFromContext(lowerThirdContext, 0.75, LOWER_THIRD_X_POS, LOWER_THIRD_Y_POS);
         }
     }
 })();

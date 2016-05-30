@@ -10,8 +10,8 @@
     function textCardService(overlayService, config) {
         var textCardArray = [];
 
-        var TEXT_X_LEFT_POSITION = -.18;
-        var TEXT_Y_POSITION = .07;
+        var TEXT_X_LEFT_POSITION = -0.18;
+        var TEXT_Y_POSITION = 0.07;
 
         var textCardService = {
             getCards:getCards,
@@ -63,7 +63,7 @@
         function drawTextCard(text, textColor, bgColor, index) {
             var textContext = overlayService.createTextOverlay(text, textColor, bgColor, 1, 0, 0);
             var overlay =
-                overlayService.createOverlayFromContext(textContext, .5, TEXT_X_LEFT_POSITION, TEXT_Y_POSITION * index);
+                overlayService.createOverlayFromContext(textContext, 0.5, TEXT_X_LEFT_POSITION, TEXT_Y_POSITION * index);
             return overlay;
         }
     }

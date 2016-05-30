@@ -20,10 +20,10 @@
         var WATERMARK_OFFSET = 0;
 
         /** Space between rows of dice*/
-        var DICE_ROW_OFFSET = .08;
+        var DICE_ROW_OFFSET = 0.08;
 
         /** Space between columns of dice */
-        var DICE_COL_OFFSET = .125;
+        var DICE_COL_OFFSET = 0.125;
 
         /** Sets the number of dice per row. */
         var NUM_DICE_PER_ROW = 10;
@@ -107,7 +107,7 @@
             // create the google hangout overlay object
             var overlay = dieImage.createOverlay({
                 scale: {
-                    magnitude: .075,
+                    magnitude: 0.075,
                     reference: gapi.hangout.av.effects.ScaleReference.WIDTH
                 }
             });
@@ -126,7 +126,7 @@
             var rowOffset = ((watermarkedIndex - (watermarkedIndex % NUM_DICE_PER_ROW)) / NUM_DICE_PER_ROW) *
                 DICE_COL_OFFSET;
             var columnOffset = (watermarkedIndex % NUM_DICE_PER_ROW) * DICE_ROW_OFFSET;
-            value.setPosition({x: -.40 + columnOffset, y: -.425 + rowOffset});
+            value.setPosition({x: -0.40 + columnOffset, y: -0.425 + rowOffset});
             value.setVisible(display);
         }
 
@@ -148,7 +148,7 @@
 
             //translate the #rrggbb value of the colors to rgba via a tinycolor.js object
             var bgColorTC = tinycolor(bgColor);
-            bgColorTC.setAlpha(.4);
+            bgColorTC.setAlpha(0.4);
             var textColorTC = tinycolor(textColor);
 
             var textObj = new fabric.Text(text, {
@@ -265,7 +265,7 @@
             for (var i = 0; i < numOfSides; i++) {
                 var x = L * Math.cos(2 * Math.PI * i / numOfSides) + x0;
                 var y = L * Math.sin(2 * Math.PI * i / numOfSides) + y0;
-                if (i == 0) {
+                if (i === 0) {
                     shapeContext.moveTo(x, y);
                     firstX = x;
                     firstY = y;

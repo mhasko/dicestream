@@ -90,10 +90,9 @@
                 //based crypto random functions.
                 Math.seedrandom();
                 for (var i = 0; i < diceToRollArray[die].count; i++) {
-                    this.rollSpecificDice(diceToRollArray[die]);
+                    rollSpecificDice(diceToRollArray[die]);
                 }
             }
-            ;
         }
 
         function rollSpecificDice(die) {

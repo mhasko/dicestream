@@ -36,11 +36,11 @@
 
         function getDieOverlay() {
             // Set up some variables that determine where the die image overlay will appear
-            var SELECTION_OFFSET_X = .054;
-            var SELECTION_OFFSET_Y = .15;
+            var SELECTION_OFFSET_X = 0.054;
+            var SELECTION_OFFSET_Y = 0.15;
             var STROKE_WIDTH = 45;
-            var newx = overlayService.getTrayDiceOverlayArray()[$scope.position].getPosition().x + .055;
-            var newy = overlayService.getTrayDiceOverlayArray()[$scope.position].getPosition().y + .15;
+            var newx = overlayService.getTrayDiceOverlayArray()[$scope.position].getPosition().x + 0.055;
+            var newy = overlayService.getTrayDiceOverlayArray()[$scope.position].getPosition().y + 0.15;
 
             // If we have a selection on this die, remove it
             if (vm.currentSelection > overlayService.SELECTION_NONE &&
@@ -57,26 +57,27 @@
             switch (nextOverlay) {
                 //TODO ANGULARIZE the bgcolors more better
                 case overlayService.SELECTION_CIRCLE:
+                    var effectContext = '';
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.CIRCLE.color};
-                    var effectContext = overlayService.drawCircle(256, 256, 220, STROKE_WIDTH);
+                    effectContext = overlayService.drawCircle(256, 256, 220, STROKE_WIDTH);
                     overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(
-                        effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                        effectContext, 0.1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
                 case overlayService.SELECTION_HEX:
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.HEX.color};
-                    var effectContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
+                    effectContext = overlayService.drawHex(256, 256, 220, STROKE_WIDTH);
                     overlayService.getDieSelectionOverlayArray()[vm.position] = overlayService.createOverlayFromContext(
-                        effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                        effectContext, 0.1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
                 case overlayService.SELECTION_X:
                     vm.trayDieSpan = {'background-color': current.settings.DICE.SELECTIONS.X.color};
                     // We want kind of a fatter x.
-                    var effectContext = overlayService.drawX(STROKE_WIDTH + 15);
+                    effectContext = overlayService.drawX(STROKE_WIDTH + 15);
                     overlayService.getDieSelectionOverlayArray()[vm.position] =
                         overlayService.createOverlayFromContext(
-                            effectContext, .1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
+                            effectContext, 0.1, newx - SELECTION_OFFSET_X, newy - SELECTION_OFFSET_Y);
                     break;
-                case overlayService.SELECTION_NONE:
+                case overlayService.SELECTION_NONE: // jshint ignore:line, none and the default case should be the same
                 default:
                     vm.trayDieSpan = {'background-color': 'transparent'};
             }
