@@ -32,8 +32,8 @@
         vm.incCount = increaseCount;
         vm.decCount = decreaseCount;
 
-        $scope.$watch('vm.counter', function (newValue) {
-            if (newValue) {
+        $scope.$watch('vm.counter', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
                 redrawCounter(newValue.toString(), vm.counterColor);
             }
         });
