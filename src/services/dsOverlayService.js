@@ -75,20 +75,20 @@
         }
 
         function clearOverlayArrays() {
-            trayDiceOverlayArray.forEach(setArrayFalse);
-            trayDiceOverlayArray.length = 0;
-
-            dieSelectionOverlayArray.forEach(setArrayFalse);
-            dieSelectionOverlayArray.length = 0;
+            clearOverlayArray(trayDiceOverlayArray);
+            clearOverlayArray(dieSelectionOverlayArray);
         }
 
         function clearTextCardArrays() {
-            cardsOverlayArray.forEach(setArrayFalse);
-            cardsOverlayArray.length = 0;
+            clearOverlayArray(cardsOverlayArray);
         }
 
-        function setArrayFalse(value, index, array) {
-            value.setVisible(false);
+        function clearOverlayArray(array) {
+            angular.forEach(array, function(value) {
+                value.setVisible(false);
+                value.dispose();
+            });
+            array.length = 0;
         }
 
         function redrawCardAt(index, newCardOverlay) {
