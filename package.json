@@ -12,7 +12,7 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-uglify": "^0.5.1",
     "grunt-express": "^1.4.1",
     "grunt-jscs": "^1.8.0",
     "grunt-karma": "^0.12.0",
