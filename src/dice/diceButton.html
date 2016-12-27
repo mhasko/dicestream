@@ -1,7 +1,11 @@
-<span class="{{vm.position}}Dice">
-    <button class="button btn btn-mini" ng-click="vm.decDieCount()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+<span class="{{vm.position}}Dice form-inline">
+    <span class="dieButtonGroup">
+        <button class="button btn btn-mini" ng-click="vm.incDieCount()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+        <button class="button btn btn-mini" ng-click="vm.decDieCount()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+    </span>
+
     <!--  TODO - change this to allow for svg graphics ??  -->
-    <span ng-click="vm.incDieCount()"><img ng-src="{{vm.dieimage}}" width="32" height="32"></img></span>
-    <button class="button btn btn-mini" ng-click="vm.incDieCount()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+    <span class="dieImage" ng-click="vm.incDieCount()"><img ng-src="{{vm.dieimage}}" width="32" height="32"></img></span>
+
     <span class="dieCount label">{{vm.diedata.count}}</span>
 </span>

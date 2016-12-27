@@ -2,6 +2,8 @@ ul, ol{
 	margin: 0 0 0 5px;
 }
 
+input[type="checkbox"]{margin: 0 0 0 0;}
+
 #ds{
 	width:300px;
 }
@@ -21,8 +23,9 @@ ul, ol{
 
 #diceButtonDiv{
 	display: block;
-	margin-left: 30%;
-	margin-right: 20%;
+	margin-top: 20px;
+	margin-left: 25%;
+	/*margin-right: 20%;*/
 }
 
 #dicetrayDiv{
@@ -54,14 +57,14 @@ ul, ol{
 	font-size: 11pt;
 }
 .csWrapper{
-	padding-top: 3px;
+	padding-top: 10px;
 	padding-left: 10px;
 }
 
 .csWrapper .csCheckbox {
     display: inline-block;
     position: relative;
-	top: -2px;
+	/*top: -2px;*/
 }
 
 .csColorBox{
@@ -74,6 +77,10 @@ ul, ol{
 .csWrapper .csLabel{
     display: inline-block;
     position: relative;
+}
+
+.textLabel{
+	padding-left: 5px;
 }
 
 .textWrapper{
@@ -125,20 +132,44 @@ ul, ol{
 	padding: 20px 5px;
 }
 
+.dieButtonGroup{
+	display: inline-block;
+	width: 35px;
+}
+
+.dieButtonGroup button{
+	margin: 3px 0px
+}
+
+.dieImage{
+	position: relative;
+	top: -10px;
+}
+
+.dieCount{
+	margin-left: 5px;
+	position: relative;
+	top: -10px;
+}
+
+.counterCount{
+	margin-left: 5px;
+	position: relative;
+}
+
 .leftDice{
 	position:relative;
-	left: -7px;
+	left: 30px;
 }
 
 .rightDice{
 	position: relative;
-	left: 16px;
+	left: 50px;
 }
 
 .dierow{
-	height: 40px;
 	vertical-align: middle;
-	padding: 3px 0 0 0;
+	margin-top: 5px;
 }
 
 .shortrow{
@@ -234,8 +265,8 @@ ul, ol{
 }
 
 .textCardInput{
-	border-radius: 5px;
-	border: 1px solid #0099ff;
+	/*border-radius: 5px;*/
+	/*border: 1px solid #0099ff;*/
 	margin-bottom: 20px;
 }
 
@@ -244,6 +275,7 @@ ul, ol{
 }
 
 .textWidget .textField{
+	width: 185px;
 	margin: 0 0 0 0;
 }
 

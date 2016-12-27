@@ -32,20 +32,20 @@
             }
         };
         var DICESTREAM_COOKIE = 'dicestream.settings';
-        var settingsService = {
+        var settings = {
             settings: defaultSettings,
             saveSettings: saveSettings,
             loadSettings: loadSettings,
             resetDefaultSettings: resetDefaultSettings
         };
 
-        return settingsService;
+        return settings;
 
         // Init with the default values.  Any saved values will then be overwritten
         //settingsService.settings = defaultSettings;
 
         function saveSettings() {
-            $cookies.putObject(DICESTREAM_COOKIE, settingsService.settings);
+            $cookies.putObject(DICESTREAM_COOKIE, settingsService.settings, {expires:new Date(2020, 1, 1, 1, 1, 1)});
         }
 
         function loadSettings() {

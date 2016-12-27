@@ -18,7 +18,8 @@
                 color: '='
             },
             templateUrl: config.filePrefix + '/ui/colorSelect/colorSelect.html',
-            controller: ColorSelectController
+            controller: ColorSelectController,
+            controllerAs: 'vm'
         };
         return directive;
     }

@@ -38,7 +38,7 @@
          Dice in here are considered in the 'dicetray' and persist until cleared*/
         var dicetrayArray = [];
 
-        var diceService = {
+        var theDiceService = {
             getDicetrayArray: getDicetrayArray,
             getDiceToRollArray: getDiceToRollArray,
             clearDice: clearDice,
@@ -47,7 +47,7 @@
             rollSpecificDice: rollSpecificDice
         };
 
-        return diceService;
+        return theDiceService;
 
         function getDicetrayArray() {
             return dicetrayArray;
