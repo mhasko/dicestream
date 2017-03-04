@@ -1,0 +1,12 @@
+<div class="textWidget" ng-class="{'text-widget-border' : !colorOptionsHidden, 'text-widget-details' : !colorOptionsHidden}">
+    <div class="form-inline">
+        <button class="button btn btn-mini" ng-click="toggleColors()"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></button>
+        <input class="textField" type="text" ng-model="cardtext"/>
+        <button class="button btn btn-mini" ng-click="deleteCard()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+    </div>
+
+    <div class="text-widget-details" ng-hide="colorOptionsHidden">
+        <color-select text="Background Color" hide-checkbox="true" color="bgcolor"></color-select>
+        <color-select text="Text Color" hide-checkbox="true" color="textcolor"></color-select>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+  "name": "dicestream",
+  "description": "dicestream ==========",
+  "main": "js/dicestream.js",
+  "authors": [
+    "Michael Hasko"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dice",
+    "game",
+    "gaming",
+    "hangouts",
+    "video"
+  ],
+  "homepage": "https://github.com/mhasko/dicestream",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "~1.4.8",
+    "angular": "~1.4.8",
+    "google-hangouts-api": "~0.0.5",
+    "jquery": "~2.1.4",
+    "seedrandom": "~2.4.2",
+    "fabric.js": "fabric#~1.5.0",
+    "angular-color-picker": "angularjs-color-picker#~0.8.0",
+    "bootstrap": "~3.3.6",
+    "angular-bootstrap": "~0.14.3"
+  }
+}

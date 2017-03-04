@@ -161,3 +161,18 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+############
+## WebStorm
+############
+.idea/
+
+############
+## misc
+############
+node_modules/
+dist/
+bower_components/
+src/bower_components/
+
+.aws-keys.json

@@ -1,0 +1,72 @@
+<html>
+<head>
+</head>
+<body id="ds">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/dicestream/bootstrap/css/bootstrap.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<!-- start css template tags -->
+<link rel="stylesheet" type="text/css" href="%rootPath%/css/dicestream.css" media="screen"/>
+<!-- end css template tags -->
+
+<!-- bower:css -->
+<link rel="stylesheet" href="%rootPath%/bower_components/angular-color-picker/angularjs-color-picker.css" />
+<!-- endbower -->
+
+<div id="canvasDiv" class="disabled">
+    <canvas height="512px" width="512px" id="overlayCanvas"></canvas>
+    <canvas height="70px" width="600px" id="textCanvas"></canvas>
+    <canvas height="400px" width="2400px" id="mainThirdCanvas"></canvas> <!--was 100x600 -->
+    <canvas height="128px" width="600px" id="counterCanvas"></canvas>
+</div>
+<div id="app-gui" ng-app="dicestreamApp">
+    <uib-tabset>
+        <uib-tab heading="Dice">
+            <div id="diceTab" ng-include="'%rootPath%/tabs/diceTab.html'"></div>
+        </uib-tab>
+        <uib-tab heading="Text">
+            <div id="textTab" ng-include="'%rootPath%/tabs/textCardTab.html'"></div>
+        </uib-tab>
+        <uib-tab heading="Lower Third">
+            <div id="lowerThirdTab" ng-include="'%rootPath%/tabs/lowerThirdTab.html'"></div>
+        </uib-tab>
+        <uib-tab heading="Settings">
+            <div id="settingsTab" ng-include="'%rootPath%/tabs/settingsTab.html'"></div>
+        </uib-tab>
+    </uib-tabset>
+</div>
+
+<!-- bower:js -->
+<script src="%rootPath%/bower_components/jquery/dist/jquery.js"></script>
+<script src="%rootPath%/bower_components/angular/angular.js"></script>
+<script src="%rootPath%/bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="%rootPath%/bower_components/google-hangouts-api/gapi.js"></script>
+<script src="%rootPath%/bower_components/seedrandom/seedrandom.js"></script>
+<script src="%rootPath%/bower_components/fabric.js/dist/fabric.min.js"></script>
+<script src="%rootPath%/bower_components/tinycolor/tinycolor.js"></script>
+<script src="%rootPath%/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="%rootPath%/bower_components/angular-color-picker/angularjs-color-picker.js"></script>
+<script src="%rootPath%/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- endbower -->
+
+<!-- start script template tags -->
+<script type="text/javascript" src="%rootPath%/counter/dsCounterDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dice/dsDiceButtonDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dice/dsTrayDiceDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/dsDicestreamAppCtrl.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsDiceService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsImageService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsLowerThirdService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsOverlayService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsSettingsService.js"></script>
+<script type="text/javascript" src="%rootPath%/services/dsTextCardService.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/dicetab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/lowerthirdtab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/settingstab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/tabs/texttab.controller.js"></script>
+<script type="text/javascript" src="%rootPath%/textCard/dsTextWidgetDirective.js"></script>
+<script type="text/javascript" src="%rootPath%/ui/colorSelect/dsColorSelectDirective.js"></script>
+<!-- end script template tags -->
+</body>
+</html>

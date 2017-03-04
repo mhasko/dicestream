@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+        <ModulePrefs title="Dicestream">
+                <Require feature="rpc" />
+                <Require feature="views" />
+        </ModulePrefs>
+        <Content type="html"><![CDATA[
+            %dicestreamhtml%
+        ]]>
+</Content>
+</Module>

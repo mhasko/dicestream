@@ -5,7 +5,7 @@ if(!DICESTREAM.DOM_BUILDER) {
 	DOM_BUILDER = function() {
 		var _this = {};
 		
-		var VERSION = "v" + "1.5.0";
+		var VERSION = "v" + "2.0.0";
 		var DICE_CREDITS = "Dice icons by Alex Guillotte";  
         var HELP_CREDITS = "Help text by Stephanie Bryant";
 

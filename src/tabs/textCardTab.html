@@ -1,0 +1,10 @@
+<div id="textCardsTab" class="tabBorder" ng-controller="textTabCtrl as vm">
+    <div class="textCardInput form-inline">
+        <input type="text" ng-model="inputText" />
+        <button class="button btn btn-default" type="button" id="text" ng-click="vm.addCard(inputText)">Text</button>
+    </div>
+    <div id="texttrayDiv">
+        <text-widget cardtext="{{card.text}}" bgcolor="{{card.bgcolor}}" textcolor="{{card.textcolor}}"
+                     index={{$index}} ng-repeat="card in vm.getTextCards()"></text-widget>
+    </div>
+</div>
