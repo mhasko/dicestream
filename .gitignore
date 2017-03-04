@@ -176,3 +176,4 @@ bower_components/
 src/bower_components/
 
 .aws-keys.json
+.discord.json

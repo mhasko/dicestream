@@ -44,8 +44,10 @@
   },
   "homepage": "https://github.com/mhasko/dicestream#readme",
   "dependencies": {
+    "discord.js": "^11.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-newer": "^1.1.1",
-    "grunt-sync": "^0.5.1"
+    "grunt-sync": "^0.5.1",
+    "node-dice-js": "^0.1.2"
   }
 }
