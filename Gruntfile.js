@@ -15,10 +15,10 @@ module.exports = function (grunt) {
                 files: ['src/**/{,*/}*.js'],
                 tasks: ['default'],
             },
-            html: {
-                files: ['src/**/{,*/}*.html'],
-                tasks: ['wiredep', 'tags', 'newer:copy:dev'],
-            },
+            //html: {
+            //    files: ['src/**/{,*/}*.html'],
+            //    tasks: ['wiredep', 'tags', 'newer:copy:dev'],
+            //},
             css: {
                 files: ['src/**/{,*/}*.css'],
                 tasks: ['wiredep', 'tags', 'newer:copy:dev']
@@ -89,11 +89,12 @@ module.exports = function (grunt) {
             },
             dev: {
                     files: [
-                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: '/Users/mhasko/Dropbox/Public/dicestream/dev/'}
+                        {expand: true, cwd: '', src: ['src/**', '!src/dicestream.html'], dest: 'dist/dev'}
                     ],
                     options: {
                         process: function (content, srcpath) {
                             //return content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
+                            content = content.replace(/%discordBotToken%/, grunt.file.readJSON('.discord.json').dsbot.dev);
                             content = content.replace(/%dicestreamhtml%/, grunt.file.read('src/dicestream.html'));
                             content = content.replace(/%whitelistpath%/, "https://dl.dropbox.com/u/1177409/**");
                             return content.replace(/%rootPath%/g, "https://dl.dropbox.com/u/1177409/dicestream/dev/src");
@@ -108,12 +109,12 @@ module.exports = function (grunt) {
                 verbose: true
             },
             all:{
-                src: ['src/**/{,*/}*.js', '!Gruntfile.js', '!src/bower_components/**']
+                src: ['src/**/{,*/}*.js', '!Gruntfile.js', '!src/botserver/**', '!src/bower_components/**']
             }
         },
 
         jshint: {
-            all: ['Gruntfile.js', 'src/**/*.js', '!src/bower_components/**/*.js']
+            all: ['Gruntfile.js', 'src/**/*.js', '!src/botserver/**','!src/bower_components/**/*.js']
         },
 
         // Automatically inject Bower components into the app
@@ -133,16 +134,6 @@ module.exports = function (grunt) {
         },
 
         tags: {
-            //build: {
-            //    options:{
-            //        scriptTemplate: '<script src="%rootPath%/{{ path }}"></script>',
-            //        //linkTemplate: '<link href="%rootPath%/{{ path }}"/>',
-            //    },
-            //    src: [
-            //        'src/**/*.js', '!src/bower_components/**'
-            //    ],
-            //    dest: 'src/dicestream.html'
-            //}
             buildScripts: {
                 options: {
                     scriptTemplate: '<script type="text/javascript" src="%rootPath%/{{ path }}"></script>',
